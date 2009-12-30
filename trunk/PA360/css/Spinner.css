@@ -1,0 +1,35 @@
+.spinner-container{
+	border:1px solid #7F9DB9;
+	padding-right: 10px;	/* The place needed for the arrows */
+}
+.spinner-arrows-container{
+	background-color: #c9d8fc;
+	border-left:1px solid #7F9DB9;
+	width:11px;
+}
+div.spinner-arrow-overeffect{
+	background-color:#d2eafe;
+}
+.spinner-arrows-container div.spinner-arrow-downeffect{
+	background-color:#93acf2;
+}
+
+.spinner-arrow-up{
+	background-color: #c9d8fc;
+	width:11px;
+	background-image:url(../image/up-arrow.gif);
+}
+.spinner-arrow-down{
+	background-color: #c9d8fc;
+	width:11px;
+	background-image:url(../image/down-arrow.gif);
+}
+.spinner-arrow-separator{
+	width: 100%;
+	height:1px;
+	background-color:#EEE;
+}
+
+.spinner-arrows-container-disabled, .spinner-container-disabled {
+	background-color:#ECE9D8;
+}
