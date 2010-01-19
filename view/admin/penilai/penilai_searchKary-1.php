@@ -12,9 +12,9 @@
 		<td>
 			<?php $departemenID = ''; ?>
 			<select name="departemenID" onchange="penilai_searchKary_updateTable($('frmModal'))">
+				<option value="">--- Semua Departemen ---</option>
 				<?php $depart = departemen_select()?>
 				<?php while ($dd = mysql_fetch_assoc($depart)):  ?>
-					<?php if ($departemenID==='') $departemenID = $dd['ID_DEPARTMENT']; ?>
 				<option value="<?=$dd['ID_DEPARTMENT']?>"><?=$dd['NAMA_DEPARTMENT']?></option>
 				<?php endwhile;?>
 			</select>

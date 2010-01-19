@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 15, 2010 at 06:51 AM
+-- Generation Time: Jan 19, 2010 at 08:58 PM
 -- Server version: 5.1.30
 -- PHP Version: 5.2.8
 
@@ -19,7 +19,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `alamat`
 --
 
-DROP TABLE IF EXISTS `alamat`;
 CREATE TABLE IF NOT EXISTS `alamat` (
   `ID_ALAMAT` int(11) NOT NULL AUTO_INCREMENT,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
@@ -37,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `alamat` (
 --
 
 INSERT INTO `alamat` (`ID_ALAMAT`, `KODE_KARYAWAN`, `NAMA_ALAMAT`, `KODE_POS`, `KODE_AREA`, `KOTA`, `PROPINSI`) VALUES
-(1, 'K001', 'JLN SEMOLOWARU NO 124', 25, 555, 'SURABAYA', 'JATIM'),
+(1, 'K001', 'JLN SEMOLOWARU NO 124', 25, 555, 'JATIM', 'JATIM'),
 (1, 'K012', 'JLN UJUNG KULON NO55', 555, 25, 'SURABAYA', 'JATIM'),
 (1, 'K013', 'JLN KENJERAN', 555, 25, 'SURABAYA', ''),
 (1, 'K014', 'JLN NYAMPLUNGAN NO 45', 555, 25, 'SURABAYA', 'JATIM'),
@@ -84,7 +83,6 @@ INSERT INTO `alamat` (`ID_ALAMAT`, `KODE_KARYAWAN`, `NAMA_ALAMAT`, `KODE_POS`, `
 -- Table structure for table `bobot_level`
 --
 
-DROP TABLE IF EXISTS `bobot_level`;
 CREATE TABLE IF NOT EXISTS `bobot_level` (
   `ID_BOBOT_LEVEL` int(11) NOT NULL AUTO_INCREMENT,
   `ID_PERIODE` varchar(50) NOT NULL,
@@ -111,7 +109,7 @@ INSERT INTO `bobot_level` (`ID_BOBOT_LEVEL`, `ID_PERIODE`, `ID_LEVEL`, `NAMA_LEV
 (14, 'jan - 2010', 'VC3', 'Vertical 3', '', 20),
 (15, 'jan - 2010', 'VC4', 'Vertical 4', '', 20),
 (16, 'jan - 2010', 'VC5', 'Vertical 5', '', 20),
-(17, 'feb-2010', 'HZ1', 'Horizontal 1', '', 33),
+(17, 'feb-2010', 'HZ1', 'Horizontal 1', '', 35),
 (18, 'feb-2010', 'HZ2', 'Horizontal 2', '', 33),
 (19, 'feb-2010', 'HZ3', 'Horizontal 3', '', 33),
 (20, 'feb-2010', 'VC1', 'Vertical 1', '', 33),
@@ -124,7 +122,6 @@ INSERT INTO `bobot_level` (`ID_BOBOT_LEVEL`, `ID_PERIODE`, `ID_LEVEL`, `NAMA_LEV
 -- Table structure for table `data_department`
 --
 
-DROP TABLE IF EXISTS `data_department`;
 CREATE TABLE IF NOT EXISTS `data_department` (
   `ID_DEPARTMENT` varchar(10) NOT NULL,
   `NAMA_DEPARTMENT` varchar(30) DEFAULT NULL,
@@ -164,7 +161,6 @@ INSERT INTO `data_department` (`ID_DEPARTMENT`, `NAMA_DEPARTMENT`) VALUES
 -- Table structure for table `data_divisi`
 --
 
-DROP TABLE IF EXISTS `data_divisi`;
 CREATE TABLE IF NOT EXISTS `data_divisi` (
   `ID_DIVISI` varchar(10) NOT NULL,
   `NAMA_DIVISI` varchar(30) DEFAULT NULL,
@@ -200,7 +196,6 @@ INSERT INTO `data_divisi` (`ID_DIVISI`, `NAMA_DIVISI`) VALUES
 -- Table structure for table `data_golongan`
 --
 
-DROP TABLE IF EXISTS `data_golongan`;
 CREATE TABLE IF NOT EXISTS `data_golongan` (
   `ID_GOLONGAN` varchar(10) NOT NULL,
   `NAMA_GOLONGAN` varchar(50) DEFAULT NULL,
@@ -224,7 +219,6 @@ INSERT INTO `data_golongan` (`ID_GOLONGAN`, `NAMA_GOLONGAN`) VALUES
 -- Table structure for table `data_jabatan`
 --
 
-DROP TABLE IF EXISTS `data_jabatan`;
 CREATE TABLE IF NOT EXISTS `data_jabatan` (
   `ID_JABATAN` varchar(10) NOT NULL,
   `NAMA_JABATAN` varchar(50) DEFAULT NULL,
@@ -283,7 +277,6 @@ INSERT INTO `data_jabatan` (`ID_JABATAN`, `NAMA_JABATAN`, `LEVEL_JABATAN`) VALUE
 -- Table structure for table `data_karyawan`
 --
 
-DROP TABLE IF EXISTS `data_karyawan`;
 CREATE TABLE IF NOT EXISTS `data_karyawan` (
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `NAMA_KARYAWAN` varchar(50) DEFAULT NULL,
@@ -306,8 +299,8 @@ CREATE TABLE IF NOT EXISTS `data_karyawan` (
 --
 
 INSERT INTO `data_karyawan` (`KODE_KARYAWAN`, `NAMA_KARYAWAN`, `TEMPAT_LAHIR`, `TANGGAL_LAHIR`, `JENIS_KELAMIN`, `GOLONGAN_DARAH`, `STATUS`, `AGAMA`, `EMAIL`, `TANGGAL_MASUK`, `TANGGAL_KELUAR`, `ID_STATUS_KARYAWAN`) VALUES
-('4343434', 'MUSA', '', '0000-00-00 00:00:00', '1', '', 'BK', 'B', 'freezyoff@gmaill.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'STAT006'),
-('K001', 'Jangkung, MBA', 'yogjakarta', '0000-00-00 00:00:00', '0', 'B', 'K', 'K', 'JANGKUNG@YAHOO.CO.ID', '2008-01-31 00:00:00', '0000-00-00 00:00:00', NULL),
+('4343434', 'MUSA', '', '0000-00-00 00:00:00', '1', '', 'BK', 'B', 'freezyoff@gmaill.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'STAT001'),
+('K001', 'Jangkung, MBA', 'yogjakarta', '0000-00-00 00:00:00', '0', 'B', 'K', 'K', 'JANGKUNG@YAHOO.CO.ID', '2008-01-31 00:00:00', '0000-00-00 00:00:00', 'STAT001'),
 ('K002', 'SUDARSONO, MBA', 'KALIMANTAN', '0000-00-00 00:00:00', '0', 'O', 'K', 'I', 'SUDAR@YAHOO.CO.ID', '2002-01-31 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K003', 'SUDARMANTO, MMT', 'JAKARTA', '0000-00-00 00:00:00', '0', 'B', 'K', 'H', 'SUDAR@GMAIL.COM', '2006-02-02 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K004', 'MANZUR SAMANA, SKOM', 'KUPANG', '0000-00-00 00:00:00', '0', 'AB', 'DJ', 'I', 'P@YAHOO.CO.ID', '2002-05-17 00:00:00', '0000-00-00 00:00:00', NULL),
@@ -343,7 +336,8 @@ INSERT INTO `data_karyawan` (`KODE_KARYAWAN`, `NAMA_KARYAWAN`, `TEMPAT_LAHIR`, `
 ('K034', 'AMELDA,SKOM', 'KEDIRI', '1980-04-08 00:00:00', '1', 'AB', 'K', 'I', 'MELDA@YAHOO.COM', '2007-05-17 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K035', 'WAHYU NOVIASTONO, SE', 'ATAMBUA', '1987-05-06 00:00:00', '0', 'B', 'K', 'I', 'WAHYU@YAHOO.CO.ID', '2010-01-01 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K036', 'ASSEGAF, SP', 'KEDIRI', '0000-00-00 00:00:00', '0', 'A', 'K', 'I', 'ASEE@YAHOO.CO.ID', '2010-01-13 00:00:00', '0000-00-00 00:00:00', NULL),
-('K037', 'IBNU RUSI, SKOM', 'BONTANG', '1980-04-14 00:00:00', '0', 'B', 'K', 'I', 'j@yahoo.co.id', '2010-01-07 00:00:00', '0000-00-00 00:00:00', NULL);
+('K037', 'IBNU RUSI, SKOM', 'BONTANG', '1980-04-14 00:00:00', '0', 'B', 'K', 'I', 'j@yahoo.co.id', '2010-01-07 00:00:00', '0000-00-00 00:00:00', NULL),
+('xxxx', 'xxxxx', '', '0000-00-00 00:00:00', '0', 'A', 'BK', 'B', 'Fsdsd@asdsd.h', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'STAT001');
 
 -- --------------------------------------------------------
 
@@ -351,7 +345,6 @@ INSERT INTO `data_karyawan` (`KODE_KARYAWAN`, `NAMA_KARYAWAN`, `TEMPAT_LAHIR`, `
 -- Table structure for table `data_user`
 --
 
-DROP TABLE IF EXISTS `data_user`;
 CREATE TABLE IF NOT EXISTS `data_user` (
   `user_nama` varchar(10) NOT NULL,
   `user_password` varchar(50) NOT NULL COMMENT 'pake md5',
@@ -393,9 +386,8 @@ INSERT INTO `data_user` (`user_nama`, `user_password`, `user_tipe`) VALUES
 -- Table structure for table `dep_divisi_jabatan`
 --
 
-DROP TABLE IF EXISTS `dep_divisi_jabatan`;
 CREATE TABLE IF NOT EXISTS `dep_divisi_jabatan` (
-  `ID_DEP_DIV_JAB` int(11) NOT NULL,
+  `ID_DEP_DIV_JAB` int(11) NOT NULL AUTO_INCREMENT,
   `ID_JABATAN` varchar(10) DEFAULT NULL,
   `ID_DIVISI` varchar(10) DEFAULT NULL,
   `ID_DEPARTMENT` varchar(10) DEFAULT NULL,
@@ -403,12 +395,16 @@ CREATE TABLE IF NOT EXISTS `dep_divisi_jabatan` (
   KEY `ID_DEPARTMENT` (`ID_DEPARTMENT`),
   KEY `ID_DIVISI` (`ID_DIVISI`),
   KEY `ID_JABATAN` (`ID_JABATAN`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `dep_divisi_jabatan`
 --
 
+INSERT INTO `dep_divisi_jabatan` (`ID_DEP_DIV_JAB`, `ID_JABATAN`, `ID_DIVISI`, `ID_DEPARTMENT`) VALUES
+(1, 'JAB004', 'DIV000', 'DEP001'),
+(2, 'JAB001', 'DIV000', 'DEP000'),
+(3, 'JAB007', 'DIV002', 'DEP001');
 
 -- --------------------------------------------------------
 
@@ -416,10 +412,9 @@ CREATE TABLE IF NOT EXISTS `dep_divisi_jabatan` (
 -- Table structure for table `deskripsi_bobot`
 --
 
-DROP TABLE IF EXISTS `deskripsi_bobot`;
 CREATE TABLE IF NOT EXISTS `deskripsi_bobot` (
   `NILAI` int(11) NOT NULL,
-  `ID_DETAIL_KRITERIA` varchar(10) NOT NULL,
+  `ID_DETAIL_KRITERIA` int(11) NOT NULL,
   `DESKRIPSI` text,
   PRIMARY KEY (`NILAI`,`ID_DETAIL_KRITERIA`),
   KEY `ID_DETAIL_KRITERIA` (`ID_DETAIL_KRITERIA`)
@@ -430,116 +425,116 @@ CREATE TABLE IF NOT EXISTS `deskripsi_bobot` (
 --
 
 INSERT INTO `deskripsi_bobot` (`NILAI`, `ID_DETAIL_KRITERIA`, `DESKRIPSI`) VALUES
-(1, 'DET001', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET002', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET003', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET004', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET005', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET006', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET007', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET008', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET009', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET010', 'sangat buruk, tidak bertanggung jawab'),
-(1, 'DET011', 'sangat buruk, tidak bertanggung jawab'),
-(2, 'DET001', 'sangat buruk'),
-(2, 'DET002', 'sangat buruk'),
-(2, 'DET003', 'sangat buruk'),
-(2, 'DET004', 'sangat buruk'),
-(2, 'DET005', 'sangat buruk'),
-(2, 'DET006', 'sangat buruk'),
-(2, 'DET007', 'sangat buruk'),
-(2, 'DET008', 'sangat buruk'),
-(2, 'DET009', 'sangat buruk'),
-(2, 'DET010', 'sangat buruk'),
-(2, 'DET011', 'sangat buruk'),
-(3, 'DET001', 'sangat buruk'),
-(3, 'DET002', 'sangat buruk'),
-(3, 'DET003', 'sangat buruk'),
-(3, 'DET004', 'sangat buruk'),
-(3, 'DET005', 'sangat buruk'),
-(3, 'DET006', 'sangat buruk'),
-(3, 'DET007', 'sangat buruk'),
-(3, 'DET008', 'sangat buruk'),
-(3, 'DET009', 'sangat buruk'),
-(3, 'DET010', 'sangat buruk'),
-(3, 'DET011', 'sangat buruk'),
-(4, 'DET001', 'buruk'),
-(4, 'DET002', 'buruk'),
-(4, 'DET003', 'buruk'),
-(4, 'DET004', 'buruk'),
-(4, 'DET005', 'buruk'),
-(4, 'DET006', 'buruk'),
-(4, 'DET007', 'buruk'),
-(4, 'DET008', 'buruk'),
-(4, 'DET009', 'buruk'),
-(4, 'DET010', 'buruk'),
-(4, 'DET011', 'buruk'),
-(5, 'DET001', 'kurang sekali'),
-(5, 'DET002', 'kurang sekali'),
-(5, 'DET003', 'kurang sekali'),
-(5, 'DET004', 'kurang sekali'),
-(5, 'DET005', 'kurang sekali'),
-(5, 'DET006', 'kurang sekali'),
-(5, 'DET007', 'kurang sekali'),
-(5, 'DET008', 'kurang sekali'),
-(5, 'DET009', 'kurang sekali'),
-(5, 'DET010', 'kurang sekali'),
-(5, 'DET011', 'kurang sekali'),
-(6, 'DET001', 'kurang'),
-(6, 'DET002', 'kurang'),
-(6, 'DET003', 'kurang'),
-(6, 'DET004', 'kurang'),
-(6, 'DET005', 'kurang'),
-(6, 'DET006', 'kurang'),
-(6, 'DET007', 'kurang'),
-(6, 'DET008', 'kurang'),
-(6, 'DET009', 'kurang'),
-(6, 'DET010', 'kurang'),
-(6, 'DET011', 'kurang'),
-(7, 'DET001', 'cukup'),
-(7, 'DET002', 'cukup'),
-(7, 'DET003', 'cukup'),
-(7, 'DET004', 'cukup'),
-(7, 'DET005', 'cukup'),
-(7, 'DET006', 'cukup'),
-(7, 'DET007', 'cukup'),
-(7, 'DET008', 'cukup'),
-(7, 'DET009', 'cukup'),
-(7, 'DET010', 'cukup'),
-(7, 'DET011', 'cukup'),
-(8, 'DET001', 'baik'),
-(8, 'DET002', 'baik'),
-(8, 'DET003', 'baik'),
-(8, 'DET004', 'baik'),
-(8, 'DET005', 'baik'),
-(8, 'DET006', 'baik'),
-(8, 'DET007', 'baik'),
-(8, 'DET008', 'baik'),
-(8, 'DET009', 'baik'),
-(8, 'DET010', 'baik'),
-(8, 'DET011', 'baik'),
-(9, 'DET001', 'sangat baik'),
-(9, 'DET002', 'sangat baik'),
-(9, 'DET003', 'sangat baik'),
-(9, 'DET004', 'sangat baik'),
-(9, 'DET005', 'sangat baik'),
-(9, 'DET006', 'sangat baik'),
-(9, 'DET007', 'sangat baik'),
-(9, 'DET008', 'sangat baik'),
-(9, 'DET009', 'sangat baik'),
-(9, 'DET010', 'sangat baik'),
-(9, 'DET011', 'sangat baik'),
-(10, 'DET001', 'MANTAP'),
-(10, 'DET002', 'MANTAP'),
-(10, 'DET003', 'MANTAP'),
-(10, 'DET004', 'MANTAP'),
-(10, 'DET005', 'MANTAP'),
-(10, 'DET006', 'MANTAP'),
-(10, 'DET007', 'MANTAP'),
-(10, 'DET008', 'MANTAP'),
-(10, 'DET009', 'MANTAP'),
-(10, 'DET010', 'MANTAP'),
-(10, 'DET011', 'MANTAP');
+(1, 1, 'sangat buruk, tidak bertanggung jawab'),
+(1, 2, 'sangat buruk, tidak bertanggung jawab'),
+(1, 3, 'sangat buruk, tidak bertanggung jawab'),
+(1, 4, 'sangat buruk, tidak bertanggung jawab'),
+(1, 5, 'sangat buruk, tidak bertanggung jawab'),
+(1, 6, 'sangat buruk, tidak bertanggung jawab'),
+(1, 7, 'sangat buruk, tidak bertanggung jawab'),
+(1, 8, 'sangat buruk, tidak bertanggung jawab'),
+(1, 9, 'sangat buruk, tidak bertanggung jawab'),
+(1, 10, 'sangat buruk, tidak bertanggung jawab'),
+(1, 11, 'sangat buruk, tidak bertanggung jawab'),
+(2, 1, 'sangat buruk'),
+(2, 2, 'sangat buruk'),
+(2, 3, 'sangat buruk'),
+(2, 4, 'sangat buruk'),
+(2, 5, 'sangat buruk'),
+(2, 6, 'sangat buruk'),
+(2, 7, 'sangat buruk'),
+(2, 8, 'sangat buruk'),
+(2, 9, 'sangat buruk'),
+(2, 10, 'sangat buruk'),
+(2, 11, 'sangat buruk'),
+(3, 1, 'sangat buruk'),
+(3, 2, 'sangat buruk'),
+(3, 3, 'sangat buruk'),
+(3, 4, 'sangat buruk'),
+(3, 5, 'sangat buruk'),
+(3, 6, 'sangat buruk'),
+(3, 7, 'sangat buruk'),
+(3, 8, 'sangat buruk'),
+(3, 9, 'sangat buruk'),
+(3, 10, 'sangat buruk'),
+(3, 11, 'sangat buruk'),
+(4, 1, 'buruk'),
+(4, 2, 'buruk'),
+(4, 3, 'buruk'),
+(4, 4, 'buruk'),
+(4, 5, 'buruk'),
+(4, 6, 'buruk'),
+(4, 7, 'buruk'),
+(4, 8, 'buruk'),
+(4, 9, 'buruk'),
+(4, 10, 'buruk'),
+(4, 11, 'buruk'),
+(5, 1, 'kurang sekali'),
+(5, 2, 'kurang sekali'),
+(5, 3, 'kurang sekali'),
+(5, 4, 'kurang sekali'),
+(5, 5, 'kurang sekali'),
+(5, 6, 'kurang sekali'),
+(5, 7, 'kurang sekali'),
+(5, 8, 'kurang sekali'),
+(5, 9, 'kurang sekali'),
+(5, 10, 'kurang sekali'),
+(5, 11, 'kurang sekali'),
+(6, 1, 'kurang'),
+(6, 2, 'kurang'),
+(6, 3, 'kurang'),
+(6, 4, 'kurang'),
+(6, 5, 'kurang'),
+(6, 6, 'kurang'),
+(6, 7, 'kurang'),
+(6, 8, 'kurang'),
+(6, 9, 'kurang'),
+(6, 10, 'kurang'),
+(6, 11, 'kurang'),
+(7, 1, 'cukup'),
+(7, 2, 'cukup'),
+(7, 3, 'cukup'),
+(7, 4, 'cukup'),
+(7, 5, 'cukup'),
+(7, 6, 'cukup'),
+(7, 7, 'cukup'),
+(7, 8, 'cukup'),
+(7, 9, 'cukup'),
+(7, 10, 'cukup'),
+(7, 11, 'cukup'),
+(8, 1, 'baik'),
+(8, 2, 'baik'),
+(8, 3, 'baik'),
+(8, 4, 'baik'),
+(8, 5, 'baik'),
+(8, 6, 'baik'),
+(8, 7, 'baik'),
+(8, 8, 'baik'),
+(8, 9, 'baik'),
+(8, 10, 'baik'),
+(8, 11, 'baik'),
+(9, 1, 'sangat baik'),
+(9, 2, 'sangat baik'),
+(9, 3, 'sangat baik'),
+(9, 4, 'sangat baik'),
+(9, 5, 'sangat baik'),
+(9, 6, 'sangat baik'),
+(9, 7, 'sangat baik'),
+(9, 8, 'sangat baik'),
+(9, 9, 'sangat baik'),
+(9, 10, 'sangat baik'),
+(9, 11, 'sangat baik'),
+(10, 1, 'MANTAP'),
+(10, 2, 'MANTAP'),
+(10, 3, 'MANTAP'),
+(10, 4, 'MANTAP'),
+(10, 5, 'MANTAP'),
+(10, 6, 'MANTAP'),
+(10, 7, 'MANTAP'),
+(10, 8, 'MANTAP'),
+(10, 9, 'MANTAP'),
+(10, 10, 'MANTAP'),
+(10, 11, 'MANTAP');
 
 -- --------------------------------------------------------
 
@@ -547,33 +542,32 @@ INSERT INTO `deskripsi_bobot` (`NILAI`, `ID_DETAIL_KRITERIA`, `DESKRIPSI`) VALUE
 -- Table structure for table `detail_kriteria`
 --
 
-DROP TABLE IF EXISTS `detail_kriteria`;
 CREATE TABLE IF NOT EXISTS `detail_kriteria` (
-  `ID_DETAIL_KRITERIA` varchar(10) NOT NULL,
-  `ID_KRITERIA` varchar(10) NOT NULL,
+  `ID_DETAIL_KRITERIA` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_KRITERIA` int(11) NOT NULL,
   `NAMA_DETAIL_KRITERIA` varchar(50) DEFAULT NULL,
   `DESKRIPSI` text,
   `BOBOT` double DEFAULT NULL,
   PRIMARY KEY (`ID_DETAIL_KRITERIA`),
   KEY `ID_KRITERIA` (`ID_KRITERIA`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `detail_kriteria`
 --
 
 INSERT INTO `detail_kriteria` (`ID_DETAIL_KRITERIA`, `ID_KRITERIA`, `NAMA_DETAIL_KRITERIA`, `DESKRIPSI`, `BOBOT`) VALUES
-('DET001', 'KRIT001', 'KUALITAS', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 70),
-('DET002', 'KRIT001', 'KUANTITAS', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 30),
-('DET003', 'KRIT002', 'PENGETAHUAN + SKILL', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 30),
-('DET004', 'KRIT002', 'TANGGUNG JAWAB', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 35),
-('DET005', 'KRIT002', 'KOMUNIKASI DAN KERJASAMA', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 35),
-('DET006', 'KRIT003', 'MOTIVASI', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 45),
-('DET007', 'KRIT003', 'DISIPLIN', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 55),
-('DET008', 'KRIT004', 'PLANNING', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25),
-('DET009', 'KRIT004', 'ORGANIZING', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25),
-('DET010', 'KRIT004', 'ACTUATING', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25),
-('DET011', 'KRIT004', 'CONTROLING', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25);
+(1, 1, 'KUALITAS', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 70),
+(2, 1, 'KUANTITAS', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 30),
+(3, 2, 'PENGETAHUAN + SKILL', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 30),
+(4, 2, 'TANGGUNG JAWAB', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 35),
+(5, 2, 'KOMUNIKASI DAN KERJASAMA', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 35),
+(6, 3, 'MOTIVASI', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 45),
+(7, 3, 'DISIPLIN', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 55),
+(8, 4, 'PLANNING', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25),
+(9, 4, 'ORGANIZING', 'nilai 1 = sangat buruk, tidak bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25),
+(10, 4, 'ACTUATING', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25),
+(11, 4, 'CONTROLING', 'nilai 1 = sangat buruk, tidak  \n          bertanggung jawab\nnilai 2 = sangat buruk\nnilai 3 = sangat \nnilai 4 = buruk  \nnilai 5 = kurang sekali\nnilai 6 = kurang\nnilai 7 = cukup\nnilai 8 = baik\nnilai 9 = sangat baik\nnilai 10 = mantap', 25);
 
 -- --------------------------------------------------------
 
@@ -581,44 +575,29 @@ INSERT INTO `detail_kriteria` (`ID_DETAIL_KRITERIA`, `ID_KRITERIA`, `NAMA_DETAIL
 -- Table structure for table `detil_bobot_level`
 --
 
-DROP TABLE IF EXISTS `detil_bobot_level`;
 CREATE TABLE IF NOT EXISTS `detil_bobot_level` (
-  `ID_DETIL_BOBOT_LEVEL` int(11) NOT NULL,
-  `ID_KRITERIA` varchar(10) NOT NULL,
+  `ID_DETIL_BOBOT_LEVEL` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_KRITERIA` int(11) NOT NULL,
   `ID_BOBOT_LEVEL` int(11) NOT NULL,
   `BOBOT` double DEFAULT NULL,
   PRIMARY KEY (`ID_DETIL_BOBOT_LEVEL`),
   KEY `ID_KRITERIA` (`ID_KRITERIA`),
   KEY `ID_BOBOT_LEVEL` (`ID_BOBOT_LEVEL`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `detil_bobot_level`
 --
 
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dinilai`
---
-
-DROP TABLE IF EXISTS `dinilai`;
-CREATE TABLE IF NOT EXISTS `dinilai` (
-  `KODE_DINILAI` int(11) NOT NULL,
-  `KODE_KARYAWAN` varchar(10) NOT NULL,
-  `ID_DEP_DIV_JAB` int(11) NOT NULL,
-  `ID_PERIODE` varchar(50) NOT NULL,
-  `NILAI_AKHIR` double DEFAULT NULL,
-  PRIMARY KEY (`KODE_DINILAI`),
-  KEY `ID_PERIODE` (`ID_PERIODE`),
-  KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `dinilai`
---
-
+INSERT INTO `detil_bobot_level` (`ID_DETIL_BOBOT_LEVEL`, `ID_KRITERIA`, `ID_BOBOT_LEVEL`, `BOBOT`) VALUES
+(2, 1, 7, 35),
+(3, 2, 7, 0),
+(4, 3, 7, 0),
+(5, 4, 7, 65),
+(6, 1, 17, 0),
+(7, 2, 17, 0),
+(8, 3, 17, 0),
+(9, 4, 17, 0);
 
 -- --------------------------------------------------------
 
@@ -626,23 +605,48 @@ CREATE TABLE IF NOT EXISTS `dinilai` (
 -- Table structure for table `kriteria_penilaian`
 --
 
-DROP TABLE IF EXISTS `kriteria_penilaian`;
 CREATE TABLE IF NOT EXISTS `kriteria_penilaian` (
-  `ID_KRITERIA` varchar(10) NOT NULL,
+  `ID_KRITERIA` int(11) NOT NULL AUTO_INCREMENT,
   `NAMA_KRITERIA` varchar(50) DEFAULT NULL,
   `DESKRIPSI` text,
   PRIMARY KEY (`ID_KRITERIA`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `kriteria_penilaian`
 --
 
 INSERT INTO `kriteria_penilaian` (`ID_KRITERIA`, `NAMA_KRITERIA`, `DESKRIPSI`) VALUES
-('KRIT001', 'HASIL KERJA', ''),
-('KRIT002', 'KUALITAS PERSONAL', ''),
-('KRIT003', 'KEMAUAN / ATTITUDE', ''),
-('KRIT004', 'KUALITAS MANAJERIAL', '');
+(1, 'HASIL KERJA', ''),
+(2, 'KUALITAS PERSONAL', ''),
+(3, 'KEMAUAN / ATTITUDE', ''),
+(4, 'KUALITAS MANAJERIAL', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nilai_akhir`
+--
+
+CREATE TABLE IF NOT EXISTS `nilai_akhir` (
+  `KODE_DINILAI` int(11) NOT NULL AUTO_INCREMENT,
+  `KODE_KARYAWAN` varchar(10) NOT NULL,
+  `ID_DEP_DIV_JAB` int(11) NOT NULL,
+  `ID_PERIODE` varchar(50) NOT NULL,
+  `NILAI_AKHIR` double DEFAULT NULL,
+  PRIMARY KEY (`KODE_DINILAI`),
+  KEY `ID_PERIODE` (`ID_PERIODE`),
+  KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`),
+  KEY `ID_DEP_DIV_JAB` (`ID_DEP_DIV_JAB`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `nilai_akhir`
+--
+
+INSERT INTO `nilai_akhir` (`KODE_DINILAI`, `KODE_KARYAWAN`, `ID_DEP_DIV_JAB`, `ID_PERIODE`, `NILAI_AKHIR`) VALUES
+(5, 'K001', 2, 'jan - 2010', 0),
+(6, 'xxxx', 3, 'jan - 2010', 0);
 
 -- --------------------------------------------------------
 
@@ -650,16 +654,15 @@ INSERT INTO `kriteria_penilaian` (`ID_KRITERIA`, `NAMA_KRITERIA`, `DESKRIPSI`) V
 -- Table structure for table `nilai_per_kinerja`
 --
 
-DROP TABLE IF EXISTS `nilai_per_kinerja`;
 CREATE TABLE IF NOT EXISTS `nilai_per_kinerja` (
-  `ID_NILAI_PER_KINERJA` int(11) NOT NULL,
-  `ID_DETAIL_KRITERIA` varchar(10) NOT NULL,
+  `ID_NILAI_PER_KINERJA` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_DETAIL_KRITERIA` int(11) NOT NULL,
   `ID_NILAI_PER_KRITERIA` int(11) NOT NULL,
   `NILAI` double DEFAULT NULL,
   PRIMARY KEY (`ID_NILAI_PER_KINERJA`),
   KEY `ID_DETAIL_KRITERIA` (`ID_DETAIL_KRITERIA`),
   KEY `ID_NILAI_PER_KRITERIA` (`ID_NILAI_PER_KRITERIA`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `nilai_per_kinerja`
@@ -672,16 +675,15 @@ CREATE TABLE IF NOT EXISTS `nilai_per_kinerja` (
 -- Table structure for table `nilai_per_kriteria`
 --
 
-DROP TABLE IF EXISTS `nilai_per_kriteria`;
 CREATE TABLE IF NOT EXISTS `nilai_per_kriteria` (
-  `ID_NILAI_PER_KRITERIA` int(11) NOT NULL,
+  `ID_NILAI_PER_KRITERIA` int(11) NOT NULL AUTO_INCREMENT,
   `ID_NILAI_PER_PENILAI` int(11) NOT NULL,
   `ID_DETIL_BOBOT_LEVEL` int(11) DEFAULT NULL,
   `NILAI` double DEFAULT NULL,
   PRIMARY KEY (`ID_NILAI_PER_KRITERIA`),
   KEY `ID_DETIL_BOBOT_LEVEL` (`ID_DETIL_BOBOT_LEVEL`),
   KEY `ID_NILAI_PER_PENILAI` (`ID_NILAI_PER_PENILAI`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `nilai_per_kriteria`
@@ -694,9 +696,8 @@ CREATE TABLE IF NOT EXISTS `nilai_per_kriteria` (
 -- Table structure for table `nilai_per_penilai`
 --
 
-DROP TABLE IF EXISTS `nilai_per_penilai`;
 CREATE TABLE IF NOT EXISTS `nilai_per_penilai` (
-  `ID_NILAI_PER_PENILAI` int(11) NOT NULL,
+  `ID_NILAI_PER_PENILAI` int(11) NOT NULL AUTO_INCREMENT,
   `KODE_DINILAI` int(11) DEFAULT NULL,
   `KODE_PENILAI` int(11) DEFAULT NULL,
   `ID_BOBOT_LEVEL` int(11) DEFAULT NULL,
@@ -705,12 +706,15 @@ CREATE TABLE IF NOT EXISTS `nilai_per_penilai` (
   KEY `ID_BOBOT_LEVEL` (`ID_BOBOT_LEVEL`),
   KEY `KODE_PENILAI` (`KODE_PENILAI`),
   KEY `KODE_DINILAI` (`KODE_DINILAI`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `nilai_per_penilai`
 --
 
+INSERT INTO `nilai_per_penilai` (`ID_NILAI_PER_PENILAI`, `KODE_DINILAI`, `KODE_PENILAI`, `ID_BOBOT_LEVEL`, `NILAI`) VALUES
+(5, 5, 1, 7, 0),
+(6, 6, 1, 7, 0);
 
 -- --------------------------------------------------------
 
@@ -718,22 +722,22 @@ CREATE TABLE IF NOT EXISTS `nilai_per_penilai` (
 -- Table structure for table `penilai`
 --
 
-DROP TABLE IF EXISTS `penilai`;
 CREATE TABLE IF NOT EXISTS `penilai` (
-  `KODE_PENILAI` int(11) NOT NULL,
+  `KODE_PENILAI` int(11) NOT NULL AUTO_INCREMENT,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `ID_DEP_DIV_JAB` int(11) NOT NULL,
-  `ID_BOBOT_LEVEL` int(11) NOT NULL,
-  `STATUS_PENILAIAN` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`KODE_PENILAI`),
   KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`),
-  KEY `ID_BOBOT_LEVEL` (`ID_BOBOT_LEVEL`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `ID_DEP_DIV_JAB` (`ID_DEP_DIV_JAB`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `penilai`
 --
 
+INSERT INTO `penilai` (`KODE_PENILAI`, `KODE_KARYAWAN`, `ID_DEP_DIV_JAB`) VALUES
+(1, '4343434', 1),
+(2, 'K001', 2);
 
 -- --------------------------------------------------------
 
@@ -741,7 +745,6 @@ CREATE TABLE IF NOT EXISTS `penilai` (
 -- Table structure for table `relasi_div_jab_din`
 --
 
-DROP TABLE IF EXISTS `relasi_div_jab_din`;
 CREATE TABLE IF NOT EXISTS `relasi_div_jab_din` (
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `TANGGAL_MENJABAT` date DEFAULT NULL,
@@ -755,6 +758,10 @@ CREATE TABLE IF NOT EXISTS `relasi_div_jab_din` (
 -- Dumping data for table `relasi_div_jab_din`
 --
 
+INSERT INTO `relasi_div_jab_din` (`KODE_KARYAWAN`, `TANGGAL_MENJABAT`, `TANGGAL_BERHENTI`, `ID_DEP_DIV_JAB`) VALUES
+('4343434', '0000-00-00', '0000-00-00', 1),
+('K001', '2010-01-05', '0000-00-00', 2),
+('xxxx', '2010-01-24', '0000-00-00', 3);
 
 -- --------------------------------------------------------
 
@@ -762,7 +769,6 @@ CREATE TABLE IF NOT EXISTS `relasi_div_jab_din` (
 -- Table structure for table `relasi_golongan`
 --
 
-DROP TABLE IF EXISTS `relasi_golongan`;
 CREATE TABLE IF NOT EXISTS `relasi_golongan` (
   `ID_GOLONGAN` varchar(10) NOT NULL,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
@@ -785,7 +791,6 @@ INSERT INTO `relasi_golongan` (`ID_GOLONGAN`, `KODE_KARYAWAN`, `TANGGAL_MENJABAT
 -- Table structure for table `setting_periode`
 --
 
-DROP TABLE IF EXISTS `setting_periode`;
 CREATE TABLE IF NOT EXISTS `setting_periode` (
   `ID_PERIODE` varchar(50) NOT NULL,
   `PERIODE_AWAL` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -813,7 +818,6 @@ INSERT INTO `setting_periode` (`ID_PERIODE`, `PERIODE_AWAL`, `PERIODE_AKHIR`, `B
 -- Table structure for table `status_karyawan`
 --
 
-DROP TABLE IF EXISTS `status_karyawan`;
 CREATE TABLE IF NOT EXISTS `status_karyawan` (
   `ID_STATUS_KARYAWAN` varchar(10) NOT NULL,
   `NAMA_STATUS` varchar(30) DEFAULT NULL,
@@ -838,7 +842,6 @@ INSERT INTO `status_karyawan` (`ID_STATUS_KARYAWAN`, `NAMA_STATUS`) VALUES
 -- Table structure for table `telpon`
 --
 
-DROP TABLE IF EXISTS `telpon`;
 CREATE TABLE IF NOT EXISTS `telpon` (
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `NO_TELPON` int(11) NOT NULL,
@@ -922,11 +925,13 @@ ALTER TABLE `detil_bobot_level`
   ADD CONSTRAINT `detil_bobot_level_ibfk_2` FOREIGN KEY (`ID_BOBOT_LEVEL`) REFERENCES `bobot_level` (`ID_BOBOT_LEVEL`);
 
 --
--- Constraints for table `dinilai`
+-- Constraints for table `nilai_akhir`
 --
-ALTER TABLE `dinilai`
-  ADD CONSTRAINT `dinilai_ibfk_1` FOREIGN KEY (`ID_PERIODE`) REFERENCES `setting_periode` (`ID_PERIODE`),
-  ADD CONSTRAINT `dinilai_ibfk_2` FOREIGN KEY (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`);
+ALTER TABLE `nilai_akhir`
+  ADD CONSTRAINT `nilai_akhir_ibfk_4` FOREIGN KEY (`ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`ID_DEP_DIV_JAB`),
+  ADD CONSTRAINT `nilai_akhir_ibfk_1` FOREIGN KEY (`ID_PERIODE`) REFERENCES `setting_periode` (`ID_PERIODE`),
+  ADD CONSTRAINT `nilai_akhir_ibfk_2` FOREIGN KEY (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`),
+  ADD CONSTRAINT `nilai_akhir_ibfk_3` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `relasi_div_jab_din` (`KODE_KARYAWAN`);
 
 --
 -- Constraints for table `nilai_per_kinerja`
@@ -948,14 +953,15 @@ ALTER TABLE `nilai_per_kriteria`
 ALTER TABLE `nilai_per_penilai`
   ADD CONSTRAINT `nilai_per_penilai_ibfk_1` FOREIGN KEY (`ID_BOBOT_LEVEL`) REFERENCES `bobot_level` (`ID_BOBOT_LEVEL`),
   ADD CONSTRAINT `nilai_per_penilai_ibfk_2` FOREIGN KEY (`KODE_PENILAI`) REFERENCES `penilai` (`KODE_PENILAI`),
-  ADD CONSTRAINT `nilai_per_penilai_ibfk_3` FOREIGN KEY (`KODE_DINILAI`) REFERENCES `dinilai` (`KODE_DINILAI`);
+  ADD CONSTRAINT `nilai_per_penilai_ibfk_3` FOREIGN KEY (`KODE_DINILAI`) REFERENCES `nilai_akhir` (`KODE_DINILAI`);
 
 --
 -- Constraints for table `penilai`
 --
 ALTER TABLE `penilai`
+  ADD CONSTRAINT `penilai_ibfk_3` FOREIGN KEY (`ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`ID_DEP_DIV_JAB`),
   ADD CONSTRAINT `penilai_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`),
-  ADD CONSTRAINT `penilai_ibfk_2` FOREIGN KEY (`ID_BOBOT_LEVEL`) REFERENCES `bobot_level` (`ID_BOBOT_LEVEL`);
+  ADD CONSTRAINT `penilai_ibfk_2` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `relasi_div_jab_din` (`KODE_KARYAWAN`);
 
 --
 -- Constraints for table `relasi_div_jab_din`

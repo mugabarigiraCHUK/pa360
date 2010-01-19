@@ -60,7 +60,7 @@ if ($proc === 'debotlv-update'){
 	$debotlvID = $_POST['debotlvID'];
 	$kripenID = $_POST['kripenID'];
 	$bobotlvID = $_POST['bobotlvID'];
-	$bobot = $_POST['bobot'];
+	$bobot = intval($_POST['bobot']);
 	
 	//cari periode dan levelnya
 	$data = mysql_fetch_assoc( debotlv_loadByID($debotlvID) );

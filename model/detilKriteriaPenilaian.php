@@ -71,11 +71,11 @@ function dekripen_summarize($kripenID=false, $excDekripenID=false){
 	
 	$sql .= $kripenID || $excDekripenID? " where " : "";
 	if ($kripenID){
-		$sql .= " ID_KRITERIA = '$kripenID' ";
+		$sql .= "ID_KRITERIA='$kripenID'";
 	}
 	if ($excDekripenID){
 		$sql .= $kripenID? " AND " : "";
-		$sql .= " ID_DETAIL_KRITERIA != '$excDekripenID'";
+		$sql .= "ID_DETAIL_KRITERIA!='$excDekripenID'";
 	}
 	
 	$result = mysql_fetch_assoc(mysql_query($sql));

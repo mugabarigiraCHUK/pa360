@@ -39,7 +39,7 @@ WHERE
     AND c.ID_DIVISI=f.ID_DIVISI
     $sql_dep
 	AND a.KODE_KARYAWAN!='$karyID'
-    AND a.KODE_KARYAWAN NOT IN (
+    AND a.KODE_KARYAWAN IN (
         SELECT b.KODE_KARYAWAN
         FROM pa360ino.nilai_per_penilai as a, pa360ino.nilai_akhir as b
         WHERE a.KODE_DINILAI=b.KODE_DINILAI 
@@ -58,17 +58,18 @@ while ($row = mysql_fetch_assoc($qq)):
 	$dinilai = mysql_fetch_assoc( nilaiAkhir_load($row['KODE_KARYAWAN'], $row['ID_DEP_DIV_JAB'], $periodeID) );
 	
 	//load nilai_per_penilai, cek apakah sudah ada datanya. jika ada, checkbox state checked
-	$npp = npp_isExist($dinilai['KODE_DINILAI'], $penilaiID, $bobotlvID);
+	$npp = mysql_fetch_assoc(npp_loadComplete(
+			"a.KODE_DINILAI='".$dinilai['KODE_DINILAI']."' AND a.ID_BOBOT_LEVEL='".$bobotlvID."'"));
+
+	//load nama karyawan penilainya sapa
+	$kary = mysql_fetch_assoc(kary_load($npp['KODE_KARYAWAN_PENILAI'])); 
 ?>
 <tr <?=tag_zebra($z++)?>>
-	<td align="center">
-		<input type="checkbox" class="kary-dinilai-table-checkbox" <?= $npp? "checked=\"checked\"" : ""?> onchange="penilai_save($(this))"
-		 karyID="<?=$row['KODE_KARYAWAN']?>" dep_div_jabID="<?=$row['ID_DEP_DIV_JAB']?>" />
-	</td>
 	<td><?=$row['NAMA_KARYAWAN']?></td>
-	<td align="left"><?=$row['NAMA_JABATAN'];//'kode_karyawan:'. $karyID . ', kode_penilai:'.$penilaiID ?></td>
-	<td align="left"><?=$row['NAMA_DIVISI'];//'kode_karyawan:'.$row['KODE_KARYAWAN'] .', kode_dinilai'.$dinilai['KODE_DINILAI'].', depdivjab:'.$row['ID_DEP_DIV_JAB']?></td>
-	<td align="left"><?=$row['NAMA_DEPARTMENT'];//"kode_penilai:". $penilaiID .', kode_dinilai:'.$dinilai['KODE_DINILAI']?></td>
+	<td align="left"><?=$row['NAMA_JABATAN']?></td>
+	<td align="left"><?=$row['NAMA_DIVISI']?></td>
+	<td align="left"><?=$row['NAMA_DEPARTMENT']?></td>
+	<td align="left"><?=$kary['NAMA_KARYAWAN']?></td>
 </tr>
 <?php $dataCount++; ?>
 <?php endwhile;?>

@@ -25,6 +25,7 @@ if ($_COOKIE_DATA->type == 1 && $_COOKIE_DATA->asAdmin){	//super user
 	else if ($p==='laporan_departemenGraph') { include 'view/admin/laporan_departemenGraph.php'; }
 	else if ($p==='laporan_rataKinerjaGraph') { include 'view/admin/laporan_rataKinerjaGraph.php'; }
 	else if ($p==='laporan_karyawanGraph') { include 'view/admin/laporan_karyawanGraph.php'; }
+	else if ($p==='dataUser') { include 'view/admin/data_user.php'; }
 	else{include 'view/admin/dashboard.php'; }
 }
 else{

@@ -35,21 +35,17 @@ if ($proc == 'kripen-save'){
 	$nama = $_POST['nama'];
 	$desc = $_POST['desc'];
 	
-	if ($kripenID === '' || is_null($kripenID)){
-		echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi ID Kriteria ..."));
-		return ;
-	}
-
-	if (kripen_isExistID($kripenID)){
-		echo json_encode(array('error'=> true, 'msg'=> "ID Status sudah terpakai ..."));
-		return ;
-	}
+//	if (kripen_isExistID($kripenID)){
+//		echo json_encode(array('error'=> true, 'msg'=> "ID Status sudah terpakai ..."));
+//		return ;
+//	}
 	
 	if ($nama === '' || is_null($nama)){
 		echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi Nama Kriteria ..."));
 		return ;
 	}
 	
+	//automatic generate ID
 	$ex = kripen_add($kripenID, $nama, $desc);
 	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
 }

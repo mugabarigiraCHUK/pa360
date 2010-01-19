@@ -3,7 +3,7 @@
  * database config
  */
 $config['db']['username'] 	= "root";
-$config['db']['password'] 	= "root";
+$config['db']['password'] 	= "";
 $config['db']['host'] 		= "localhost";
 $config['db']['database'] 	= "pa360ino";
 

@@ -1,5 +1,5 @@
-<form name="frmModal" method="post" action="proc/detilKriteriaPenilaian.php"><input
-	type="hidden" value="dekripen-save" name="proc" />
+<form name="frmModal" method="post" action="proc/detilKriteriaPenilaian.php">
+<input type="hidden" value="dekripen-save" name="proc" />
 <h2 class="dialog_title"><span>Add Detil Kriteria Penilaian </span></h2>
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">
@@ -18,11 +18,10 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
+	<!--<tr>
 	  <td align="right" valign="middle">ID Det. Kriteria : </td>
-	  <td><input type="text" name="dekripenID">
-	    <!--<input class="marginL5" type="button" name="Submit" value="Search" onClick="dekripen_search()">--></td>
-	  </tr>
+	  <td><input type="text" name="dekripenID"></td>
+	</tr>-->
 	<tr>
 	  <td align="right" valign="middle">Nama Det. Kriteria : </td>
 	  <td><input type="text" name="nama"></td>

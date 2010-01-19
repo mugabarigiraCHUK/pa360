@@ -1,6 +1,6 @@
 <?php
 
-function debotlv_select($id=false, $periodeID=false, $levelID=false, $kripenID=false){
+function debotlv_select($id=false, $bobotlvID=false, $periodeID=false, $levelID=false, $kripenID=false){
 	$sql="SELECT a.ID_DETIL_BOBOT_LEVEL,
 			a.ID_KRITERIA,
 			b.NAMA_KRITERIA,
@@ -19,6 +19,9 @@ function debotlv_select($id=false, $periodeID=false, $levelID=false, $kripenID=f
 	
 	if ($id){	
 		$sql .= " AND a.ID_DETIL_BOBOT_LEVEL='$id'";
+	}
+	if ($bobotlvID){
+		$sql .= " AND a.ID_BOBOT_LEVEL='$bobotlvID'";
 	}
 	if ($periodeID){
 		$sql .= " AND c.ID_PERIODE='$periodeID'";
@@ -41,13 +44,20 @@ function debotlv_load($periodeID, $levelID, $kripenID){
 }
 
 function debotlv_sumBobot($periodeID, $levelID, $excludeDebotlvID=false){
-	$result = debotlv_select(false, $periodeID,$levelID);
-	while ($row = mysql_fetch_assoc($result)){
-		if ($row["ID_DETIL_BOBOT_LEVEL"]!=$excludeDebotlvID){
-			$bobot += $row['BOBOT'];
-		}
+	$sql ="SELECT SUM(a.BOBOT) AS SUM
+		FROM detil_bobot_level as a, 
+			kriteria_penilaian as b, 
+			bobot_level as c
+		WHERE a.ID_KRITERIA=b.ID_KRITERIA AND a.ID_BOBOT_LEVEL=c.ID_BOBOT_LEVEL 
+			AND c.ID_PERIODE='$periodeID'
+			AND c.ID_PERIODE='$periodeID'";
+	
+	if ($excludeDebotlvID){
+		$sql .= " AND a.ID_DETIL_BOBOT_LEVEL!='$excludeDebotlvID'";
 	}
-	return $bobot;
+	
+	$res= mysql_fetch_assoc( mysql_query($sql) );
+	return $res['SUM'];
 }
 
 function debotlv_add($kripenID, $bobolvID, $bobot){

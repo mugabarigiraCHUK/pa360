@@ -1,10 +1,14 @@
 <?php
 include_once 'lib/config.php';
 include_once 'lib/db.php';
-include 'model/karyawan.php';
-include 'model/periode.php';
+include_once 'model/karyawan.php';
+include_once 'model/periode.php';
+include_once 'model/bobotLevel.php';
+include_once 'model/departemen.php';
 
 function inject_head(){?>
+<link rel="stylesheet" type="text/css" href="css/tabs.css" />
+<script type="text/javascript" src="jscript/tabs.js"></script>
 <script>
 	//search karyawan
 	function penilai_searchKary_modal(){
@@ -21,43 +25,10 @@ function inject_head(){?>
 	
 	function penilai_searchKary_pick(karyID, karyNama){
 		FBModal_hide();
-		var form = $('frmSearch');
+		var form = $('frmPenilai');
 		form.searchKey.value = karyNama;
 		form.karyID.value = karyID;
-		penilai_updateJabatanCombo($('frmSearch'));
-	}
-
-	function penilai_searchKary_modal2(){
-		//simpan sementara 
-		oldContent = FBModal_getContent();
-
-		//kita gunakan frmSearch sebagai dasar datanya
-		form = $('frmSearch');
-		form.proc.value = 'searchKary2-modal';
-		form.set('send', {
-			onSuccess: function(response) { 
-				FBModal_show(response, true);
-			}
-		}).send();
-	}
-
-	function penilai_searchKary_updateTable2(form){
-		form.set('send', {
-			onSuccess: function(response) {
-				$('searchKary2-table').set('html', response);
-			}
-		}).send();
-	}
-
-	function penilai_searchKary_pick2(karyID, karyNama, dep_div_jabID, jabatanNama, departemenNama, divisiNama){
-		FBModal_show(oldContent, true);
-		var form = $('frmModal');
-		form.penilai.value = karyNama;
-		form.penilaiID.value = karyID;
-		form.dep_div_jabPenilaiID.value = dep_div_jabID;
-		$('jabatanNama').set('html', jabatanNama);
-		$('departemenNama').set('html', departemenNama);
-		$('divisiNama').set('html', divisiNama);
+		penilai_updateJabatanCombo($('frmPenilai'));
 	}
 
 	function penilai_updateJabatanCombo(form){
@@ -83,7 +54,7 @@ function inject_head(){?>
 		doRequest('proc/penilai.php', 'post', 'proc=level-depth&periodeID='+form.periodeID.value, 
 				function (res){ 
 					form.stsPenilaian.set('html', res);
-					form.level.value = form.stsPenilaian.options[0].get('level'); 
+					//form.level.value = form.stsPenilaian.options[0].get('level'); 
 			});
 	}
 
@@ -94,63 +65,70 @@ function inject_head(){?>
 	var oldKaryID = null;
 	function penilai_updateTable(form){
 		penilai_updateJabatanDetail(form);
-		
+
 		//update table
-		form.proc.value = 'penilai-table';
+		form.proc.value = 'kary-dinilai-table';
 		form.set('send', {
 			onSuccess: function(response) {
-				$('penilai-table').set('html', response);
+				//destroy old table
+				$$('.kary-dinilai-table-checkbox').each(function(item){ item.destroy(); });
+				
+				$('kary-dinilai-table').set('html', response);
+				$$('.kary-dinilai-table-checkbox').addEvent('change', function(){ penilai_save(this); });
 			}
 		}).send();
-		
-		//FBModal_loading("Validating", "Please wait...", false, false);
-	}
-
-	function penilai_add(form){
-		form.proc.value = 'add-modal';
-		form.set('send', {
-			onSuccess: function(response) { 
-				FBModal_show(response);
+		doRequest('proc/penilai.php', 'post', 
+				'proc=kary-dinilai-table-konflik'+
+				'&karyID='+form.karyID.value+
+				'&dep_div_jabID='+form.dep_div_jabID.value+
+				'&periodeID='+form.periodeID.value+
+				'&stsPenilaian='+form.stsPenilaian.value+
+				'&departemenID='+form.departemenID.value,
+			function (response){ 
+				$('kary-dinilai-konflik-table').set('html', response);
 			}
-		}).send();
+		);
 	}
 
-	function penilai_delete(nilaiPerPenilaiID){
-		FBModal_loading("Delete", "Please wait...", true, false);
-		doRequest('proc/penilai.php', 'post', 'proc=penilai-delete&nilaiPerPenilaiID='+nilaiPerPenilaiID, 
+	function penilai_save(item){
+		var form = item.getParent('form');
+		doRequest('proc/penilai.php', 'post', 
+			'proc=penilai-save'+
+			'&dinilaiID='+item.getProperty('karyID')+
+			'&dinilai_dep_div_jabID='+item.getProperty('dep_div_jabID')+
+			'&periodeID='+form.periodeID.value+
+			'&levelID='+form.stsPenilaian.value+
+			'&penilaiID='+form.karyID.value+
+			'&penilai_dep_div_jabID='+form.dep_div_jabID.value+
+			'&state='+(item.checked? 1 : 0),
 				function (res){ 
 					var js = JSON.decode(res);
-					var msg = js.error? js.msg : "Process penghapusan selesai !!!";
-					var title = js.error? 'Error' : 'Deleteing';
-					FBModal_show(
-						"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
-						"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+msg+"</div>",
-						true, true, 1500);
-					penilai_updateTable($('frmSearch'));
-			});
-	}
+					if (js.error){
+						var title ='Error';
+						FBModal_show(
+							"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
+							"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+js.msg+"</div>", 
+							true, true, 1500);
+					}
 
-	function penilai_save(form){
-		form.proc.value = 'penilai-save';
-		form.set('send', {
-			onSuccess: function(response) { 
-				var js = JSON.decode(response);
-				var msg = js.error? js.msg : "Process simpan selesai !!!";
-				var title = js.error? 'Error' : 'Saving';
-				FBModal_show(
-					"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
-					"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+msg+"</div>",
-					true, true, 1500);
-				penilai_updateTable($('frmSearch'));
-			}
-		}).send();
+//					penilai_updateTable(form);
+			});
 	}
 
 	var oldContent;
 	window.addEvent('domready',function(e) { 
-		penilai_updateTable($('frmSearch'), e);
-		penilai_updateLevel($('frmSearch'));
+		penilai_updateTable($('frmPenilai'), e);
+		penilai_updateLevel($('frmPenilai'));
+		new tabbedPane('kriteriaTab');
 	});
+
+	function getTabbedpaneState(){
+		var tabState=false;
+		$$('div.tabs_panel').each(function(item){
+			if (item.hasClass('active')) tabState=$(item.id);
+		});
+		return tabState;
+	}
 </script>
 <?php }
 

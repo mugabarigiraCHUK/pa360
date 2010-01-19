@@ -3,6 +3,7 @@ include_once '../lib/config.php';
 include_once '../lib/db.php';
 include_once '../model/karyawan.php';
 include_once '../model/statusKaryawan.php';
+include_once '../model/dataUser.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -285,6 +286,9 @@ if ($proc==='karyawan-save'){
 	//pass the message
 //	echo json_encode(array('error'=> true, 'msg'=> print_r($_POST, true)));
 	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	
+	//add data_user
+	user_insert($kode, md5($kode));
 }
 
 /**

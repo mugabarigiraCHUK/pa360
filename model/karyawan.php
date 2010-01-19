@@ -1,15 +1,14 @@
 <?php
-include 'karyawan-relasi.php';
-include 'detilStatusKaryawan.php';
-include 'alamat.php';
-include 'telepon.php';
+include_once 'karyawan-relasi.php';
+include_once 'detilStatusKaryawan.php';
+include_once 'alamat.php';
+include_once 'telepon.php';
 include_once 'statusKaryawan.php';
 
 /**
  * SELECT ALL DATA
  */
 function kary_select($key=""){
-	global $_CON;
 	$result = kary_search($key);
 	return !$result? mysql_error() : $result;
 }
@@ -31,10 +30,8 @@ function kary_isExistCode($kode){
  * @param unknown_type $search
  */
 function kary_search($search){
-	global $_CON;
-	$sql = "select * ".
-			"from data_karyawan ".
-			"where kode_karyawan like '%$search%' OR nama_Karyawan like '%$search%'";
+	$sql = "select * from data_karyawan 
+			where kode_karyawan like '%$search%' OR nama_Karyawan like '%$search%'";
 	$result = mysql_query($sql);
 	return !$result? mysql_error() : $result;
 }
@@ -71,14 +68,8 @@ function kary_insert($kode, $nama, $tmplahir, $tgllahir, $jnskelamin, $goldarah,
 			  '$agama', '$email',
 			  '$tglmasuk',
 			  '$tglkeluar', '$statusKerja')";
-	
-	if (! mysql_query($sqlKary)){
-		return false;
-	}
-	
-	/**
-	 * saving
-	 */
+	//saving
+	if (! mysql_query($sqlKary)){ return false; }	
 	return true;
 }
 
@@ -265,4 +256,32 @@ function kary_load_complete($karyID){
 	mysql_free_result($rsjbt);
 	
 	return $kary;
+}
+
+function kary_searchByDepartemen($searchKey, $departemenID){
+	$final = array();
+	$result = kary_search($searchKey);
+	while ($row = mysql_fetch_assoc($result) ){
+		$karyData = kary_load_complete($row["KODE_KARYAWAN"]);
+		
+		//cek apakah status kerja NON AKTIF
+		if  (strtolower($karyData['ID_STATUS_KARYAWAN']) === strtolower("STAT002") ) {
+			continue;
+		}
+		
+		//bandingkan jabatannya
+		$jbtFound = false;
+		foreach($karyData['JABATAN'] as $jbt){
+			if ($departemenID=="" || !$departemenID) { $jbtFound = $jbt; }
+			else if ($departemenID == $jbt["ID_DEPARTMENT"]) { $jbtFound = $jbt; }
+		}
+		
+		//jika jabatan ditemukan, print
+		if ($jbtFound && ( preg_match('/('.$searchKey.')/i', $jbtFound['KODE_KARYAWAN']) || preg_match('/('.$searchKey.')/i', $jbtFound['NAMA_KARYAWAN']) ) ){
+			$karyData['JABATAN'] = $jbtFound;
+			$final[$row["KODE_KARYAWAN"]] = $karyData;
+		}
+	}
+	
+	return $final;
 }

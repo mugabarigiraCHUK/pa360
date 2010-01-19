@@ -1,4 +1,4 @@
-<?php $result = debotlv_select(false, $periodeID, $levelID); ?>
+<?php $result = debotlv_select(false, false, $periodeID, $levelID); ?>
 <?php while ($row = mysql_fetch_assoc($result)) : ?>
 	<?php $total += $row['BOBOT']; ?>
 <tr <?=tag_zebra($z++)?>>

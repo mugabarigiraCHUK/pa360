@@ -48,16 +48,6 @@ if ($proc == 'dekripen-save'){
 	$bobot = $bobot<0? 0 : $bobot;
 	$bobot = $bobot>100? 100 : $bobot;
 	
-	if ($dekripenID === '' || is_null($dekripenID)){
-		echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi ID Detil Kriteria ..."));
-		return ;
-	}
-
-	if (dekripen_isExistID($dekripenID)){
-		echo json_encode(array('error'=> true, 'msg'=> "ID Status sudah terpakai ..."));
-		return ;
-	}
-	
 	$sum = dekripen_summarize($kripenID);
 	if ($sum + $bobot>100){
 		echo json_encode(array('error'=> true, 'msg'=> "total bobot detil kriteria lebih dari 100%, mohon cek ulang ..."));
@@ -82,7 +72,7 @@ if ($proc === 'dekripen-update'){
 	$sum = dekripen_summarize($kripenID, $dekripenID);
 	if ($sum + $bobot>100){
 		echo json_encode(array('error'=> true, 'msg'=> 
-			"Total bobot kriteria lebih dari 100%, mohon cek ulang ... ". ($sum + $bobot)));
+			"Total bobot kriteria lebih dari 100% (". ($sum + $bobot) ."), mohon cek ulang ... "));
 		return ;
 	}
 	

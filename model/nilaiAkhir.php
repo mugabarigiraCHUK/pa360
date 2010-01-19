@@ -1,28 +1,57 @@
 <?php
-function nilaiAkhir_load($karyID, $periodeID, $dep_div_jabID){
-	$sql = "SELECT * FROM nilai_akhir 
-			WHERE KODE_KARYAWAN='$karyID' AND 
-			ID_PERIODE='$periodeID' AND 
-			ID_DEP_DIV_JAB='$dep_div_jabID'";
+function nilaiAkhir_select($id=false, $karyID=false, $dep_div_jabID=false, $periodeID=false){
+	$sql = "SELECT * FROM nilai_akhir ";
+	$sqlw = false;
+	
+	if ($id){
+		$sqlw .= $sqlw? " AND " : "";
+		$sqlw .= "KODE_DINILAI='$id'";
+	}
+	if ($karyID){
+		$sqlw .= $sqlw? " AND " : "";
+		$sqlw .= "KODE_KARYAWAN='$karyID'";
+	}
+	if ($periodeID){
+		$sqlw .= $sqlw? " AND " : "";
+		$sqlw .= "ID_PERIODE='$periodeID'";
+	}
+	if ($dep_div_jabID){
+		$sqlw .= $sqlw? " AND " : "";
+		$sqlw .= "ID_DEP_DIV_JAB='$dep_div_jabID'";
+	}		
+	$sql .= $sqlw? " WHERE ".$sqlw : ""; 
 	return mysql_query($sql);
 }
 
-function nilaiAkhir_isExist($karyID, $periodeID, $dep_div_jabID){
-	$sql = "SELECT * FROM nilai_akhir 
-			WHERE KODE_KARYAWAN='$karyID' AND 
-			ID_PERIODE='$periodeID' AND 
-			ID_DEP_DIV_JAB='$dep_div_jabID'";
-	$rs = mysql_query($sql);
-	while ($row = mysql_fetch_assoc($rs)){
-		return true;
-	}
+function nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID){
+	return nilaiAkhir_select(false, $karyID, $dep_div_jabID, $periodeID);
+}
+
+function nilaiAkhir_loadByID($id){
+	return nilaiAkhir_select($id);
+}
+
+function nilaiAkhir_isExist($karyID, $dep_div_jabID, $periodeID){
+	$sql = nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID);
+	while ($row = mysql_fetch_assoc($sql)){ return true; }
 	return false;
 }
 
-function nilaiAkhir_add($karyID, $periodeID, $dep_div_jabID, $nilai){
+function nilaiAkhir_isExistID($id){
+	$sql = nilaiAkhir_loadByID($id);
+	while ($row = mysql_fetch_assoc($sql)){ return true; }
+	return false;
+}
+
+function nilaiAkhir_add($karyID, $dep_div_jabID, $periodeID, $nilai){
 	$nilai = doubleval($nilai);
-	$sql = "INSERT INTO nilai_akhir 
-			VALUES ('$karyID', '$periodeID', '$dep_div_jabID', '$nilai')";
+	$sql = "INSERT INTO nilai_akhir (KODE_KARYAWAN, ID_DEP_DIV_JAB, ID_PERIODE, NILAI_AKHIR)
+			VALUES ('$karyID', '$dep_div_jabID', '$periodeID', '$nilai')";
+	return mysql_query($sql);
+}
+
+function nilaiAkhir_delete($id){
+	$sql = "DELETE FROM nilai_akhir WHERE KODE_DINILAI='$id'";
 	return mysql_query($sql);
 }
 

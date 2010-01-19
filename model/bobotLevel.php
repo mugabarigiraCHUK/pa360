@@ -32,18 +32,11 @@ function bobotlv_select($id=false, $periodeID=false, $levelID=false){
  * @param $level (string) - level id
  */
 function bobotlv_load($periodeID, $levelID){
-	$sql = "SELECT *
-			FROM bobot_level
-			WHERE ID_PERIODE='$periodeID' AND
-			ID_LEVEL='$levelID'";
-	return mysql_query($sql);
+	return bobotlv_select(false, $periodeID, $levelID);
 }
 
 function bobotlv_loadByID($id){
-	$sql = "SELECT *
-			FROM bobot_level
-			WHERE ID_BOBOT_LEVEL='$id'";
-	return mysql_query($sql);
+	return bobotlv_select($id);
 }
 
 /**
@@ -52,7 +45,7 @@ function bobotlv_loadByID($id){
  * @param $level (string) - Vertical (VC) / Horizontal (HZ)
  */
 function bobotlv_isExistID($bobotLvID){
-	$res = bobotlv_select($bobotLvID);
+	$res = bobotlv_loadByID($bobotLvID);
 	while ($rr = mysql_fetch_assoc($res)){ return true; }
 	return false;
 }
