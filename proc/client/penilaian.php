@@ -5,6 +5,7 @@ include '../../lib/utils/date.php';
 include '../../lib/utils/tag.php';
 include '../../model/penilai.php';
 include '../../model/periode.php';
+include '../../model/karyawan.php';
 
 $proc = $_REQUEST['proc'];
 

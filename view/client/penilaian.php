@@ -15,7 +15,8 @@ function inject_head(){?>
 	function penilaian_updateTable(form){
 		FBModal_loading("Loading", "Please wait...", true, false);
 		$(form).set('send', {
-			onSuccess: function(response) { 
+			onSuccess: function(response) {
+				alert(response); 
 				$('dinilai-table').set('html', response);
 				FBModal_hide();
 			}
