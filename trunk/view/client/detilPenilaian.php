@@ -18,7 +18,8 @@ function inject_head(){?>
 		$(form).set('send', {
 			onSuccess: function(response) {
 				/* debug */
-				document.write(response);
+				alert(response);
+				return;
 				var js = JSON.decode(response);
 				var msg = js.error? js.msg : "Process simpan selesai !!!";
 				var title = js.error? 'Error' : 'Saving';
