@@ -73,15 +73,15 @@ if ($proc === 'detilPenilaian-save'){
 			mysql_free_result($rsDekripen0);
 		}
 		
-//		/**
-//		 * UPDATE nilai NILAI_PER_KRITERIA
-//		 */
-//		//load KRITERIA_PENILAIAN
-//		$rsKripen0 = kripen_load($kriteriaKey);
-//		$rsKripen = mysql_fetch_assoc($rsKripen0);
-//		
-//		//persiapan untuk NILAI_PER_PENILAI
-//		$nilaiPerPenilai += $nilaiPerKriteria * ($rsKripen['BOBOT']/100);
+		/**
+		 * UPDATE nilai NILAI_PER_KRITERIA
+		 */
+		//load KRITERIA_PENILAIAN
+		$rsKripen0 = kripen_load($kriteriaKey);
+		$rsKripen = mysql_fetch_assoc($rsKripen0);
+		
+		//persiapan untuk NILAI_PER_PENILAI
+		$nilaiPerPenilai += $nilaiPerKriteria * ($rsKripen['BOBOT']/100);
 //		
 //		//save
 //		if (npkrt_exist($karyID, $penilaiID, $periodeID, $dep_div_jabID, $kriteriaKey, $levelID)){
