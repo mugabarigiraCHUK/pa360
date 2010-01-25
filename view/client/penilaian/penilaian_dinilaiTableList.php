@@ -34,7 +34,7 @@ $nppTable = mysql_query(
 		AND a.ID_BOBOT_LEVEL = b.ID_BOBOT_LEVEL
 		AND a.KODE_DINILAI=c.KODE_DINILAI
 		AND b.ID_PERIODE = '$periodeID'
-	GROUP BY ID_NILAI_PER_PENILAI");
+	GROUP BY ID_NILAI_PER_PENILAI"); 
 
 	while ($kk = mysql_fetch_assoc($nppTable)):  
 		//load semua data yang diperlukan
@@ -42,8 +42,10 @@ $nppTable = mysql_query(
 		$depdivjabDinilaiID = $kk['ID_DEP_DIV_JAB_DINILAI'];
 		$periodeDinilaiID = $kk['ID_PERIODE_DINILAI'];
 		$NA = mysql_query(
-		"SELECT a.KODE_KARYAWAN, a.NAMA_KARYAWAN, b.ID_DEP_DIV_JAB, d.ID_DEPARTMENT, 
-			d.NAMA_DEPARTMENT, e.ID_JABATAN, e.NAMA_JABATAN, f.ID_DIVISI, f.NAMA_DIVISI
+		"SELECT a.KODE_KARYAWAN, a.NAMA_KARYAWAN, 
+			b.ID_DEP_DIV_JAB, d.ID_DEPARTMENT, 
+			d.NAMA_DEPARTMENT, e.ID_JABATAN, 
+			e.NAMA_JABATAN, f.ID_DIVISI, f.NAMA_DIVISI
 		FROM data_karyawan as a, 
 		    relasi_div_jab_din as b,
 		    dep_divisi_jabatan as c,
@@ -56,7 +58,7 @@ $nppTable = mysql_query(
 		    AND c.ID_DEPARTMENT=d.ID_DEPARTMENT
 		    AND c.ID_JABATAN=e.ID_JABATAN
 		    AND c.ID_DIVISI=f.ID_DIVISI
-			AND a.KODE_KARYAWAN!='$karyDinilaiID'
+			AND a.KODE_KARYAWAN='$karyDinilaiID'
 			AND b.ID_DEP_DIV_JAB='$depdivjabDinilaiID'");
 ?>
 <?php 	while ($row = mysql_fetch_assoc($NA)):?>
@@ -68,30 +70,15 @@ $nppTable = mysql_query(
 		<td><?=$kk['ID_LEVEL']?></td>
 		<td><form id="frm<?=$z?>" name="frm<?=$z?>" action="dashboard.php?p=detilPenilaian" method="post">
 			<input name="karyID" type="hidden" value="<?=$row['KODE_KARYAWAN']?>" />
-			<input name="periodeID" type="hidden" value="<?=$row['ID_PERIODE']?>" />
+			<input name="periodeID" type="hidden" value="<?=$kk['ID_PERIODE']?>" />
 			<input name="dep_div_jabID" type="hidden" value="<?=$row['ID_DEP_DIV_JAB']?>" />
-			<input name="levelID" type="hidden" value="<?=$row['ID_LEVEL']?>" />
-			<input name="nilaiPerPenilaiID" type="hidden" value="<?=$row['ID_NILAI_PER_PENILAI']?>" />
-			<?php if ($periode['awal'] <= time() && $periode['akhir'] >= time()):?>
+			<input name="levelID" type="hidden" value="<?=$kk['ID_LEVEL']?>" />
+			<input name="nilaiPerPenilaiID" type="hidden" value="<?=$kk['ID_NILAI_PER_PENILAI']?>" />
+			<?php //if ($periode['awal'] <= time() && $periode['akhir'] >= time()):?>
 				<a onclick="$(this).getParent('form').submit()">
-					<?php 
-						//hitung apakah sudah ada data penilaian, 
-						//jika belum statusnya "set nilai" jika sudah statusnya"update"
-						$rsStatus = npkrt_select($row['KODE_KARYAWAN'], $karyID, $row['ID_PERIODE'], $row['ID_DEP_DIV_JAB'], false, $row['ID_LEVEL']);
-						$stsCount = 0;
-						while ($sts = mysql_fetch_assoc($rsStatus)){
-							$stsCount++;
-							echo 'update';
-							break;
-						}
-						mysql_free_result($rsStatus);
-						
-						if ($stsCount<=0){
-							echo 'set nilai';
-						}
-					?>
+					<?=	'set nilai'?>
 				</a>
-			<?php endif;?>
+			<?php //endif;?>
 			</form></td>
 	</tr>
 	<?php endwhile; ?>
