@@ -28,7 +28,7 @@
 <div id="body-inner">
 	<!-- Header -->
 	<div>
-		<div class="floatL" style="width:382px; height:144px"><img src="image/header.jpg" width="900" height="144" /></div>
+		<div class="floatL" style="width:382px; height:144px"><!-- <img src="image/header.jpg" width="900" height="144" />  --></div>
 		<div class="floatL" align="center">
 			<div></div>
 			<div></div> 

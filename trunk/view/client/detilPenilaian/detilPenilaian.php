@@ -21,27 +21,27 @@ $kary_jabatan = mysql_fetch_assoc(RELASIJABATAN_load($karyID, $dep_div_jabID));
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
   <tr>
     <td width="100px">Periode : </td>
-    <td><input type="text" value="<?=$periodeID?>" disabled="disabled" style="width:200px" class="fake" /></td>
+    <td><input type="text" value="<?=$periodeID?>" disabled="disabled" style="width:400px" class="fake" /></td>
   </tr>
   <tr>
     <td width="100px">Karyawan dinilai : </td>
-    <td><input type="text" value="<?=$kary_data['NAMA_KARYAWAN']?>" disabled="disabled" style="width:200px" class="fake" /></td>
+    <td><input type="text" value="<?=$kary_data['NAMA_KARYAWAN']?>" disabled="disabled" style="width:400px" class="fake" /></td>
   </tr>
   <tr>
     <td>Jabatan : </td>
-    <td><input type="text" value="<?=$kary_jabatan['NAMA_JABATAN']?>" disabled="disabled" style="width:200px" class="fake" /></td>
+    <td><input type="text" value="<?=$kary_jabatan['NAMA_JABATAN']?>" disabled="disabled" style="width:400px" class="fake" /></td>
   </tr>
   <tr>
     <td>Departemen  : </td>
-    <td><input type="text" value="<?=$kary_jabatan['NAMA_DEPARTMENT']?>" disabled="disabled" style="width:200px" class="fake" /></td>
+    <td><input type="text" value="<?=$kary_jabatan['NAMA_DEPARTMENT']?>" disabled="disabled" style="width:400px" class="fake" /></td>
   </tr>
   <tr>
     <td>Divisi : </td>
-    <td><input type="text" value="<?=$kary_jabatan['NAMA_DIVISI']?>" disabled="disabled" style="width:200px" class="fake" /></td>
+    <td><input type="text" value="<?=$kary_jabatan['NAMA_DIVISI']?>" disabled="disabled" style="width:400px" class="fake" /></td>
   </tr>
   <tr>
     <td>Level : </td>
-    <td><input name="text" type="text" disabled="disabled" class="fake" style="width:200px" value="<?=$levelID?>" /></td>
+    <td><input type="text" disabled="disabled" class="fake" style="width:400px" value="<?=$levelID?>" /></td>
   </tr>
 </table>
 <?php 
@@ -51,7 +51,7 @@ $kripenList = array();
 <div id="kriteriaTab" class="padT10" >
 	<ul class="tabs_title">
 		<?php //bikin tab title, load data kriteria
-			$rsKriteria = debotlv_select($periodeID, $levelID);
+			$rsKriteria = debotlv_select(false, false, $periodeID, $levelID);
 			while ($kripen = mysql_fetch_assoc($rsKriteria)): 
 				$kripenList[] = $kripen; 
 		?>
@@ -76,12 +76,11 @@ $kripenList = array();
 			<tr <?=tag_zebra($z)?> valign="top">
 				<td>
 					<a class="fake" onclick="$('desc-<?=$ll['ID_KRITERIA'].'-'.$dd['ID_DETAIL_KRITERIA']?>').get('reveal').toggle()" title="deskripsi"><strong><?=$dd['NAMA_DETAIL_KRITERIA']?></strong></a>
-					<div id="desc-<?=$ll['ID_KRITERIA'].'-'.$dd['ID_DETAIL_KRITERIA']?>" style="display:none;"><?=$dd['DESKRIPSI']?></div>
+					<div id="desc-<?=$ll['ID_KRITERIA'].'-'.$dd['ID_DETAIL_KRITERIA']?>"><?=$dd['DESKRIPSI']?></div>
 				</td>
 				<td width="10%" align="right">
-					<input name="dekripen[<?=$ll['ID_KRITERIA']?>][<?=$dd['ID_DETAIL_KRITERIA']?>][dekripenID]" type="hidden" value="<?=$dd['ID_DETAIL_KRITERIA']?>" />
 					<?php $rsDebot = mysql_fetch_assoc( debot_minmax($dd['ID_DETAIL_KRITERIA']) ); ?>
-					<div class="spinner" name="dekripen[<?=$ll['ID_KRITERIA']?>][<?=$dd['ID_DETAIL_KRITERIA']?>][nilai]" minValue="<?=$rsDebot['MIN']?>" maxValue="<?=$rsDebot['MAX']?>"></div>
+					<div class="spinner" name="dekripen[<?=$ll['ID_KRITERIA']?>][<?=$dd['ID_DETAIL_KRITERIA']?>]" minValue="<?=$rsDebot['MIN']?>" maxValue="<?=$rsDebot['MAX']?>"></div>
 				</td>
 			</tr>
 			<?php $z++; ?>
