@@ -34,9 +34,10 @@ $nppTable = mysql_query(
 		AND a.ID_BOBOT_LEVEL = b.ID_BOBOT_LEVEL
 		AND a.KODE_DINILAI=c.KODE_DINILAI
 		AND b.ID_PERIODE = '$periodeID'
-	GROUP BY ID_NILAI_PER_PENILAI"); 
+	GROUP BY ID_NILAI_PER_PENILAI
+	ORDER BY ID_LEVEL");
 
-	while ($kk = mysql_fetch_assoc($nppTable)):  
+while ($kk = mysql_fetch_assoc($nppTable)):  
 		//load semua data yang diperlukan
 		$karyDinilaiID = $kk['KODE_KARYAWAN_DINILAI'];
 		$depdivjabDinilaiID = $kk['ID_DEP_DIV_JAB_DINILAI'];

@@ -16,7 +16,6 @@ function inject_head(){?>
 		FBModal_loading("Loading", "Please wait...", true, false);
 		$(form).set('send', {
 			onSuccess: function(response) {
-				alert(response); 
 				$('dinilai-table').set('html', response);
 				FBModal_hide();
 			}
