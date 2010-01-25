@@ -34,53 +34,53 @@ $nppTable = mysql_query(
 		AND a.ID_BOBOT_LEVEL = b.ID_BOBOT_LEVEL
 		AND a.KODE_DINILAI=c.KODE_DINILAI
 		AND b.ID_PERIODE = '$periodeID'
-	GROUP BY ID_NILAI_PER_PENILAI"); 
+	GROUP BY ID_NILAI_PER_PENILAI
+	ORDER BY ID_LEVEL");
 
-	while ($kk = mysql_fetch_assoc($nppTable)):  
+while ($kk = mysql_fetch_assoc($nppTable)):  
 		//load semua data yang diperlukan
 		$karyDinilaiID = $kk['KODE_KARYAWAN_DINILAI'];
 		$depdivjabDinilaiID = $kk['ID_DEP_DIV_JAB_DINILAI'];
 		$periodeDinilaiID = $kk['ID_PERIODE_DINILAI'];
-		$NA = mysql_query(
-		"SELECT a.KODE_KARYAWAN, a.NAMA_KARYAWAN, 
-			b.ID_DEP_DIV_JAB, d.ID_DEPARTMENT, 
-			d.NAMA_DEPARTMENT, e.ID_JABATAN, 
-			e.NAMA_JABATAN, f.ID_DIVISI, f.NAMA_DIVISI
-		FROM data_karyawan as a, 
-		    relasi_div_jab_din as b,
-		    dep_divisi_jabatan as c,
-		    data_department as d,
-		    data_jabatan as e,
-		    data_divisi as f
-		WHERE 
-		    a.KODE_KARYAWAN=b.KODE_KARYAWAN
-		    AND b.ID_DEP_DIV_JAB=c.ID_DEP_DIV_JAB
-		    AND c.ID_DEPARTMENT=d.ID_DEPARTMENT
-		    AND c.ID_JABATAN=e.ID_JABATAN
-		    AND c.ID_DIVISI=f.ID_DIVISI
-			AND a.KODE_KARYAWAN='$karyDinilaiID'
-			AND b.ID_DEP_DIV_JAB='$depdivjabDinilaiID'");
+		$bobotlvID = $kk['ID_BOBOT_LEVEL'];
+		$KARY = kary_load_complete($karyDinilaiID);	
+		$JAB = array();
+			
+		//cari jabatan
+		foreach($KARY['JABATAN'] as $jj){
+			if ($jj['ID_DEP_DIV_JAB']==$depdivjabDinilaiID){
+				$JAB=$jj; break;
+			}
+		}
 ?>
-<?php 	while ($row = mysql_fetch_assoc($NA)):?>
 	<tr <?=tag_zebra($z++)?>>
-		<td><?=$row['NAMA_KARYAWAN']?></td>
-		<td><?=$row['NAMA_JABATAN']?></td>
-		<td><?=$row['NAMA_DEPARTMENT']?></td>
-		<td><?=$row['NAMA_DIVISI']?></td>
+		<td><?=$KARY['NAMA_KARYAWAN']?></td>
+		<td><?=$JAB['NAMA_JABATAN']?></td>
+		<td><?=$JAB['NAMA_DEPARTMENT']?></td>
+		<td><?=$JAB['NAMA_DIVISI']?></td>
 		<td><?=$kk['ID_LEVEL']?></td>
 		<td><form id="frm<?=$z?>" name="frm<?=$z?>" action="dashboard.php?p=detilPenilaian" method="post">
-			<input name="karyID" type="hidden" value="<?=$row['KODE_KARYAWAN']?>" />
-			<input name="periodeID" type="hidden" value="<?=$kk['ID_PERIODE']?>" />
-			<input name="dep_div_jabID" type="hidden" value="<?=$row['ID_DEP_DIV_JAB']?>" />
-			<input name="levelID" type="hidden" value="<?=$kk['ID_LEVEL']?>" />
-			<input name="nilaiPerPenilaiID" type="hidden" value="<?=$kk['ID_NILAI_PER_PENILAI']?>" />
-			<?php //if ($periode['awal'] <= time() && $periode['akhir'] >= time()):?>
+			<input name="kodeDinilai" type="hidden" value="<?=$kk['KODE_DINILAI']?>" />
+			<?php if ($periode['awal'] <= time() && $periode['akhir'] >= time()):?>
 				<a onclick="$(this).getParent('form').submit()">
-					<?=	'set nilai'?>
+					<?php 
+						//hitung apakah sudah ada data penilaian, 
+						//jika belum statusnya "set nilai" jika sudah statusnya"update"
+						$rsStatus = mysql_query(
+							"SELECT count(a.ID_NILAI_PER_KRITERIA) as COUNT
+							FROM nilai_per_kriteria as a, 
+								detil_bobot_level as b, 
+								nilai_per_penilai as c
+							WHERE a.ID_NILAI_PER_PENILAI=c.ID_NILAI_PER_PENILAI 
+								AND a.ID_DETIL_BOBOT_LEVEL=b.ID_DETIL_BOBOT_LEVEL
+								AND c.KODE_DINILAI='$karyDinilaiID'
+								AND b.ID_BOBOT_LEVEL='$bobotlvID'");
+						$sts = mysql_fetch_assoc($rsStatus);
+						$stsCount = intval($sts['COUNT']);
+						echo $stsCount<=0?'set nilai' : 'update';
+					?>
 				</a>
-			<?php //endif;?>
+			<?php endif;?>
 			</form></td>
 	</tr>
-	<?php endwhile; ?>
-	<?php mysql_free_result($NA);?>
 <?php endwhile; ?>

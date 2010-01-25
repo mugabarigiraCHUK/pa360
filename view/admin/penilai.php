@@ -91,13 +91,8 @@ function inject_head(){?>
 	}
 
 	function penilai_save(item){
-		var prevReq = item.retrieve('req-save');
-		if ($chk(prevReq)){
-			prevReq.cancel();
-		}
-		
 		var form = item.getParent('form');
-		var req= doRequest('proc/penilai.php', 'post', 
+		doRequest('proc/penilai.php', 'post', 
 			'proc=penilai-save'+
 			'&dinilaiID='+item.getProperty('karyID')+
 			'&dinilai_dep_div_jabID='+item.getProperty('dep_div_jabID')+
@@ -118,7 +113,6 @@ function inject_head(){?>
 
 //					penilai_updateTable(form);
 			});
-		item.store('req-save', req);
 	}
 
 	var oldContent;

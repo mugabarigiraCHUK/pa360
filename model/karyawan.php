@@ -41,7 +41,7 @@ function kary_search($search){
  * @param $kode (string) kode karyawan
  */
 function kary_load($kode){
-	$sql = "select * from data_karyawan where kode_karyawan='$kode'";
+	$sql = "select * from data_karyawan where KODE_KARYAWAN='$kode'";
 	return mysql_query($sql);
 }
 

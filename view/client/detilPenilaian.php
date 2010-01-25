@@ -17,8 +17,6 @@ function inject_head(){?>
 		FBModal_loading("Save", "Please wait...", true, false);
 		$(form).set('send', {
 			onSuccess: function(response) {
-				/* debug */
-				document.write(response);
 				var js = JSON.decode(response);
 				var msg = js.error? js.msg : "Process simpan selesai !!!";
 				var title = js.error? 'Error' : 'Saving';
@@ -26,16 +24,16 @@ function inject_head(){?>
 					"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
 					"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+msg+"</div>", 
 					true, true, 1500);
-//				setTimeout("location.replace(\"./dashboard.php?p=penilaian"+
-//						  "&periodeID="+form.periodeID.value+
-//						  "&dep_div_jabID="+form.dep_div_jabID.value+"\")",1500);
+				setTimeout("location.replace(\"./dashboard.php?p=penilaian"+
+						  "&periodeID="+form.periodeID.value+
+						  "&dep_div_jabID="+form.dep_div_jabID.value+"\")",1500);
 			}
 		}).send();
 	}
 	
 	window.addEvent('domready', function(){
 		//BUG on spinner, saat element display=none, jadi visible-kan semua spinner pada tab dulu
-		var tab = $$('div.tabs_panel');
+		var tab = $$('div.tabs_panel')
 		tab.each(function(item){ item.removeClass('tabs_panel'); });
 		//attach spinner
 		$$('div.spinner').each(function(item){

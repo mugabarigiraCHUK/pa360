@@ -1,37 +1,47 @@
 <?php
 
-/**
- * 
- * @param $id
- * @param $dekripenID
- * @param $npkrtID - ID nilai_per_kriteria
- * @param $nilai
- * @return unknown_type
- */
-function npk_add($id, $dekripenID, $npkrtID, $nilai){
-	$nilai = doubleval($nilai);
+function npk_add($karyID, $penilaiID, $periodeID, $dep_div_jabID, 
+				$dekripenID, $levelID, $nilai){
 	$sql = "INSERT INTO nilai_per_kinerja 
-			VALUES('$id','$dekripenID', '$npkrtID', $nilai)";
+			VALUES('$karyID','$penilaiID','$periodeID','$dep_div_jabID','$dekripenID','$levelID',$nilai)";
 	return mysql_query($sql);
 }
 
-function npk_update($id, $dekripenID, $npkrtID, $nilai){
+function npk_update($karyID, $penilaiID, $periodeID, $dep_div_jabID, 
+				$dekripenID, $levelID, $nilai){
 	$sql = "UPDATE nilai_per_kinerja
 				set NILAI = $nilai
-			WHERE ID_NILAI_PER_KINERJA='$id' 
-				AND ID_DETAIL_KRITERIA='$dekripenID'
-				AND ID_NILAI_PER_KRITERIA='$npkrtID'";
+			WHERE KODE_KARYAWAN='$karyID' AND  
+				PENILAI='$penilaiID' AND 
+				ID_PERIODE='$periodeID' AND  
+				ID_DEP_DIV_JAB='$dep_div_jabID' AND 
+				ID_LEVEL='$levelID'	AND 
+				ID_DETAIL_KRITERIA='$dekripenID'";
 	return mysql_query($sql);
 }
 
-function npk_delete($id){
+function npk_delete($karyID, $penilaiID, $periodeID, $dep_div_jabID, $levelID, $dekripenID=false){
 	$sql = "DELETE FROM nilai_per_kinerja 
-			WHERE ID_NILAI_PER_KINERJA='$id'";
+			WHERE KODE_KARYAWAN='$karyID' AND  
+				PENILAI='$penilaiID' AND 
+				ID_PERIODE='$periodeID' AND  
+				ID_DEP_DIV_JAB='$dep_div_jabID' AND 
+				ID_LEVEL='$levelID'";
+	if ($dekripenID){
+		$sql .= " AND ID_DETAIL_KRITERIA='$dekripenID'";
+	}
 	return mysql_query($sql);
 }
 
-function npk_exist($dekripenID, $npkrtID){
-	$sql = npk_select(false, $dekripenID, $npkrtID);
+function npk_exist($karyID, $penilaiID, $periodeID, $dep_div_jabID, 
+				$dekripenID, $levelID){
+	$sql = "SELECT * FROM nilai_per_kinerja 
+			WHERE KODE_KARYAWAN='$karyID' AND  
+				PENILAI='$penilaiID' AND 
+				ID_PERIODE='$periodeID' AND  
+				ID_DEP_DIV_JAB='$dep_div_jabID' AND 
+				ID_LEVEL='$levelID'	AND 
+				ID_DETAIL_KRITERIA='$dekripenID'";
 	$rs = mysql_query($sql);
 	while ($row = mysql_fetch_assoc($rs)){
 		return true;
@@ -39,33 +49,34 @@ function npk_exist($dekripenID, $npkrtID){
 	return false;
 }
 
-function npk_existByID($id){
-	$sql = npk_select($id);
-	$rs = mysql_query($sql);
-	while ($row = mysql_fetch_assoc($rs)){
-		return true;
-	}
-	return false;
-}
-
-function npk_select($id=false, $dekripenID=false, $npkrtID=false, $nilai=false){
+function npk_select($karyID=false, $penilaiID=false, $periodeID=false, $dep_div_jabID=false, 
+					$dekripenID=false, $levelID=false){
 	$sql = "SELECT * FROM nilai_per_kinerja ";
-	if ($id){
+	$sqlw = "";
+	if ($karyID){
 		$sqlw .= $sqlw===""? "" : " AND ";
-		$sqlw .= " ID_NILAI_PER_KINERJA='$id' "; 
+		$sqlw .= " KODE_KARYAWAN='$karyID' "; 
 	}
-	if ($dekripen){
+	if ($penilaiID){ 
 		$sqlw .= $sqlw===""? "" : " AND ";
-		$sqlw .= " ID_DETAIL_KRITERIA='$dekripen' "; 
+		$sqlw .= " PENILAI='$penilaiID' "; 
 	}
-	if ($npkrtID){
+	if ($periodeID){ 
 		$sqlw .= $sqlw===""? "" : " AND ";
-		$sqlw .= " ID_NILAI_PER_KRITERIA='$npkrtID' "; 
+		$sqlw .= "ID_PERIODE='$periodeID' "; 
 	}
-	if ($nilai){
+	if ($dep_div_jabID){ 
 		$sqlw .= $sqlw===""? "" : " AND ";
-		$sqlw .= " NILAI='$nilai' "; 
+		$sqlw .= " ID_DEP_DIV_JAB='$dep_div_jabID' "; 
 	}
-	$sqlw = $sqlw==""? "" : " WHERE ".$sqlw;
-	return mysql_query($sql.$sqlw);
+	if ($levelID){ 
+		$sqlw .= $sqlw===""? "" : " AND ";
+		$sqlw .= " ID_LEVEL='$levelID' "; 
+	}
+	if ($dekripenID){ 
+		$sqlw .= $sqlw===""? "" : " AND ";
+		$sqlw .= " ID_DETAIL_KRITERIA='$dekripenID' "; 
+	}
+	$sql .= " WHERE ". $sqlw;
+	return mysql_query($sql); 
 }

@@ -13,10 +13,6 @@ include_once '../../model/periode.php';
 $proc = $_REQUEST['proc'];
 
 if ($proc === 'detilPenilaian-save'){
-	/* debug */
-	print_r($_POST);
-	exit();
-	
 	$karyID = $_POST['karyID']; 
 	$penilaiID = $_POST['penilaiID'];
 	$periodeID = $_POST['periodeID'];
@@ -28,7 +24,10 @@ if ($proc === 'detilPenilaian-save'){
 	 * bentuk array dekripen
 	 * [dekripen] => Array (
 	 * 		[ <kriteria ID> ] => Array (
-	 * 			[ <detail kriteria ID> ] => [nilai]
+	 * 			[ <detail kriteria ID> ] => Array (
+	 * 				[dekripenID] => 
+	 * 				[nilai] => 
+	 *        	)
 	 *      )
 	 * ) 
 	 */
@@ -45,20 +44,20 @@ if ($proc === 'detilPenilaian-save'){
 		 */
 		foreach($kriteriaVal as $detilKrtKey=>$detilKrtVal){	//<detail kriteria ID>		
 			//cari bobot detail kriteria
-			$rsDekripen0 = dekripen_load($detilKrtKey);
+			$rsDekripen0 = dekripen_load($detilKrtVal['dekripenID']);
 			$rsDekripen = mysql_fetch_assoc($rsDekripen0);
 			
 			//hitung nilaiPerKinerja
-			$nilai = $detilKrtVal * ($rsDekripen['BOBOT'] / 100);
+			$nilai = $detilKrtVal['nilai'] * ($rsDekripen['BOBOT'] / 100);
 			
 			//save NILAI_PER_KINERJA,
-			if (npk_exist($detilKrtKey, )){
+			if (npk_exist($karyID, $penilaiID, $periodeID, $dep_div_jabID, $detilKrtVal['dekripenID'], $levelID)){
 				$ex &= npk_update($karyID, $penilaiID, $periodeID, $dep_div_jabID, 
-							$detilKrtKey, $levelID, $nilai);
+							$detilKrtVal['dekripenID'], $levelID, $nilai);
 			}
 			else{
 				$ex &= npk_add($karyID, $penilaiID, $periodeID, $dep_div_jabID, 
-							$detilKrtKey, $levelID, $nilai);	
+							$detilKrtVal['dekripenID'], $levelID, $nilai);	
 			}
 					
 			//sum NILAI_PER_KRITERIA

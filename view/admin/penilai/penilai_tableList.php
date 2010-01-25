@@ -25,12 +25,12 @@ if ($departemenID){
 $sql = 
 "SELECT a.KODE_KARYAWAN, a.NAMA_KARYAWAN, b.ID_DEP_DIV_JAB, d.ID_DEPARTMENT, d.NAMA_DEPARTMENT, e.ID_JABATAN,
     e.NAMA_JABATAN, f.ID_DIVISI, f.NAMA_DIVISI
-FROM data_karyawan as a, 
-    relasi_div_jab_din as b,
-    dep_divisi_jabatan as c,
-    data_department as d,
-    data_jabatan as e,
-    data_divisi as f
+FROM pa360ino.data_karyawan as a, 
+    pa360ino.relasi_div_jab_din as b,
+    pa360ino.dep_divisi_jabatan as c,
+    pa360ino.data_department as d,
+    pa360ino.data_jabatan as e,
+    pa360ino.data_divisi as f
 WHERE 
     a.KODE_KARYAWAN=b.KODE_KARYAWAN
     AND b.ID_DEP_DIV_JAB=c.ID_DEP_DIV_JAB
