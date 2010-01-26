@@ -13,8 +13,44 @@ function npkrt_getID($nppID=false, $debotlvID=false){
 	return false;
 }
 
-function npkrt_update(){
+function npkrt_updateByID($npkrtID, $nppID=false, $debotlvID=false, $nilai=false){
+	$sql = "UPDATE nilai_per_kriteria ";
 	
+	//set
+	if ($nppID){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "ID_NILAI_PER_PENILAI='$nppID'"; 
+	}
+	if ($debotlvID){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "ID_DETIL_BOBOT_LEVEL='$debotlvID'"; 
+	}
+	if ($nilai || is_numeric($nilai)){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "NILAI='$nilai'"; 
+	}
+	$sqls = $sqls==""? "" : " SET ".$sqls;
+	
+	//where
+	$sqlw = " WHERE ID_NILAI_PER_KRITERIA='$npkrtID'";
+	
+	return mysql_query($sql.$sqls.$sqlw);
+}
+
+function npkrt_update($npkrtID, $nppID=false, $debotlvID=false, $nilai=0){
+	$sql = "UPDATE nilai_per_kriteria SET NILAI=$nilai";
+	if ($npkrtID){
+		$sqlw = $sqlw==""? "" : " AND ID_NILAI_PER_KRITERIA='$npkrtID'"; 
+	}
+	if ($nppID){
+		$sqlw = $sqlw==""? "" : " AND ID_NILAI_PER_PENILAI='$nppID'"; 
+	}
+	if ($debotlvID){
+		$sqlw = $sqlw==""? "" : " AND ID_DETIL_BOBOT_LEVEL='$debotlvID'"; 
+	}
+	
+	$sqlw = $sqlw==""? "" : " WHERE ".$sqlw;
+	return mysql_query($sql.$sqlw);
 }
 
 function npkrt_delete(){
