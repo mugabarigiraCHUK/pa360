@@ -34,7 +34,10 @@
 	<?php endforeach; ?>
 	<td align="right">
 		<form id="tr-<?=$z?>">
-			<input name="nppID" type="hidden" value="<?=$dd['ID_NILAI_PER_PENILAI']?>" />
+			<input name="karyID" type="hidden" value="<?=$dd['KODE_KARYAWAN']?>" />
+			<input name="periodeID" type="hidden" value="<?=$dd['ID_PERIODE']?>" />
+			<input name="dep_div_jabID" type="hidden" value="<?=$dd['ID_DEP_DIV_JAB']?>" />
+			<input name="departemenID" type="hidden" value="<?=$dd['JABATAN']['ID_DEPARTMENT']?>" />
 			<a onClick="show_detil($(this).getParent('form'))">detil</a>
 		</form>
 	</td>

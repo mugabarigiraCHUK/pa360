@@ -5,6 +5,7 @@ include_once '../../lib/utils/tag.php';
 include_once '../../model/karyawan.php';
 include_once '../../model/departemen.php';
 include_once '../../model/bobotLevel.php';
+include_once '../../model/detilBobotLevel.php';
 include_once '../../model/periode.php';
 include_once '../../model/kriteriaPenilaian.php';
 include_once '../../model/detilKriteriaPenilaian.php';

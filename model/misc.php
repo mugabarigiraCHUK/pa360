@@ -50,7 +50,7 @@ function laporan_global($periodeID, $departemenID=false){
 			$TMP['NAMA_KARYAWAN'] = $KARY['NAMA_KARYAWAN'];
 			$TMP['JABATAN'] = $DEPDIVJAB;
 			$TMP['ID_NILAI_PER_PENILAI'] = $row['ID_NILAI_PER_PENILAI'];
-			$TMP['NILAI_PER_PENILAI'] = $nppList;
+			$TMP['ID_NILAI_PER_PENILAI'] = $nppList['ID_NILAI_PER_PENILAI'];
 			//append result
 			$RESULT[$key] = $TMP;
 		}
@@ -60,166 +60,60 @@ function laporan_global($periodeID, $departemenID=false){
 }
 
 function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
-	$RESULT=array();
+	//cari kode dinilai
+	$NA = mysql_fetch_assoc( nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID) );	
 	
-	/**
-	 * SOLUSI:
-	 * 1. table NILAI_PER_PENILAI sebagai reference data, 
-	 * 	  cari data dari table NILAI_PER_KRITERIA yang reference ke table NILAI_PER_PENILAI
-	 * 2. dari reference data tsb, load data KRITERIA_PENILAIAN (untuk ambil nama kriteria) 
-	 * 
-	 * BENTUK ARRAY
-	 * 	[ID_KRITERIA] => array(
-	 * 		<FIELD NILAI_PER_PENILAI>
-	 * 			....
-	 * 			....
-	 * 
-	 * 		<FIELD KRITERIA_PENILAIAN>
-	 * 			....
-	 * 			....
-	 * 		
-	 * 		[HZ1] => nilai
-	 * 			...
-	 * 			...
-	 * 		[HZ n%] => nilai
-	 * 		[VC1] => nilai
-	 * 			...		
-	 * 			...
-	 * 		[VC n%] => nilai
-	 * 	)
-	 */
-	
-	//bikin key
-	$KEY = array();
-	$BBTLV = bobotlv_select($periodeID);
-	while ($row=mysql_fetch_assoc($BBTLV)){
-		$KEY[$row['ID_LEVEL']] =0;
+	//load bobot level dengan perioded tertentu
+	$BOBOTLV = bobotlv_select(false, $periodeID);
+	$bobotlvList = "";
+	while ($row = mysql_fetch_assoc($BOBOTLV)){
+		$bobotlvList .= $bobotlvList==""? "" : ",";
+		$bobotlvList .= "\"".$row['ID_BOBOT_LEVEL']."\"";
 	}
-	mysql_free_result($BBTLV);
+	mysql_free_result($BOBOTLV);
 	
-	//1. load data dari table NILAI_PER_KRITERIA
-	$sql = "SELECT 
-				a.KODE_KARYAWAN, a.PENILAI, a.ID_PERIODE, a.ID_DEP_DIV_JAB, 
-				a.ID_KRITERIA, a.ID_LEVEL, a.NILAI
-			FROM nilai_per_kriteria as a, nilai_per_penilai as b
-			WHERE 
-				a.KODE_KARYAWAN = b.KODE_KARYAWAN AND
-				a.ID_PERIODE = b.ID_PERIODE AND
-				a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB AND
-				a.ID_LEVEL = b.ID_LEVEL AND
-				a.ID_PERIODE = '$periodeID' AND 
-				a.KODE_KARYAWAN = '$karyID' AND
-				a.ID_DEP_DIV_JAB = '$dep_div_jabID'";
-
-	$RS1 = mysql_query($sql);
-	while ($rs1 = mysql_fetch_assoc($RS1)){
-		
-		if (! array_key_exists($rs1['ID_KRITERIA'], $RESULT)){
-			//append data $rs1
-			foreach($rs1 as $key=>$value){
-				if ($key!=='NILAI') $TMP[$key] = $value;	//untuk nilai hilangkan
-			}	
-			
-			//append key, untuk menyimpan data nilai HZ1, HZ2 ....
-			foreach ($KEY as $key=>$value){
-				$tmp[$key] = $value;
-			}
-			
-			//2. load data kriteria (untuk ambil nama kriteria) 
-			$KRIPEN = mysql_fetch_assoc(kripen_load($rs1['ID_KRITERIA']));
-			//append data $KRIPEN 
-			foreach($KRIPEN as $key=>$value){
-				$TMP[$key] = $value;
-			}
-			
-			$RESULT[$rs1['ID_KRITERIA']] = $TMP;
-		}
-		
-		//simpan datanya
-		$RESULT[$rs1['ID_KRITERIA']][$rs1['ID_LEVEL']] = $rs1['NILAI']==NULL? 0 : $rs1['NILAI'];
+	//load nilai_per_penilai dengan KODE_DINILAI dan list PERIODE tertentu
+	$NPP = npp_select("ID_BOBOT_LEVEL IN ($bobotlvList) AND KODE_DINILAI='".$NA['KODE_DINILAI']."'");
+	$nppList = ""; 
+	while ($row = mysql_fetch_assoc($NPP)){
+		$nppList .= $nppList==""? "" : ",";
+		$nppList .= "\"".$row['ID_NILAI_PER_PENILAI']."\"";
 	}
+	mysql_free_result($NPP);
+	
+	//load nilai_per_kriteria dengan ID_NILAI_PER_PENILAI tertentu
+	$NPKRT = npkrt_select2("ID_NILAI_PER_PENILAI IN ($nppList)");
+	
+	$RESULT =array();
+	while ($row = mysql_fetch_assoc($NPKRT)){
+		//load detil_bobot_level
+		$DEBOTLV = mysql_fetch_assoc( debotlv_loadByID($row['ID_DETIL_BOBOT_LEVEL']) );
+		
+		//load bobot_level
+		$BOBOTLV = mysql_fetch_assoc( bobotlv_loadByID($DEBOTLV['ID_BOBOT_LEVEL']) );
+		
+		//load kriteria_penilaian
+		$KRIPEN = mysql_fetch_assoc( kripen_load($DEBOTLV['ID_KRITERIA']) );
+		
+		//sampe sini semua data sudah siap
+		$TMP = array();
+		$TMP['NAMA_KRITERIA'] = $KRIPEN['NAMA_KRITERIA'];
+		$TMP['BOBOT_KRITERIA'] = $DEBOTLV['BOBOT'];
+		$TMP[$BOBOTLV['ID_LEVEL']] = $row['NILAI'];
+		$TMP['ID_NILAI_PER_KRITERIA'] = $row['ID_NILAI_PER_KRITERIA'];
+		$RESULT[$KRIPEN['ID_KRITERIA']] = $TMP;
+	}
+	mysql_free_result($NPKRT);
 	
 	return $RESULT;
 }
 
-function laporan_detail_dekripen($karyID, $dep_div_jabID, $periodeID, $kripenID){
+function laporan_detail_dekripen($npkrtID){
 	$RESULT=array();
 	
-	/**
-	 * SOLUSI:
-	 * 1. dari reference NILAI_PER_KRITERIA, load data NILAI_PER_KINERJA
-	 * 2. dari reference NILAI_PER_KINERJA, load data DETAIL_KRITERIA
-	 * 
-	 * BENTUK ARRAY
-	 * 	[ID_KRITERIA] => array(
-	 * 		<FIELD NILAI_PER_PENILAI>
-	 * 			....
-	 * 			....
-	 * 
-	 * 		<FIELD KRITERIA_PENILAIAN>
-	 * 			....
-	 * 			....
-	 * 		
-	 * 		[HZ1] => nilai
-	 * 			...
-	 * 			...
-	 * 		[HZ n%] => nilai
-	 * 		[VC1] => nilai
-	 * 			...		
-	 * 			...
-	 * 		[VC n%] => nilai
-	 * 	)
-	 */
-	
-	//bikin key
-	$KEY = array();
-	$BBTLV = bobotlv_select($periodeID);
-	while ($row=mysql_fetch_assoc($BBTLV)){
-		$KEY[$row['ID_LEVEL']] = 0;
-	}
-	mysql_free_result($BBTLV);
-
-	//1. load data NILAI_PER_KINERJA
-	$sql = "SELECT 
-				a.KODE_KARYAWAN, a.PENILAI, a.ID_PERIODE, a.ID_DEP_DIV_JAB, 
-				a.ID_DETAIL_KRITERIA, a.ID_LEVEL, a.NILAI
-			FROM nilai_per_kinerja as a, nilai_per_penilai as b, detail_kriteria as c
-			WHERE 
-				a.KODE_KARYAWAN = b.KODE_KARYAWAN AND
-				a.ID_PERIODE = b.ID_PERIODE AND
-				a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB AND
-				a.ID_LEVEL = b.ID_LEVEL AND
-			   	a.ID_DETAIL_KRITERIA = c.ID_DETAIL_KRITERIA AND
-				a.ID_PERIODE = '$periodeID' AND 
-				a.KODE_KARYAWAN = '$karyID' AND
-				a.ID_DEP_DIV_JAB = '$dep_div_jabID' AND
-			  	c.ID_KRITERIA = '$kripenID'";
-	$RS1 = mysql_query($sql); //npk_select($karyID, false, $periodeID, $dep_div_jabID);
-	while ($rs1 = mysql_fetch_assoc($RS1)){
-			
-		if (! array_key_exists($rs1['ID_DETAIL_KRITERIA'], $RESULT)){
-			//append data $rs1 
-			foreach($rs1 as $key=>$value){
-				if ($key!=='NILAI') $TMP[$key] = $value;
-			}
-			
-			//append key, untuk menyimpan data nilai HZ1, HZ2 ....
-			foreach ($KEY as $key=>$value){
-				$tmp[$key] = $value;
-			}
-			
-			//2. load data DETAIL_KRITERIA
-			$DEKRIPEN = dekripen_load($rs1['ID_DETAIL_KRITERIA']);
-			foreach(mysql_fetch_assoc($DEKRIPEN) as $key=>$value){
-				$TMP[$key] = $value;
-			}
-			
-			$RESULT[$rs1['ID_DETAIL_KRITERIA']] = $TMP;
-		}
+	$NPK = npk_select2("ID_NILAI_PER_KRITERIA=$npkrtID");
+	while ($row = mysql_fetch_assoc($NPK) ){
 		
-		//simpan datanya
-		$RESULT[$rs1['ID_DETAIL_KRITERIA']][$rs1['ID_LEVEL']] = $rs1['NILAI']==NULL? 0 : $rs1['NILAI'];
 	}
-	
 	return $RESULT;
 }

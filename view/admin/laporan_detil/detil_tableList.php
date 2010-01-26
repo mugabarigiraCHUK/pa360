@@ -1,6 +1,6 @@
 <?php
 	$KEY = array();
-	$BBTLV = bobotlv_select($periodeID);
+	$BBTLV = bobotlv_select(false, $periodeID);
 	$ROW_APPENDED = 0;
 	while ($row=mysql_fetch_assoc($BBTLV)){
 		$KEY[$row['ID_LEVEL']] = $row['ID_LEVEL'].' ('.$row['BOBOT'].'%)';
@@ -44,7 +44,7 @@
 	<?php endforeach; ?>
 	<td width="10"></td>
 </tr>
-	<?php $DEKRIPEN = laporan_detail_dekripen($karyID, $dep_div_jabID, $periodeID, $kripen['ID_KRITERIA']); ?>
+	<?php $DEKRIPEN = laporan_detail_dekripen($kripen['ID_NILAI_PER_KRITERIA']); ?>
 	<?php foreach($DEKRIPEN as $dekripen) :?>
 	<!-- sub kriteria -->
 	<tr <?=tag_zebra($z)?> class="tr-<?=$z?>" valign="top">
