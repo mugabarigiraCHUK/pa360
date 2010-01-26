@@ -21,6 +21,8 @@ if ($proc === 'detilPenilaian-save'){
 	$levelID = $_POST['levelID'];
 	$nilaiPerPenilaiID = $_POST['nilaiPerPenilaiID'];
 	
+	if ($karyID=="" || !$karyID || !isset($karyID)) return;
+	
 	/**
 	 * bentuk array dekripen
 	 * [dekripen] => Array (
@@ -35,8 +37,7 @@ if ($proc === 'detilPenilaian-save'){
 	
 	//insert ke table NILAI_PER_KINERJA dan NILAI_PER_KRITERIA
 	foreach ($dekripen as $kriteriaKey=>$kriteriaVal){			//<kriteria ID>
-		$nilaiPerKriteria=0;
-		
+
 		/* cari ID bobot level */
 		$debotlv0 = mysql_fetch_assoc(debotlv_select(false, false, $periodeID, $levelID, $kriteriaKey));  
 		$debotlvID = $debotlv0['ID_DETIL_BOBOT_LEVEL'];
@@ -51,6 +52,7 @@ if ($proc === 'detilPenilaian-save'){
 		/**
 		 * save NILAI_PER_KINERJA
 		 */
+		$nilaiPerKriteria=0;
 		foreach($kriteriaVal as $detilKrtKey=>$detilKrtVal){	//<detail kriteria ID>		
 			//cari bobot detail kriteria
 			$rsDekripen0 = dekripen_load($detilKrtKey);
@@ -76,62 +78,56 @@ if ($proc === 'detilPenilaian-save'){
 		/**
 		 * UPDATE nilai NILAI_PER_KRITERIA
 		 */
-		//load KRITERIA_PENILAIAN
-		$rsKripen0 = kripen_load($kriteriaKey);
-		$rsKripen = mysql_fetch_assoc($rsKripen0);
-		
 		//persiapan untuk NILAI_PER_PENILAI
-		$nilaiPerPenilai += $nilaiPerKriteria * ($rsKripen['BOBOT']/100);
-//		
-//		//save
-//		if (npkrt_exist($karyID, $penilaiID, $periodeID, $dep_div_jabID, $kriteriaKey, $levelID)){
-//			$ex &= npkrt_update($karyID, $penilaiID, $periodeID, $dep_div_jabID, $kriteriaKey, $levelID, $nilaiPerKriteria);
-//		}else{
-//			$ex &= npkrt_add($karyID, $penilaiID, $periodeID, $dep_div_jabID, 
-//						$kriteriaKey, $levelID, $nilaiPerKriteria);
-//		}
+		$nilaiPerPenilai += $nilaiPerKriteria * ($debotlv0['BOBOT']/100);
+		//langsung update, krn sudah add diatas
+		$ex &= npkrt_updateByID($npkrtID, false, false, $nilaiPerKriteria * ($debotlv0['BOBOT']/100));
 	}
 	
-//	/**
-//	 * save NILAI_PER_PENILAI
-//	 */
-//	$ex &= npp_update($nilaiPerPenilaiID, $nilaiPerPenilai);
-//	
-//	/**
-//	 * save NILAI_AKHIR
-//	 */
-//	$levelNPP = array('HZ'=>0, 'VC'=>0);
-//	$nilaiAkhir = 0;
-//	$rsNPP = npp_select("KODE_KARYAWAN='$karyID' AND 
-//						ID_PERIODE='$periodeID' AND 
-//						ID_DEP_DIV_JAB='$dep_div_jabID'");
-//	//hitung per sub level (HZ1, HZ2 .... / VC1, VC2, ...)
-//	while ($ll = mysql_fetch_assoc($rsNPP)){
-//		//load bobot_level
-//		$rsBobotLv = bobotlv_load($periodeID, $ll['ID_LEVEL']);
-//		$rsBobotLv = mysql_fetch_assoc($rsBobotLv);
-//		
-//		//vertikal / horizontal, hitung total sub level
-//		$KK = preg_match('/HZ/i', $ll['ID_LEVEL'])? 'HZ' : 'VC';
-//		$levelNPP[$KK] += doubleval($ll['NILAI']) * (doubleval($rsBobotLv['BOBOT'])/100);
-//	}
-//	mysql_free_result($rsNPP);
-//	
-//	//hitung per level
-//	$rsPeriode = periode_load($periodeID);
-//	$rsPeriode = mysql_fetch_assoc($rsPeriode);
-//	foreach ($levelNPP as $key=>$value){
-//		$KK = preg_match('/HZ/i', $key)? 'BOBOT_HORIZONTAL' : 'BOBOT_VERTIKAL';
-//		$nilaiAkhir += $value * doubleval($rsPeriode[$KK])/100;
-//	}
-//	
-//	//save
-//	if (nilaiAkhir_isExist($karyID, $periodeID, $dep_div_jabID)){	//update
-//		$ex &= nilaiAkhir_update($karyID, $periodeID, $dep_div_jabID, $nilaiAkhir);
-//	}
-//	else{	//insert
-//		$ex &= nilaiAkhir_add($karyID, $periodeID, $dep_div_jabID, $nilaiAkhir);
-//	}
+	/* save NILAI_PER_PENILAI */
+	$ex &= npp_update($nilaiPerPenilaiID, $nilaiPerPenilai);
+	
+	/**
+	 * save NILAI_AKHIR
+	 */
+	//select BOBOT_LEVEL -->> untuk lihat level penilaian
+	$bobotlv0 = bobotlv_select(false, $periodeID);
+	$bobotlvList = "";
+	while ($row = mysql_fetch_assoc($bobotlv0)){
+		$bobotlvList .= $bobotlvList==""? "" : ",";
+		$bobotlvList .= $row['ID_BOBOT_LEVEL'];
+	}
+	mysql_free_result($bobotlv0);
+		
+	//kode dinilai
+	$npp0 = mysql_fetch_assoc(npp_loadByID($nilaiPerPenilaiID));
+	$dinilaiID = $npp0['KODE_DINILAI'];
+	
+	$levelNPP = array('HZ'=>0, 'VC'=>0);
+	$nilaiAkhir = 0;
+	$rsNPP = npp_select("ID_BOBOT_LEVEL IN ($bobotlvList) AND KODE_DINILAI='$dinilaiID'");
+	//hitung per sub level (HZ1, HZ2 .... / VC1, VC2, ...)
+	while ($ll = mysql_fetch_assoc($rsNPP)){
+		//load bobot_level
+		$rsBobotLv = bobotlv_loadByID($ll['ID_BOBOT_LEVEL']);
+		$rsBobotLv = mysql_fetch_assoc($rsBobotLv);
+		
+		//vertikal / horizontal, hitung total sub level
+		$KK = preg_match('/HZ/i', $ll['ID_LEVEL'])? 'HZ' : 'VC';
+		$levelNPP[$KK] += doubleval($ll['NILAI']) * (doubleval($rsBobotLv['BOBOT'])/100);
+	}
+	mysql_free_result($rsNPP);
+	
+	//hitung per level
+	$rsPeriode = periode_load($periodeID);
+	$rsPeriode = mysql_fetch_assoc($rsPeriode);
+	foreach ($levelNPP as $key=>$value){
+		$KK = preg_match('/HZ/i', $key)? 'BOBOT_HORIZONTAL' : 'BOBOT_VERTIKAL';
+		$nilaiAkhir += $value * doubleval($rsPeriode[$KK])/100;
+	}
+	
+	//save
+	$ex &= nilaiAkhir_update($nilaiPerPenilaiID, false, false, false, $nilaiAkhir);
 	
 	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
 }

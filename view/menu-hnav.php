@@ -42,12 +42,12 @@
 	</ul>
 	</li>
 	<li><a href="dashboard.php?p=dataUser">Users Privillage</a></li>
-	<li><a href="lib/logout.php">Logout</a></li>
+	<li><a class="fake" onclick="location.replace('lib/logout.php')">Logout</a></li>
 </ul>
 <?php else: ?>
 <ul id="navmenu-h">
 	<li><a>Password Change</a></li>
 	<li><a href="dashboard.php?p=penilaian">Performance Appraisal</a></li>
-	<li><a href="lib/logout.php">Logout +</a></li>
+	<li><a class="fake" onclick="location.replace('lib/logout.php')">Logout +</a></li>
 </ul>
 <?php endif; ?>

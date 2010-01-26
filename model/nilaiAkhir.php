@@ -55,14 +55,32 @@ function nilaiAkhir_delete($id){
 	return mysql_query($sql);
 }
 
-function nilaiAkhir_update($karyID, $periodeID, $dep_div_jabID, $nilai){
+function nilaiAkhir_update($dinilaiID, $karyID=false, $dep_div_jab_ID=false, $periodeID=false, $nilaiAkhir=false){
 	$nilai = doubleval($nilai);
-	$sql = "UPDATE nilai_akhir
-			SET NILAI_AKHIR=$nilai 
-			WHERE KODE_KARYAWAN='$karyID' AND 
-			ID_PERIODE='$periodeID' AND 
-			ID_DEP_DIV_JAB='$dep_div_jabID'";
-	return mysql_query($sql);
+	
+	//set
+	$sql = "UPDATE nilai_akhir";
+	if ($karyID){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "KODE_KARYAWAN='$karyID'";
+	}
+	if ($dep_div_jab_ID){
+		$sqls .= $sqls==""? "" : ",";		
+		$sqls .= "ID_DEP_DIV_JAB='$dep_div_jabID'";
+	}
+	if ($periodeID){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "ID_PERIODE='$periodeID'";
+	}
+	if ($nilaiAkhir || is_numeric($nilaiAkhir)){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "NILAI_AKHIR=$nilaiAkhir"; 
+	}
+	$sqls .= $sqls .= $sqls==""? "" : " SET ".$sqls;
+	
+	//where
+	$sqlw = " WHERE KODE_DINILAI='$dinilaiID'"; 
+	return mysql_query($sql.$sqls.$sqlw);
 }
 
 function nilaiAkhir_count($periodeID, $departemenID=false, $threshold=false){
