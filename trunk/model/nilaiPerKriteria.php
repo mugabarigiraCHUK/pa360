@@ -64,6 +64,17 @@ function npkrt_exist($npkrtID=false, $nppID=false, $debotlvID=false){
 	return false;
 }
 
+function npkrt_select2($where=false, $orderBy=false){
+	$sql = "SELECT * FROM nilai_per_kriteria ";
+	if ($where){
+		$sql .= " WHERE ". $where;
+	}
+	if ($orderBy){
+		$sql .= " ORDER BY ". $orderBy;
+	}
+	return mysql_query($sql);
+}
+
 function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
 	$sql = "SELECT * FROM nilai_per_kriteria ";
 	$sqlw = "";
@@ -79,6 +90,6 @@ function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
 		$sqlw .= $sqlw===""? "" : " AND ";
 		$sqlw .= " ID_DETIL_BOBOT_LEVEL='$debotlvID' "; 
 	}
-	$sql .= " WHERE ". $sqlw;
-	return mysql_query($sql);
+	$sqlw = " WHERE ". $sqlw;
+	return mysql_query($sql.$sqlw);
 }

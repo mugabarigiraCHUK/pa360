@@ -3,7 +3,7 @@
 	<input type="hidden" value="<?=$karyID?>" name="karyID" />
 	<input type="hidden" value="<?=$periodeID?>" name="periodeID" />
 	<input type="hidden" value="<?=$departemenID?>" name="departemenID" />
-	<input type="hidden" value="<?=$dep_div_jabID?>" name="dep_div_jabID2" />
+	<input type="hidden" value="<?=dep_div_jabID?>" name="dep_div_jabID2" />
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
 	<tr>
 		<td width="100">Periode : </td>
@@ -25,7 +25,7 @@
 	</tr>
 	<tr>
 		<td>Jabatan : </td>
-		<td><select name="dep_div_jabID" onchange="updateJabatanCombo($(this).getParent('form')); search_updateTable($(this).getParent('form'));"></select>
+		<td><select name="dep_div_jabID" onchange="search_updateTable($(this).getParent('form'));"></select>
 		</td>
 	</tr>
 	<tr>

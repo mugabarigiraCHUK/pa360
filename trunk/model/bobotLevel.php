@@ -12,6 +12,7 @@ $_BOBOT_LEVEL_KEY = array(
 function bobotlv_select($id=false, $periodeID=false, $levelID=false){
 	$sql = "SELECT * FROM bobot_level";
 	if ($id){
+		$sqlw .= $sqlw==""? "" : " AND ";
 		$sqlw .= "ID_BOBOT_LEVEL=$id";
 	}
 	if ($periodeID){
@@ -22,8 +23,9 @@ function bobotlv_select($id=false, $periodeID=false, $levelID=false){
 		$sqlw .= $sqlw==""? "" : " AND ";
 		$sqlw .= "ID_LEVEL='$levelID'";
 	}
-	$sqlo = "ORDER BY ID_PERIODE ASC"; 
-	return mysql_query($sql ." WHERE $sqlw $sqlo");
+	$sqlw = " WHERE ".$sqlw;
+	$sqlo = " ORDER BY ID_PERIODE ASC"; 
+	return mysql_query($sql.$sqlw.$sqlo);
 }
 
 /**
