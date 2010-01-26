@@ -79,7 +79,7 @@ function npk_select($id=false, $dekripenID=false, $npkrtID=false, $nilai=false){
 	return mysql_query($sql.$sqlw);
 }
 
-function npk_select2($where, $orderBy){
+function npk_select2($where=false, $orderBy=false){
 	$sql = "SELECT * FROM nilai_per_kinerja ";
 	if ($where){
 		$sql .= " WHERE ". $where;

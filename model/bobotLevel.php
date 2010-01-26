@@ -24,7 +24,7 @@ function bobotlv_select($id=false, $periodeID=false, $levelID=false){
 		$sqlw .= "ID_LEVEL='$levelID'";
 	}
 	$sqlw = " WHERE ".$sqlw;
-	$sqlo = " ORDER BY ID_PERIODE ASC"; 
+	$sqlo = " ORDER BY ID_PERIODE, ID_LEVEL ASC"; 
 	return mysql_query($sql.$sqlw.$sqlo);
 }
 

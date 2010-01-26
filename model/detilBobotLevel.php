@@ -1,5 +1,4 @@
 <?php
-
 function debotlv_select($id=false, $bobotlvID=false, $periodeID=false, $levelID=false, $kripenID=false){
 	$sql="SELECT a.ID_DETIL_BOBOT_LEVEL,
 			a.ID_KRITERIA,

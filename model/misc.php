@@ -60,60 +60,75 @@ function laporan_global($periodeID, $departemenID=false){
 }
 
 function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
-	//cari kode dinilai
-	$NA = mysql_fetch_assoc( nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID) );	
-	
-	//load bobot level dengan perioded tertentu
+	$NA = mysql_fetch_assoc( nilaiAkhir_select(false, $karyID, $dep_div_jabID, $periodeID) );
+	$dinilaiID = $NA['KODE_DINILAI']; 
+			
 	$BOBOTLV = bobotlv_select(false, $periodeID);
-	$bobotlvList = "";
 	while ($row = mysql_fetch_assoc($BOBOTLV)){
-		$bobotlvList .= $bobotlvList==""? "" : ",";
-		$bobotlvList .= "\"".$row['ID_BOBOT_LEVEL']."\"";
-	}
-	mysql_free_result($BOBOTLV);
-	
-	//load nilai_per_penilai dengan KODE_DINILAI dan list PERIODE tertentu
-	$NPP = npp_select("ID_BOBOT_LEVEL IN ($bobotlvList) AND KODE_DINILAI='".$NA['KODE_DINILAI']."'");
-	$nppList = ""; 
-	while ($row = mysql_fetch_assoc($NPP)){
-		$nppList .= $nppList==""? "" : ",";
-		$nppList .= "\"".$row['ID_NILAI_PER_PENILAI']."\"";
-	}
-	mysql_free_result($NPP);
-	
-	//load nilai_per_kriteria dengan ID_NILAI_PER_PENILAI tertentu
-	$NPKRT = npkrt_select2("ID_NILAI_PER_PENILAI IN ($nppList)");
-	
-	$RESULT =array();
-	while ($row = mysql_fetch_assoc($NPKRT)){
-		//load detil_bobot_level
-		$DEBOTLV = mysql_fetch_assoc( debotlv_loadByID($row['ID_DETIL_BOBOT_LEVEL']) );
 		
-		//load bobot_level
-		$BOBOTLV = mysql_fetch_assoc( bobotlv_loadByID($DEBOTLV['ID_BOBOT_LEVEL']) );
+		//load nilai_per_penilai, untuk ambil ID_NILAI_PERPENILAI pada $row['ID_LEVEL']
+		$NPP = mysql_fetch_assoc( npp_select("KODE_DINILAI='$dinilaiID' AND ID_BOBOT_LEVEL='".$row['ID_BOBOT_LEVEL']."'") );
 		
-		//load kriteria_penilaian
-		$KRIPEN = mysql_fetch_assoc( kripen_load($DEBOTLV['ID_KRITERIA']) );
-		
-		//sampe sini semua data sudah siap
+		//load detail_bobot_level, untuk ambil nilai bobot dan kriteria pada $row['ID_LEVEL']
+		$DEBOTLV = debotlv_select(false, $row['ID_BOBOT_LEVEL']);
+
 		$TMP = array();
-		$TMP['NAMA_KRITERIA'] = $KRIPEN['NAMA_KRITERIA'];
-		$TMP['BOBOT_KRITERIA'] = $DEBOTLV['BOBOT'];
-		$TMP[$BOBOTLV['ID_LEVEL']] = $row['NILAI'];
-		$TMP['ID_NILAI_PER_KRITERIA'] = $row['ID_NILAI_PER_KRITERIA'];
-		$RESULT[$KRIPEN['ID_KRITERIA']] = $TMP;
+		while ($row2 = mysql_fetch_assoc($DEBOTLV)){
+			$TMP_KRIPEN = array();
+			
+			//append bobot
+			$TMP_KRIPEN['BOBOT'] = $row2['BOBOT'];
+			
+			//load kriteria, untuk level $row['ID_LEVEL'] ambil nama kriteria
+			$KRIPEN = mysql_fetch_assoc( kripen_load($row2['ID_KRITERIA']) );
+			
+			//append kripen data
+			$TMP_KRIPEN['ID_KRITERIA'] = $KRIPEN['ID_KRITERIA'];
+			$TMP_KRIPEN['NAMA_KRITERIA'] = $KRIPEN['NAMA_KRITERIA'];
+			$TMP_KRIPEN['DESKRIPSI'] = $KRIPEN['DESKRIPSI'];
+			
+			//load nilai_per_kriteria
+			$NPKRT = mysql_fetch_assoc( npkrt_select(false, $NPP['ID_NILAI_PER_PENILAI'], $row2['ID_DETIL_BOBOT_LEVEL']) );
+
+			//append nilai
+			$TMP_KRIPEN['NILAI'] = $NPKRT['NILAI'];
+			
+			//append detail_kriteria
+			$TMP_KRIPEN['DEKRIPEN'] = laporan_detail_dekripen($KRIPEN['ID_KRITERIA'], $NPKRT['ID_NILAI_PER_KRITERIA']); 
+			
+			$TMP[$KRIPEN['ID_KRITERIA']] = $TMP_KRIPEN;
+		}
+		
+		$RESULT[$row['ID_LEVEL']]['KRITERIA'] = $TMP;
+		$RESULT[$row['ID_LEVEL']]['NILAI_LEVEL'] = $NPP['NILAI'];
+		$RESULT[$row['ID_LEVEL']]['BOBOT_LEVEL'] = $row['BOBOT'];
 	}
-	mysql_free_result($NPKRT);
 	
 	return $RESULT;
 }
 
-function laporan_detail_dekripen($npkrtID){
-	$RESULT=array();
+function laporan_detail_dekripen($kripenID, $npkrtID){
+//	if (!$kripenID || $kripenID=="") return array();
+
+	//--- BUG --- 
+	//$npkrtID="" ==> dibaca false
+	if (!$npkrtID || $npkrtID=="") $npkrtID='-';
 	
-	$NPK = npk_select2("ID_NILAI_PER_KRITERIA=$npkrtID");
-	while ($row = mysql_fetch_assoc($NPK) ){
+	$RESULT=array();
+	$dekripen = dekripen_select($kripenID);
+	while($row = mysql_fetch_assoc($dekripen)){
+		$TMP = array();
+		$TMP['NAMA_DETAIL_KRITERIA'] = $row['NAMA_DETAIL_KRITERIA'];
+		$TMP['DESKRIPSI'] = $row['DESKRIPSI'];
+		$TMP['BOBOT'] = $row['BOBOT'];
 		
+		//load nilai
+		$NPK = mysql_fetch_assoc( npk_select(false, $row['ID_DETAIL_KRITERIA'], $npkrtID) );
+		$TMP['NILAI'] = $NPK['NILAI'];
+
+		//append result
+		$RESULT[] = $TMP;
 	}
+	
 	return $RESULT;
 }
