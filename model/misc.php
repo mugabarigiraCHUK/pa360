@@ -41,6 +41,7 @@ function laporan_global($periodeID, $departemenID=false){
 			$BOBOTLV = mysql_fetch_assoc( bobotlv_select($list['ID_BOBOT_LEVEL']) );
 			$nppList[$BOBOTLV['ID_LEVEL']] = $list['NILAI'];
 		}
+		
 		//check departement
 		if ($DEPDIVJAB['ID_DEPARTMENT']==$departemenID || !$departemenID){
 			$TMP = array();
@@ -50,7 +51,7 @@ function laporan_global($periodeID, $departemenID=false){
 			$TMP['NAMA_KARYAWAN'] = $KARY['NAMA_KARYAWAN'];
 			$TMP['JABATAN'] = $DEPDIVJAB;
 			$TMP['ID_NILAI_PER_PENILAI'] = $row['ID_NILAI_PER_PENILAI'];
-			$TMP['ID_NILAI_PER_PENILAI'] = $nppList['ID_NILAI_PER_PENILAI'];
+			$TMP['LEVEL'] = $nppList;
 			//append result
 			$RESULT[$key] = $TMP;
 		}
@@ -88,7 +89,10 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 			$TMP_KRIPEN['DESKRIPSI'] = $KRIPEN['DESKRIPSI'];
 			
 			//load nilai_per_kriteria
-			$NPKRT = mysql_fetch_assoc( npkrt_select(false, $NPP['ID_NILAI_PER_PENILAI'], $row2['ID_DETIL_BOBOT_LEVEL']) );
+			//-- BUG --
+			$NPKRT = mysql_fetch_assoc( npkrt_select(false, 
+													!$NPP['ID_NILAI_PER_PENILAI']? "-" : $NPP['ID_NILAI_PER_PENILAI'], 
+													!$row2['ID_DETIL_BOBOT_LEVEL']? "-" : $row2['ID_DETIL_BOBOT_LEVEL']) );
 
 			//append nilai
 			$TMP_KRIPEN['NILAI'] = $NPKRT['NILAI'];

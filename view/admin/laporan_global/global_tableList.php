@@ -25,12 +25,12 @@
 <?php foreach($data as $dd):?>
 <tr <?=tag_zebra($z++)?> style="cursor:pointer" onclick="show_detil($('tr-<?=$z?>'))">
 	<td nowrap="nowrap"><?=$dd['NAMA_KARYAWAN']?></td>
-	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>
+	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>,
 	<!-- <td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DEPARTMENT']?></td> -->
 	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DIVISI']?></td>
 	<td nowrap="nowrap" align="right"><?=$dd['NILAI_AKHIR']?></td>
 	<?php foreach($KEY as $key=>$value):?>
-	<td align="right" nowrap="nowrap"><?=isset($dd['NILAI_PER_PENILAI'][$key])? $dd['NILAI_PER_PENILAI'][$key] : 0?></td>
+	<td align="right" nowrap="nowrap"><?=isset($dd['LEVEL'][$key])? $dd['LEVEL'][$key] : 0?></td>
 	<?php endforeach; ?>
 	<td align="right">
 		<form id="tr-<?=$z?>">
