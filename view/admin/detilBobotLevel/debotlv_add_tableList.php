@@ -1,5 +1,5 @@
 <?php 
-$debotlv = debotlv_select(false, $periodeID, $levelID); 
+$debotlv = debotlv_select(false, false, $periodeID, $levelID); 
 $selected = array();
 while ($row = mysql_fetch_assoc($debotlv)){
 	$selected[$row['ID_KRITERIA']] = TRUE;
