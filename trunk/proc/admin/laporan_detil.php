@@ -38,5 +38,6 @@ if ($proc==='search-table'){
 	$periodeID=$_POST['periodeID'];
 	$departemenID=$_POST['departemenID'];
 	$dep_div_jabID=$_POST['dep_div_jabID'];
+	if ($karyID=="" || !$karyID) return;
 	include '../../view/admin/laporan_detil/detil_tableList.php';
 }

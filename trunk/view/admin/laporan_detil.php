@@ -50,7 +50,7 @@ function updateJabatanCombo(form){
 
 function updateJabataLabels(opt){
 	$('departemenLabel').set('html', opt.getProperty('departemen'));
-	//$(document.frmSearch).departemenID.value=opt.getProperty('departemenID');
+	$(document.frmSearch).departemenID.value=opt.getProperty('departemenID');
 	$('divisiLabel').set('html', opt.getProperty('divisi'));
 }
 
