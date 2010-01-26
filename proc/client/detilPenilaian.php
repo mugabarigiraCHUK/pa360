@@ -114,11 +114,9 @@ if ($proc === 'detilPenilaian-save'){
 		
 		//vertikal / horizontal, hitung total sub level
 		$KK = preg_match('/HZ/i', $rsBobotLv['ID_LEVEL'])? 'HZ' : 'VC';
-		echo $rsBobotLv['ID_LEVEL'].':'.$KK.'-';
 		$levelNPP[$KK] += doubleval($ll['NILAI']) * (doubleval($rsBobotLv['BOBOT'])/100);
 	}
 	mysql_free_result($rsNPP);
-	print_r($levelNPP);
 	
 	//hitung per level
 	$rsPeriode = periode_load($periodeID);
