@@ -26,9 +26,9 @@ function inject_head(){?>
 					"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
 					"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+msg+"</div>", 
 					true, true, 1500);
-//				setTimeout("location.replace(\"./dashboard.php?p=penilaian"+
-//						  "&periodeID="+form.periodeID.value+
-//						  "&dep_div_jabID="+form.dep_div_jabID.value+"\")",1500);
+				setTimeout("location.replace(\"./dashboard.php?p=penilaian"+
+						  "&periodeID="+form.periodeID.value+
+						  "&dep_div_jabID="+form.dep_div_jabID.value+"\")",1500);
 			}
 		}).send();
 	}

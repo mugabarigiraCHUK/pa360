@@ -50,7 +50,7 @@ function debotlv_sumBobot($periodeID, $levelID, $excludeDebotlvID=false){
 			bobot_level as c
 		WHERE a.ID_KRITERIA=b.ID_KRITERIA AND a.ID_BOBOT_LEVEL=c.ID_BOBOT_LEVEL 
 			AND c.ID_PERIODE='$periodeID'
-			AND c.ID_PERIODE='$periodeID'";
+			AND c.ID_LEVEL='$levelID'";
 	
 	if ($excludeDebotlvID){
 		$sql .= " AND a.ID_DETIL_BOBOT_LEVEL!='$excludeDebotlvID'";
