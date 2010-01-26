@@ -98,3 +98,4 @@ input.fake { background-color:#FFFFFF; border:1px solid #3366CC; color:#000; pad
 input.dtpick {width:150px; cursor:pointer;}
 
 img.link {cursor: pointer;}
+.hide{ display: none;}

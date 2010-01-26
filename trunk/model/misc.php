@@ -2,49 +2,58 @@
 function laporan_global($periodeID, $departemenID=false){
 	//bikin key
 	$KEY = array();
-	$BBTLV = bobotlv_select($periodeID);
+	$BBTLV = bobotlv_select(false, $periodeID);
 	while ($row=mysql_fetch_assoc($BBTLV)){
 		$KEY[$row['ID_LEVEL']] =0;
 	}
 	mysql_free_result($BBTLV);
 	
+	//load bobot level dengan perioded tertentu
+	$BOBOTLV = bobotlv_select(false, $periodeID);
+	$bobotlvList = "";
+	while ($row = mysql_fetch_assoc($BOBOTLV)){
+		$bobotlvList .= $bobotlvList==""? "" : ",";
+		$bobotlvList .= "\"".$row['ID_BOBOT_LEVEL']."\"";
+	}
+	
 	//cari datanya
 	$RESULT = array();
-	$NPP = npp_select("ID_PERIODE='$periodeID'", "KODE_KARYAWAN ASC");
+	$NPP = npp_select("ID_BOBOT_LEVEL IN ($bobotlvList)");
+	$RESULT = array();
 	while ($row = mysql_fetch_assoc($NPP)){
-		//load karyawan
-		//cari karyawan dengan kode dan id_dep_div_jab, jika sudah ada lanjut
-		if (! array_key_exists($row['KODE_KARYAWAN'].'-'.$row['ID_DEP_DIV_JAB'], $RESULT)){
-			$KARY = kary_load($row['KODE_KARYAWAN']);
-			$KARY = mysql_fetch_assoc($KARY);
-			$tmp['KODE_KARYAWAN'] = $KARY['KODE_KARYAWAN'];
-			$tmp['NAMA_KARYAWAN'] = $KARY['NAMA_KARYAWAN'];
-			
-			//jabatan
-			$JBT = RELASIJABATAN_load($row['KODE_KARYAWAN'], $row['ID_DEP_DIV_JAB']);
-			$JBT = mysql_fetch_assoc($JBT); 
-			//do filter
-			if ($departemenID && $JBT['ID_DEPARTMENT'] !== $departemenID) continue;
-			$tmp['ID_DEP_DIV_JAB'] = $JBT['ID_DEP_DIV_JAB'];
-			$tmp['NAMA_JABATAN'] = $JBT['NAMA_JABATAN'];
-			$tmp['NAMA_DIVISI'] = $JBT['NAMA_DIVISI'];
-			$tmp['NAMA_DEPARTMENT'] = $JBT['NAMA_DEPARTMENT'];
-			
-			//nilai per penilai
-			foreach ($KEY as $key=>$value){
-				$tmp[$key] = $value;
-			}
-			
-			//nilai akhir 
-			$NA = nilaiAkhir_load($row['KODE_KARYAWAN'], $row['ID_PERIODE'], $row['ID_DEP_DIV_JAB']);
-			$NA = mysql_fetch_assoc($NA); 
-			$tmp['NILAI_AKHIR'] = $NA['NILAI_AKHIR']==NULL? 0 : $NA['NILAI_AKHIR'];
-			
-			//append ke result 
-			$RESULT[$row['KODE_KARYAWAN'].'-'.$row['ID_DEP_DIV_JAB']] = $tmp;
-		}
+		//load table nilai_akhir
+		$NA = mysql_fetch_assoc( nilaiAkhir_loadByID($row['KODE_DINILAI']) );
 		
-		$RESULT[$row['KODE_KARYAWAN'].'-'.$row['ID_DEP_DIV_JAB']][$row['ID_LEVEL']] = $row['NILAI'];
+		//cek in array. given key
+		$key = $row['KODE_DINILAI'] ."-". $NA['ID_DEP_DIV_JAB'];
+		if (array_key_exists($key, $RESULT)) continue;
+		
+		//load table data_karyawan
+		$KARY = mysql_fetch_assoc( kary_load($NA['KODE_KARYAWAN']) );
+		
+		//load table dep_div_jab
+		$DEPDIVJAB = mysql_fetch_assoc( RELASIJABATAN_load($NA['KODE_KARYAWAN'], $NA['ID_DEP_DIV_JAB']) );
+	
+		//load table nilai_per_penilai with given KODE_DINILAI
+		$NPP2 = npp_select("ID_BOBOT_LEVEL IN ($bobotlvList) AND KODE_DINILAI='".$row['KODE_DINILAI']."'");
+		$nppList = array();
+		while ($list = mysql_fetch_assoc($NPP2)){
+			$BOBOTLV = mysql_fetch_assoc( bobotlv_select($list['ID_BOBOT_LEVEL']) );
+			$nppList[$BOBOTLV['ID_LEVEL']] = $list['NILAI'];
+		}
+		//check departement
+		if ($DEPDIVJAB['ID_DEPARTMENT']==$departemenID || !$departemenID){
+			$TMP = array();
+			$TMP = $NA;
+			$TMP['KODE_DINILAI'] = $row['KODE_DINILAI'];
+			$TMP['KODE_KARYAWAN'] = $NA['KODE_KARYAWAN'];
+			$TMP['NAMA_KARYAWAN'] = $KARY['NAMA_KARYAWAN'];
+			$TMP['JABATAN'] = $DEPDIVJAB;
+			$TMP['ID_NILAI_PER_PENILAI'] = $row['ID_NILAI_PER_PENILAI'];
+			$TMP['NILAI_PER_PENILAI'] = $nppList;
+			//append result
+			$RESULT[$key] = $TMP;
+		}
 	}
 	mysql_free_result($NPP);
 	return $RESULT;
