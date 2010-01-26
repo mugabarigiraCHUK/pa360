@@ -109,18 +109,43 @@ function periode_updateComplete($periodeID, $pAwal, $pAkhir, $bobotV, $bobotH, $
 	 * save BOBOT_LELVEL untuk level horizontal dan vertical
 	 * sebanyak $lvlH dan $lvlV
 	 */
-	//delete all horizontal and vertical
-	bobotlv_deleteWhere("ID_PERIODE='$periodeID'");
-	
 	//save horizontal
 	for ($i=0; $i<$lvlH; $i++){
-		if (! bobotlv_add($periodeID, "HZ".($i+1), 'Horizontal '.($i+1), 
+		if (bobotlv_isExist($periodeID, "HZ".($i+1))){
+			$tt = bobotlv_select(false, $periodeID, "HZ".($i+1));
+			$tt = mysql_fetch_assoc($tt);
+			if (! bobotlv_update($tt['ID_BOBOT_LEVEL'], $periodeID, "HZ".($i+1), 'Horizontal '.($i+1), 
 							'', intval(100/$lvlH))){ return false; }
+		}
+		else {
+			if (! bobotlv_add($periodeID, "HZ".($i+1), 'Horizontal '.($i+1), 
+							'', intval(100/$lvlH))){ return false; }
+		}
 	}
+	$count = bobotlv_count($periodeID, "HZ");
+	//delete kelebihan horizontal
+	for ($i=0; $i<$count-$lvlH; $i++){
+		bobotlv_deleteWhere("ID_PERIODE='$periodeID' AND ID_LEVEL='"."HZ".($lvlH+$i+1)."'");
+	}
+	
 	//save vertical
+	$count = bobotlv_count($periodeID, "VC");
 	for ($i=0; $i<$lvlV; $i++){
-		if (! bobotlv_add($periodeID, "VC".($i+1), 'Vertical '.($i+1), 
+		if (bobotlv_isExist($periodeID, "VC".($i+1))){
+			$tt = bobotlv_select(false, $periodeID, "VC".($i+1));
+			$tt = mysql_fetch_assoc($tt);
+			if (! bobotlv_update($tt['ID_BOBOT_LEVEL'], $periodeID, "VC".($i+1), 'Vertical '.($i+1), 
 							'', intval(100/$lvlV))){ return false; }
+		}
+		else {
+			if (! bobotlv_add($periodeID, "VC".($i+1), 'Vertical '.($i+1), 
+						'', intval(100/$lvlV))){ return false; }
+		}
+	}
+	$count = bobotlv_count($periodeID, "VC");
+	//delete kelebihan vertical
+	for ($i=0; $i<$count-$lvlV; $i++){
+		bobotlv_deleteWhere("ID_PERIODE='$periodeID' AND ID_LEVEL='"."VC".($lvlV+$i+1)."'");
 	}
 	
 	//from here, all saving complete

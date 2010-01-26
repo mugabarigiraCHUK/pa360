@@ -76,7 +76,7 @@ function nilaiAkhir_update($dinilaiID, $karyID=false, $dep_div_jab_ID=false, $pe
 		$sqls .= $sqls==""? "" : ",";
 		$sqls .= "NILAI_AKHIR=$nilaiAkhir"; 
 	}
-	$sqls .= $sqls .= $sqls==""? "" : " SET ".$sqls;
+	$sqls = $sqls==""? "" : " SET ".$sqls;
 	
 	//where
 	$sqlw = " WHERE KODE_DINILAI='$dinilaiID'"; 
