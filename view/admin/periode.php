@@ -108,7 +108,7 @@ function inject_head(){?>
 		FBModal_loading("Save", "Please wait...", true, false);
 		$(form).set('send', {
 			onSuccess: function(response) { 
-//				alert(response);
+				alert(response);
 				var js = JSON.decode(response);
 				var msg = js.error? js.msg : "Process simpan selesai !!!";
 				var title = js.error? 'Error' : 'Saving';

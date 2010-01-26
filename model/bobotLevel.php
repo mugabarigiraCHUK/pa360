@@ -50,6 +50,14 @@ function bobotlv_isExistID($bobotLvID){
 	return false;
 }
 
+function bobotlv_isExist($periodeID, $levelID){
+	$sql = bobotlv_select(false, $periodeID, $levelID);
+	while ($row = mysql_fetch_assoc($sql)){
+		return true;
+	}
+	return false;
+}
+
 function bobotlv_count($periodeID, $level){
 	$sql = "select count(ID_PERIODE) as JML 
 			FROM bobot_level
@@ -84,7 +92,7 @@ function bobotlv_add($periodeID, $levelID, $levelName, $desc, $bobot){
 	return mysql_query($sql);
 }
 
-function bobotlv_update($id, $periodeID, $levelID, $desc, $bobot){
+function bobotlv_update($id, $periodeID, $levelID, $levelName, $desc, $bobot){
 	$sql = "UPDATE bobot_level SET
 				DESKRIPSI='$desc',
 				BOBOT='$bobot'
