@@ -1,6 +1,6 @@
 <?php
 	$KEY = array();
-	$BBTLV = bobotlv_select($periodeID);
+	$BBTLV = bobotlv_select(false, $periodeID);
 	$ROW_APPENDED = 0;
 	while ($row=mysql_fetch_assoc($BBTLV)){
 		$KEY[$row['ID_LEVEL']] = $row['ID_LEVEL'].' ('.$row['BOBOT'].'%)';
@@ -8,16 +8,16 @@
 	}
 	mysql_free_result($BBTLV);
 ?>
-<table width="1000" border="0" cellpadding="5" cellspacing="0" style="position:relative" class="list">
+<table width="1000" border="0" cellpadding="5" cellspacing="0" style="position:relative" class="list table-container">
 <tr class="header">
 	<th align="left" nowrap="nowrap"><h3><span class="colorWhite">Nama Karyawan</span></h3></th>
 	<th align="left" nowrap="nowrap"><h3><span class="colorWhite">Jabatan</span></h3></th> 
-	<th align="left" nowrap="nowrap"><h3><span class="colorWhite">Departemen</span></h3></th>
+	<!-- <th align="left" nowrap="nowrap"><h3><span class="colorWhite">Departemen</span></h3></th>  -->
 	<th align="left" nowrap="nowrap"><h3><span class="colorWhite">Divisi</span></h3></th>
+	<th nowrap="nowrap" align="right"><h3><span class="colorWhite">Nilai Akhir</span></h3></th>
 	<?php foreach ($KEY as $key=>$value) : ?>
 	<th width="50" align="right"><h3><span class="colorWhite"><?=$value?></span></h3></th>
 	<?php endforeach; ?>
-	<th nowrap="nowrap" align="right"><h3><span class="colorWhite">Nilai Akhir</span></h3></th>
 	<th nowrap="nowrap"></th>
 </tr>
 <tbody>
@@ -25,19 +25,16 @@
 <?php foreach($data as $dd):?>
 <tr <?=tag_zebra($z++)?> style="cursor:pointer" onclick="show_detil($('tr-<?=$z?>'))">
 	<td nowrap="nowrap"><?=$dd['NAMA_KARYAWAN']?></td>
-	<td nowrap="nowrap"><?=$dd['NAMA_JABATAN']?></td>
-	<td nowrap="nowrap"><?=$dd['NAMA_DEPARTMENT']?></td>
-	<td nowrap="nowrap"><?=$dd['NAMA_DIVISI']?></td>
-	<?php foreach($KEY as $key=>$value):?>
-	<td align="right" nowrap="nowrap"><?=$dd[$key]?></td>
-	<?php endforeach; ?>
+	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>
+	<!-- <td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DEPARTMENT']?></td> -->
+	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DIVISI']?></td>
 	<td nowrap="nowrap" align="right"><?=$dd['NILAI_AKHIR']?></td>
+	<?php foreach($KEY as $key=>$value):?>
+	<td align="right" nowrap="nowrap"><?=isset($dd['NILAI_PER_PENILAI'][$key])? $dd['NILAI_PER_PENILAI'][$key] : 0?></td>
+	<?php endforeach; ?>
 	<td align="right">
 		<form id="tr-<?=$z?>">
-			<input name="karyID" type="hidden" value="<?=$dd['KODE_KARYAWAN']?>" />
-			<input name="periodeID" type="hidden" value="<?=$periodeID?>" />
-			<input name="departemenID" type="hidden" value="<?=$departemenID?>" />
-			<input name="dep_div_jabID" type="hidden" value="<?=$dd['ID_DEP_DIV_JAB']?>" />
+			<input name="nppID" type="hidden" value="<?=$dd['ID_NILAI_PER_PENILAI']?>" />
 			<a onClick="show_detil($(this).getParent('form'))">detil</a>
 		</form>
 	</td>

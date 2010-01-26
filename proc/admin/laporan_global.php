@@ -23,6 +23,6 @@ if ($proc === 'search-table'){
 if ($proc === 'departemen-avg'){
 	$periodeID = $_POST['periodeID'];
 	$departemenID = $_POST['departemenID'];
-	$departemenID = $departemenID==='false' || $departemenID===''? false : $departemenID;
+	$departemenID = $departemenID=="false" || $departemenID==""? false : $departemenID;
 	echo nilaiAkhir_avg($periodeID, $departemenID);
 }
