@@ -71,7 +71,14 @@ if ($proc === 'graph'){
 	// Draw the cubic curve graph  
 	$Test->drawLineGraph($DataSet->GetData(),$DataSet->GetDataDescription());  
 	$Test->drawPlotGraph($DataSet->GetData(),$DataSet->GetDataDescription(),3,2,255,255,255);
-	 
+
+	//label
+	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
+	foreach($AVG as $key=>$val){
+		if ($val=="") continue;
+		$Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$LABEL[$key],number_format($val, 3),221,230,174);
+	}  
+	
 	// Finish the graph  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
 	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     

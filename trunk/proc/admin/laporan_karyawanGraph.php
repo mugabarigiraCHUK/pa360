@@ -93,7 +93,14 @@ if ($proc === 'graph'){
 	//$Test->drawFilledLineGraph($DataSet->GetData(),$DataSet->GetDataDescription(),25,TRUE);  
 	$Test->drawLineGraph($DataSet->GetData(),$DataSet->GetDataDescription());  
 	$Test->drawPlotGraph($DataSet->GetData(),$DataSet->GetDataDescription(),3,2,255,255,255);
-	 
+
+	//label
+	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
+	foreach($KARY as $key=>$val){
+		if ($val=="") continue;
+		$Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"karyawan",$LABEL[$key],number_format($val, 3),221,230,174);
+	}  
+	
 	// Finish the graph  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
 	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     
