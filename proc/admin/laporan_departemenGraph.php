@@ -64,6 +64,15 @@ if ($proc === 'graph'){
 	$Test->drawLineGraph($DataSet->GetData(),$DataSet->GetDataDescription());  
 	$Test->drawPlotGraph($DataSet->GetData(),$DataSet->GetDataDescription(),3,2,255,255,255);
 	 
+	//label
+	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
+	foreach($LABEL as $key=>$val){
+		if ($val=="" || !$val) continue;
+		if ($AVG[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$val,number_format($AVG[$key], 2),221,230,174);
+//		if ($MAX[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"max",$val,number_format($MAX[$key], 2),221,230,174);
+	}  
+	
+	
 	// Finish the graph  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
 	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     
