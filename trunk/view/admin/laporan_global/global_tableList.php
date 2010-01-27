@@ -25,7 +25,7 @@
 <?php foreach($data as $dd):?>
 <tr <?=tag_zebra($z++)?> style="cursor:pointer" onclick="show_detil($('tr-<?=$z?>'))">
 	<td nowrap="nowrap"><?=$dd['NAMA_KARYAWAN']?></td>
-	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>,
+	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>
 	<!-- <td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DEPARTMENT']?></td> -->
 	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DIVISI']?></td>
 	<td nowrap="nowrap" align="right"><?=$dd['NILAI_AKHIR']?></td>
