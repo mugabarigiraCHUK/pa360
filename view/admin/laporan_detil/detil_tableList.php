@@ -18,7 +18,8 @@
 <?php foreach($LDK as $key=>$value):?>
 <tbody>
 	<tr <?=tag_zebra($z)?> class="fake" onclick="">
-		<td><img src="image/collapse.gif" style="padding-right:10px" /><h3 style="display: inline;"><?=$key?></h3></td>
+		<?php $bb = mysql_fetch_assoc( bobotlv_load($periodeID, $key) );?>
+		<td><img src="image/collapse.gif" style="padding-right:10px" /><h3 style="display: inline;"><?=$bb['NAMA_LEVEL']?></h3></td>
 		<td width="25" align="right"><?=$value['BOBOT_LEVEL']?>%</td>
 		<td width="25" align="right"><?=!$value['NILAI_LEVEL'] || $value['NILAI_LEVEL']==""? "0" : $value['NILAI_LEVEL']?></td>
 		

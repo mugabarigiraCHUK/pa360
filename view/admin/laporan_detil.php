@@ -76,17 +76,18 @@ window.addEvent('domready', function(){
 include_once 'lib/config.php';
 include_once 'lib/db.php';
 include_once 'lib/utils/tag.php';
-include 'model/periode.php';
-include 'model/departemen.php';
-include 'model/bobotLevel.php';
-include 'model/nilaiAkhir.php';
-include 'model/nilaiPerPenilai.php';
-include 'model/karyawan.php';
-include 'model/misc.php';
-include 'model/kriteriaPenilaian.php';
-include 'model/nilaiPerKinerja.php';
-include 'model/nilaiPerKriteria.php';
-include 'model/detilKriteriaPenilaian.php';
+include_once 'model/periode.php';
+include_once 'model/departemen.php';
+include_once 'model/bobotLevel.php';
+include_once 'model/detilBobotLevel.php';
+include_once 'model/nilaiAkhir.php';
+include_once 'model/nilaiPerPenilai.php';
+include_once 'model/karyawan.php';
+include_once 'model/misc.php';
+include_once 'model/kriteriaPenilaian.php';
+include_once 'model/nilaiPerKinerja.php';
+include_once 'model/nilaiPerKriteria.php';
+include_once 'model/detilKriteriaPenilaian.php';
 	
 $sub = $_REQUEST['sub'];
 if ($sub==='printable'){
