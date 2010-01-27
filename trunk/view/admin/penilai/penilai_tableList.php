@@ -41,7 +41,7 @@ WHERE
 	AND a.KODE_KARYAWAN!='$karyID'
     AND a.KODE_KARYAWAN NOT IN (
         SELECT b.KODE_KARYAWAN
-        FROM pa360ino.nilai_per_penilai as a, pa360ino.nilai_akhir as b
+        FROM nilai_per_penilai as a, nilai_akhir as b
         WHERE a.KODE_DINILAI=b.KODE_DINILAI 
             AND a.ID_BOBOT_LEVEL='$bobotlvID'
             AND a.KODE_PENILAI!='$penilaiID'

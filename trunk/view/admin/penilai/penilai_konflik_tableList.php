@@ -26,11 +26,11 @@ $sql =
 "SELECT a.KODE_KARYAWAN, a.NAMA_KARYAWAN, b.ID_DEP_DIV_JAB, d.ID_DEPARTMENT, d.NAMA_DEPARTMENT, e.ID_JABATAN,
     e.NAMA_JABATAN, f.ID_DIVISI, f.NAMA_DIVISI
 FROM pa360ino.data_karyawan as a, 
-    pa360ino.relasi_div_jab_din as b,
-    pa360ino.dep_divisi_jabatan as c,
-    pa360ino.data_department as d,
-    pa360ino.data_jabatan as e,
-    pa360ino.data_divisi as f
+    relasi_div_jab_din as b,
+    dep_divisi_jabatan as c,
+    data_department as d,
+    data_jabatan as e,
+    data_divisi as f
 WHERE 
     a.KODE_KARYAWAN=b.KODE_KARYAWAN
     AND b.ID_DEP_DIV_JAB=c.ID_DEP_DIV_JAB
@@ -41,7 +41,7 @@ WHERE
 	AND a.KODE_KARYAWAN!='$karyID'
     AND a.KODE_KARYAWAN IN (
         SELECT b.KODE_KARYAWAN
-        FROM pa360ino.nilai_per_penilai as a, pa360ino.nilai_akhir as b
+        FROM nilai_per_penilai as a, nilai_akhir as b
         WHERE a.KODE_DINILAI=b.KODE_DINILAI 
             AND a.ID_BOBOT_LEVEL='$bobotlvID'
             AND a.KODE_PENILAI!='$penilaiID'
