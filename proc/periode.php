@@ -53,7 +53,7 @@ if ($proc === 'periode-save'){
 	
 	$ex = periode_addComplete($id, $periodeAwal, $periodeAkhir, $bobotV, $bobotH, $lvV, 
 						$lvH, $batasAwal, $batasAkhir);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'periode-edit'){
@@ -69,11 +69,11 @@ if ($proc === 'periode-edit'){
 	
 	$ex = periode_updateComplete($id, $periodeAwal,	$periodeAkhir, $bobotV, $bobotH, $lvV, $lvH,
 					$batasAwal, $batasAkhir);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'periode-delete'){
 	$id = $_POST['periodeID'];
 	$ex = periode_delete_complete($id);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

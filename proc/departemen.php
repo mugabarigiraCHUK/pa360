@@ -44,7 +44,7 @@ if ($proc === 'departemen-save'){
 	}
 	
 	$ex = departemen_add($dep_id, $depNama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'departemen-update'){
@@ -52,11 +52,11 @@ if ($proc === 'departemen-update'){
 	$depNama = $_POST['depNama'];
 		
 	$ex = departemen_update($dep_id, $depNama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'departemen-delete'){
 	$dep_id = $_POST['dep_id'];
 	$ex = departemen_delete($dep_id);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

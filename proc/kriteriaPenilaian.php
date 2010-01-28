@@ -47,7 +47,7 @@ if ($proc == 'kripen-save'){
 	
 	//automatic generate ID
 	$ex = kripen_add($kripenID, $nama, $desc);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'kripen-update'){
@@ -61,11 +61,11 @@ if ($proc === 'kripen-update'){
 	}
 	
 	$ex = kripen_update($kripenID, $nama, $desc);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'kripen-delete'){
 	$kripenID = $_POST['kripenID'];
 	$ex = kripen_delete($kripenID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

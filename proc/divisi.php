@@ -45,7 +45,7 @@ if ($proc === 'divisi-save'){
 	}
 	
 	$ex = divisi_add($divID, $divNama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'divisi-update'){
@@ -53,11 +53,11 @@ if ($proc === 'divisi-update'){
 	$divNama = $_POST['divNama'];
 	
 	$ex = divisi_update($divID, $divNama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'divisi-delete'){
 	$divID = $_POST['divID'];
 	$ex = divisi_delete($divID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

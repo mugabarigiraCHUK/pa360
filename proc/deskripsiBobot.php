@@ -65,7 +65,7 @@ if ($proc == 'debot-save'){
 	}
 	
 	$ex = debot_add($nilai, $dekripenID, $desc);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'debot-update'){
@@ -78,12 +78,12 @@ if ($proc === 'debot-update'){
 	$nilai = $nilai>100? 100 : $nilai;
 	
 	$ex = debot_update($nilai, $dekripenID, $desc);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'debot-delete'){
 	$dekripenID = $_POST['dekripenID'];
 	$nilai = $_POST['nilai'];
 	$ex = debot_delete($nilai, $dekripenID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
