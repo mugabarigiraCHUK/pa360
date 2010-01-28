@@ -30,9 +30,9 @@ if ($proc === 'graph'){
 	while ($loop = mysql_fetch_assoc($LOOP)){
 		if ($periodeStart === $loop['ID_PERIODE']) $doLoop = true;
 		if ($doLoop){
-			$AVG[] = nilaiAkhir_avg($loop['ID_PERIODE']);
-			$MAX[] = nilaiAkhir_max($loop['ID_PERIODE']);
-			$MIN[] = nilaiAkhir_min($loop['ID_PERIODE']);
+			$AVG[] = number_format(nilaiAkhir_avg($loop['ID_PERIODE']), 2);
+			$MAX[] = number_format(nilaiAkhir_max($loop['ID_PERIODE']), 2);
+			$MIN[] = number_format(nilaiAkhir_min($loop['ID_PERIODE']), 2);
 			$LABEL[] = date('F', strtotime($loop['PERIODE_AWAL'])) .'-'. date('F Y', strtotime($loop['PERIODE_AKHIR']));
 		}
 		if ($periodeEnd === $loop['ID_PERIODE']) $doLoop = false;
@@ -61,9 +61,9 @@ if ($proc === 'graph'){
 	$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
 	$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
 	$Test->drawGraphArea(255,255,255,TRUE);  
-	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_NORMAL,150,150,150,TRUE,0,2);     
+	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_ADDALL,150,150,150,TRUE,0,2);     
 	$Test->drawGrid(4,TRUE,230,230,230,50);  
-	 
+
 	// Draw the 0 line  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",6);  
 	$Test->drawTreshold(1,143,55,72,TRUE,TRUE);  
@@ -74,9 +74,12 @@ if ($proc === 'graph'){
 
 	//label
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	foreach($AVG as $key=>$val){
+//	$Test->writeValues($DataSet->GetData(),$DataSet->GetDataDescription(),array("avg","max"));
+	foreach($LABEL as $key=>$val){
 		if ($val=="") continue;
-		$Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$LABEL[$key],number_format($val, 3),221,230,174);
+		if ($AVG[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$val,number_format($AVG[$key], 3),221,230,174);
+		if ($MAX[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"max",$val,number_format($MAX[$key], 3),237,180,187);
+		if ($MIN[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"min",$val,number_format($MIN[$key], 3),223,224,134);
 	}  
 	
 	// Finish the graph  

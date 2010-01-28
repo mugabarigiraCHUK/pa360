@@ -31,9 +31,9 @@ if ($proc === 'graph'){
 		if ($periodeStart === $loop['ID_PERIODE']) $doLoop = true;
 		if ($doLoop){
 			$AVG = nilaiAkhir_avg($loop['ID_PERIODE']);
-			$EQUAL[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR BETWEEN $AVG-0.5 AND $AVG+0.5 ");
-			$ABOVE[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR>=$AVG+0.5");
-			$UNDER[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR<=$AVG-0.5");
+			$EQUAL[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR BETWEEN $AVG-0.05 AND $AVG+0.05 ");
+			$ABOVE[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR>$AVG+0.05");
+			$UNDER[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR<$AVG-0.05");
 			$LABEL[] = date('F', strtotime($loop['PERIODE_AWAL'])) .'-'. date('F Y', strtotime($loop['PERIODE_AKHIR']));
 		}
 		if ($periodeEnd === $loop['ID_PERIODE']) $doLoop = false;
@@ -61,9 +61,8 @@ if ($proc === 'graph'){
 	$Test->setGraphArea(50,30,585,200);  
 	$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
 	$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
-//	$Test->drawBackground(250,250,250);
 	$Test->drawGraphArea(255,255,255,TRUE);  
-	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_NORMAL,150,150,150,TRUE,0,2);     
+	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_ADDALL,150,150,150,TRUE,0,2);     
 	$Test->drawGrid(4,TRUE,230,230,230,50);  
 	 
 	// Draw the 0 line  
@@ -74,10 +73,13 @@ if ($proc === 'graph'){
 	$Test->drawBarGraph($DataSet->GetData(),$DataSet->GetDataDescription(),TRUE);  
 	 
 	//label
-	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	foreach($AVG as $key=>$val){
+	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);
+	$Test->writeValues($DataSet->GetData(),$DataSet->GetDataDescription(),array("above","equal","under"));
+	foreach($LABEL as $key=>$val){
 		if ($val=="") continue;
-		$Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$LABEL[$key],number_format($val, 3),221,230,174);
+//		if ($ABOVE[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"above",$val,number_format($ABOVE[$key], 3),221,230,174);
+//		if ($EQUAL[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"equal",$val,number_format($EQUAL[$key], 3),237,180,187);
+//		if ($UNDER[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"under",$val,number_format($UNDER[$key], 3),223,224,134);
 	}  
 	
 	// Finish the graph  

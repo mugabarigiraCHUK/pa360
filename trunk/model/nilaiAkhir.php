@@ -84,72 +84,80 @@ function nilaiAkhir_update($dinilaiID, $karyID=false, $dep_div_jab_ID=false, $pe
 }
 
 function nilaiAkhir_count($periodeID, $departemenID=false, $threshold=false){
-	$sql = "select count(NILAI_AKHIR) as AVG 
-			from 
-			  nilai_akhir as a,
-			  dep_divisi_jabatan as b
-			where 
-			  a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB AND
-			  a.ID_PERIODE='$periodeID' ";
+	$sql = "select count(NILAI_AKHIR) as COUNT 
+			FROM 
+				nilai_akhir as a,
+				relasi_div_jab_din as b,
+				dep_divisi_jabatan as c
+			WHERE 
+				a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB 
+				AND b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				AND a.ID_PERIODE='$periodeID'";
 	
 	if ($departemenID){
-		$sql .= " AND b.ID_DEPARTMENT='$departemenID'";
+		$sql .= " AND c.ID_DEPARTMENT='$departemenID'";
 	}
 	if ($threshold){
 		$sql .= " AND $threshold";
 	}
 	$res = mysql_query($sql);
 	$res = mysql_fetch_assoc($res);
-	return $res['AVG']==NULL || $res['AVG']===''? 0 : $res['AVG'];
+	return $res['COUNT']==NULL || $res['COUNT']===''? 0 : $res['COUNT'];
 }
 
-function nilaiAkhir_avg($periode, $departemen=false){  
-	$sql = "select avg(NILAI_AKHIR) as AVG 
-			from 
-			  nilai_akhir as a,
-			  dep_divisi_jabatan as b
-			where 
-			  a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB AND
-			  a.ID_PERIODE='$periode' ";
+function nilaiAkhir_avg($periodeID, $departemenID=false){  
+	$sql = "SELECT avg(NILAI_AKHIR) as AVG 
+			FROM 
+				nilai_akhir as a,
+				relasi_div_jab_din as b,
+				dep_divisi_jabatan as c
+			WHERE 
+				a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB 
+				AND b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				AND a.ID_PERIODE='$periodeID'";
 	
-	if ($departemen){
-		$sql .= " AND b.ID_DEPARTMENT='$departemen'";
+	if ($departemenID){
+		$sql .= " AND c.id_department='$departemenID'";
 	}
 	$res = mysql_query($sql);
 	$res = mysql_fetch_assoc($res);
 	return $res['AVG']==NULL || $res['AVG']===''? 0 : $res['AVG'];
 }
 
-function nilaiAkhir_max($periode, $departemen=false){  
-	$sql = "select max(NILAI_AKHIR) as AVG 
-			from 
-			  nilai_akhir as a,
-			  dep_divisi_jabatan as b
-			where 
-			  a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB AND
-			  a.ID_PERIODE='$periode' ";
+function nilaiAkhir_max($periodeID, $departemenID=false){  
+	$sql = "select max(NILAI_AKHIR) as MAX 
+			FROM 
+				nilai_akhir as a,
+				relasi_div_jab_din as b,
+				dep_divisi_jabatan as c
+			WHERE 
+				a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB 
+				AND b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				AND a.ID_PERIODE='$periodeID'";
 	
-	if ($departemen){
-		$sql .= " AND b.ID_DEPARTMENT='$departemen'";
+	if ($departemenID){
+		$sql .= " AND c.ID_DEPARTMENT='$departemenID'";
 	}
 	$res = mysql_query($sql);
 	$res = mysql_fetch_assoc($res);
-	return $res['AVG']==NULL || $res['AVG']===''? 0 : $res['AVG'];
+	return $res['MAX']==NULL || $res['MAX']===''? 0 : $res['MAX'];
 }
 
-function nilaiAkhir_min($periode, $departemen=false){  
-	$sql = "select min(NILAI_AKHIR) as AVG 
-			from 
-			  nilai_akhir as a,
-			  dep_divisi_jabatan as b
-			where 
-			  a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB AND
-			  a.ID_PERIODE='$periode' ";
+function nilaiAkhir_min($periodeID, $departemenID=false){  
+	$sql = "SELECT min(NILAI_AKHIR) as MIN 
+			FROM 
+				nilai_akhir as a,
+				relasi_div_jab_din as b,
+				dep_divisi_jabatan as c
+			WHERE 
+				a.ID_DEP_DIV_JAB = b.ID_DEP_DIV_JAB 
+				AND b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				AND a.ID_PERIODE='$periodeID'";
 	
-	if ($departemen){
-		$sql .= " AND b.ID_DEPARTMENT='$departemen'";
+	if ($departemenID){
+		$sql .= " AND c.ID_DEPARTMENT='$departemenID'";
 	}
 	$res = mysql_query($sql);
 	$res = mysql_fetch_assoc($res);
-	return $res['AVG']==NULL || $res['AVG']===''? 0 : $res['AVG'];
+	return $res['MIN']==NULL || $res['MIN']===''? 0 : $res['MIN'];
 }

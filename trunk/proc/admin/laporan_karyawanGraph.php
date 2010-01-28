@@ -42,6 +42,11 @@ if ($proc === 'graph'){
 	$dep_div_jabID = $_POST['dep_div_jabID'];
 	$DEPDIVJAB = mysql_fetch_assoc(RELASIJABATAN_load($karyID, $dep_div_jabID));
 	
+	if (!$karyID) {
+		echo "<img src=\"\" alt=\"\" onclick=\"\" style=\"cursor:pointer\" />";
+		return;	
+	}
+	
 	//nilai rata2 kinerja
 	$AVG_PERIODE = $AVG_DEPART = $KARY = $LABEL = array();
 	$AVG_PERIODE[] = $AVG_DEPART[] = $KARY[] = $LABEL[] = "";
@@ -53,7 +58,7 @@ if ($proc === 'graph'){
 		if ($doLoop){
 			$AVG_PERIODE[] = nilaiAkhir_avg($loop['ID_PERIODE']);
 			$AVG_DEPART[] = nilaiAkhir_min($loop['ID_PERIODE'], $DEPDIVJAB['ID_DEPARTMENT']);
-			$NA = mysql_fetch_assoc(nilaiAkhir_load($karyID, $loop['ID_PERIODE'], $dep_div_jabID));
+			$NA = mysql_fetch_assoc(nilaiAkhir_load($karyID, $dep_div_jabID,  $loop['ID_PERIODE']));
 			$KARY[] = $NA['NILAI_AKHIR']==NULL || $NA['NILAI_AKHIR']===''? 0 : $NA['NILAI_AKHIR'];
 			$LABEL[] = date('F', strtotime($loop['PERIODE_AWAL'])) .'-'. date('F Y', strtotime($loop['PERIODE_AKHIR']));
 		}
@@ -96,9 +101,11 @@ if ($proc === 'graph'){
 
 	//label
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	foreach($KARY as $key=>$val){
+	foreach($LABEL as $key=>$val){
 		if ($val=="") continue;
-		$Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"karyawan",$LABEL[$key],number_format($val, 3),221,230,174);
+		if ($AVG_PERIODE[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg_periode",$val,number_format($AVG_PERIODE[$key], 3),221,230,174);
+		if ($AVG_DEPART[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg_departemen",$val,number_format($AVG_DEPART[$key], 3),237,180,187);
+		if ($KARY[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"karyawan",$val,number_format($KARY[$key], 3),223,224,134);
 	}  
 	
 	// Finish the graph  

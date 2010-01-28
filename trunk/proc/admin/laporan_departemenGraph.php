@@ -49,13 +49,13 @@ if ($proc === 'graph'){
 	$Test = new pChart(800,230);  
 	//$Test->setFixedScale(-2,8);  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	$Test->setGraphArea(30,30,585,200);  
+	$Test->setGraphArea(50,30,585,200);  
 	$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
 	$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
 	$Test->drawGraphArea(255,255,255,TRUE);  
-	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_NORMAL,150,150,150,TRUE,0,2);     
+	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_ADDALL,150,150,150,TRUE,0,2);     
 	$Test->drawGrid(4,TRUE,230,230,230,50);  
-	 
+
 	// Draw the 0 line  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",6);  
 	$Test->drawTreshold(1,143,55,72,TRUE,TRUE);  
@@ -67,9 +67,10 @@ if ($proc === 'graph'){
 	//label
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
 	foreach($LABEL as $key=>$val){
-		if ($val=="" || !$val) continue;
-		if ($AVG[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$val,number_format($AVG[$key], 2),221,230,174);
-//		if ($MAX[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"max",$val,number_format($MAX[$key], 2),221,230,174);
+		if ($val=="") continue;
+		if ($AVG[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$val,number_format($AVG[$key], 3),221,230,174);
+		if ($MAX[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"max",$val,number_format($MAX[$key], 3),237,180,187);
+		if ($MIN[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"min",$val,number_format($MIN[$key], 3),223,224,134);
 	}  
 	
 	
