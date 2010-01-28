@@ -32,24 +32,34 @@ if ($proc === 'bobotLevel-modal'){
 
 if ($proc === 'periode-save'){
 	$id = $_POST['periodeID'];
-	$periodeAwal = $_POST['periodeAwal']===''? NULL : date("Y-m-d", $_POST['periodeAwal']);
-	$periodeAkhir = $_POST['periodeAkhir']===''? NULL : date("Y-m-d", $_POST['periodeAkhir']);
 	$bobotV = intval($_POST['bobotV']);
 	$bobotH = intval($_POST['bobotH']);
 	$lvV = intval($_POST['lvV']);
 	$lvH = intval($_POST['lvH']);
-	$batasAwal = $_POST['batasAwal']===''? NULL : date("Y-m-d", $_POST['batasAwal']);
-	$batasAkhir = $_POST['batasAkhir']===''? NULL : date("Y-m-d", $_POST['batasAkhir']);
 	
-	if ($id == ''){
-		echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi ID Periode"));
-		return ;
-	}
+	if ($id == ''){				 echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi ID Periode")); return ;}
+	if (periode_isExistID($id)){ echo json_encode(array('error'=> true, 'msg'=> "ID Periode telah terpakai")); return ;}
 	
-	if (periode_isExistID($id)){
-		echo json_encode(array('error'=> true, 'msg'=> "ID Periode telah terpakai"));
-		return ;
-	}
+	//check batas awal & akhir
+	$periodeAwal = $_POST['periodeAwal'];
+	$periodeAkhir = $_POST['periodeAkhir'];
+	$batasAwal = $_POST['batasAwal'];
+	$batasAkhir = $_POST['batasAkhir'];
+	if (!$periodeAwal){ 			echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal periode awal")); return ; }
+	if (!$periodeAkhir){ 			echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal periode akhir")); return ; }
+	if ($periodeAkhir<$periodeAwal){echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode awal dan akhir")); return ; }
+	if (!$batasAwal){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian awal")); return ; }
+	if (!$batasAkhir){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian akhir")); return ; }
+	if ($batasAwal<$batasAkhir){ 	echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas penilaian awal dan akhir")); return ; }
+	if ($batasAwal<$periodeAkhir || 
+		$batasAkhir<$periodeAkhir){ echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode dan batas penilaian")); return ; }
+		
+	//prepare on save, normalize date
+	$periodeAwal = $periodeAwal===''? NULL : date("Y-m-d", $periodeAwal);
+	$periodeAkhir = $periodeAkhir===''? NULL : date("Y-m-d", $periodeAkhir);
+	$batasAwal = $_POST['batasAwal']===''? NULL : date("Y-m-d", $batasAwal);
+	$batasAkhir = $_POST['batasAkhir']===''? NULL : date("Y-m-d", $batasAkhir);
+	
 	
 	$ex = periode_addComplete($id, $periodeAwal, $periodeAkhir, $bobotV, $bobotH, $lvV, 
 						$lvH, $batasAwal, $batasAkhir);
@@ -58,14 +68,30 @@ if ($proc === 'periode-save'){
 
 if ($proc === 'periode-edit'){
 	$id = $_POST['periodeID'];
-	$periodeAwal = $_POST['periodeAwal']===''? NULL : date("Y-m-d", $_POST['periodeAwal']);
-	$periodeAkhir = $_POST['periodeAkhir']===''? NULL : date("Y-m-d", $_POST['periodeAkhir']);
 	$bobotV = intval($_POST['bobotV']);
 	$bobotH = intval($_POST['bobotH']);
 	$lvV = intval($_POST['lvV']);
 	$lvH = intval($_POST['lvH']);
-	$batasAwal = $_POST['batasAwal']===''? NULL : date("Y-m-d", $_POST['batasAwal']);
-	$batasAkhir = $_POST['batasAkhir']===''? NULL : date("Y-m-d", $_POST['batasAkhir']);
+	
+	//check batas awal & akhir
+	$periodeAwal = $_POST['periodeAwal'];
+	$periodeAkhir = $_POST['periodeAkhir'];
+	$batasAwal = $_POST['batasAwal'];
+	$batasAkhir = $_POST['batasAkhir'];
+	if (!$periodeAwal){ 			echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal periode awal")); return ; }
+	if (!$periodeAkhir){ 			echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal periode akhir")); return ; }
+	if ($periodeAkhir<$periodeAwal){echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode awal dan akhir")); return ; }
+	if (!$batasAwal){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian awal")); return ; }
+	if (!$batasAkhir){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian akhir")); return ; }
+	if ($batasAwal<$batasAkhir){ 	echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas penilaian awal dan akhir")); return ; }
+	if ($batasAwal<$periodeAkhir || 
+		$batasAkhir<$periodeAkhir){ echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode dan batas penilaian")); return ; }
+	
+	//prepare on save, normalize date
+	$periodeAwal = $periodeAwal===''? NULL : date("Y-m-d", $periodeAwal);
+	$periodeAkhir = $periodeAkhir===''? NULL : date("Y-m-d", $periodeAkhir);
+	$batasAwal = $_POST['batasAwal']===''? NULL : date("Y-m-d", $batasAwal);
+	$batasAkhir = $_POST['batasAkhir']===''? NULL : date("Y-m-d", $batasAkhir);
 	
 	$ex = periode_updateComplete($id, $periodeAwal,	$periodeAkhir, $bobotV, $bobotH, $lvV, $lvH,
 					$batasAwal, $batasAkhir);

@@ -112,7 +112,7 @@ if ($proc==='job-list-delete'){
 	$karyID = $_REQUEST['karyID'];
 	$ex = RELASIDIVJABDIN_delete($karyID, $dep_div_jabID) && 
 			DEPDIVJAB_delete($dep_div_jabID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> print_r($_REQUEST, true)));//mysql_error()
+	echo json_encode(array('error'=> !$ex, 'msg'=>  mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'gol-modal'){
