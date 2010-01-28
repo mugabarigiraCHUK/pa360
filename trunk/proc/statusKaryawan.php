@@ -45,7 +45,7 @@ if ($proc === 'stskary-save'){
 	}
 	
 	$ex = stskary_add($stsID, $nama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'stskary-update'){
@@ -53,11 +53,11 @@ if ($proc === 'stskary-update'){
 	$nama = $_POST['nama'];
 	
 	$ex = stskary_update($stsID, $nama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'stskary-delete'){
 	$stsID = $_POST['stsID'];
 	$ex = stskary_delete($stsID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

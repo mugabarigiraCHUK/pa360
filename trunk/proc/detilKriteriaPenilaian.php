@@ -55,7 +55,7 @@ if ($proc == 'dekripen-save'){
 	}
 	
 	$ex = dekripen_add($kripenID, $dekripenID, $nama, $desc, $bobot);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'dekripen-update'){
@@ -77,11 +77,11 @@ if ($proc === 'dekripen-update'){
 	}
 	
 	$ex = dekripen_update($kripenID, $dekripenID, $nama, $desc, $bobot);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'dekripen-delete'){
 	$dekripenID = $_POST['dekripenID'];
 	$ex = dekripen_delete($dekripenID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

@@ -36,7 +36,7 @@ if ($proc==='alamat-list-delete'){
 	$alamatID = $_REQUEST['alamatID'];
 	$karyID = $_REQUEST['karyID'];
 	$ex = alamat_delete($alamatID, $karyID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 /**
@@ -58,7 +58,7 @@ if ($proc==='tlp-list-delete'){
 		$ex=true;
 	}
 	
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 /**
@@ -149,7 +149,7 @@ if ($proc === 'gol-list'){
 //	$stskaryID = $_POST['stskaryID'];
 //	$tglUpdate = date("Y-m-d H:i:s", time());
 //	$ex = detilStatusKaryawan_add($karyID, $stskaryID, $tglUpdate);
-//	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+//	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 //}
 //
 //if ($proc === 'stskary-delete'){
@@ -157,7 +157,7 @@ if ($proc === 'gol-list'){
 //	$stskaryID = $_POST['stskaryID'];
 //	$tglUpdate = $_POST['tglUpdate'];
 //	$ex = detilStatusKaryawan_delete($karyID, $stskaryID, $tglUpdate);
-//	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+//	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 //}
 
 if ($proc === 'jbtKary-list'){
@@ -285,7 +285,7 @@ if ($proc==='karyawan-save'){
 	
 	//pass the message
 //	echo json_encode(array('error'=> true, 'msg'=> print_r($_POST, true)));
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 	
 	//add data_user
 	user_insert($kode, md5($kode));
@@ -402,13 +402,13 @@ if ($proc==='karyawan-update'){
 	
 	//pass the message
 //	echo json_encode(array('error'=> true, 'msg'=> print_r($_POST, true)));
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc==='karyawan-delete'){
 	$kode = $_POST['kary_id'];
 	$ex = kary_delete($kode);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 /**

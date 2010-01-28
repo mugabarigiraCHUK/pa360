@@ -34,7 +34,7 @@ if ($proc == "change-password-save"){
 	else{
 		$ex = user_insert($karyID, $npass);
 	}
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc == "change-role-save"){
@@ -49,5 +49,5 @@ if ($proc == "change-role-save"){
 	else{
 		$ex = user_insert($karyID, $npass, $state);
 	}
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

@@ -47,13 +47,13 @@ if ($proc === 'debotlv-pick'){
 	$bobotlv = mysql_fetch_assoc( bobotlv_load($periodeID, $levelID) );
 	//simpan sementara, tanpa bobot.
 	$ex = debotlv_add($kripenID, $bobotlv["ID_BOBOT_LEVEL"], 0);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'debotlv-delete'){
 	$debotlvID = $_POST['debotlvID'];
 	$ex = debotlv_delete($debotlvID);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'debotlv-update'){
@@ -69,7 +69,7 @@ if ($proc === 'debotlv-update'){
 	$total = debotlv_sumBobot($data["ID_PERIODE"], $data["ID_LEVEL"], $debotlvID);
 	if ($total+$bobot<=100){
 		$ex = debotlv_update($debotlvID, $kripenID, $bobotlvID, $bobot);
-		echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));	
+		echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));	
 	}
 	else{
 		echo json_encode(array('error'=> true, 'msg'=> "Total melebihi 100%"));

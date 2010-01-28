@@ -44,7 +44,7 @@ if ($proc === 'golongan-save'){
 	}
 	
 	$ex = golongan_add($gol_id, $golNama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'golongan-update'){
@@ -52,11 +52,11 @@ if ($proc === 'golongan-update'){
 	$golNama = $_POST['golNama'];
 		
 	$ex = golongan_update($gol_id, $golNama);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'golongan-delete'){
 	$gol_id = $_POST['gol_id'];
 	$ex = golongan_delete($gol_id);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }

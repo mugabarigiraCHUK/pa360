@@ -45,6 +45,6 @@ if ($proc === 'bobotLevel-update'){
 	}
 	else{
 		$ex = bobotlv_update($bobotlvID, $periodeID, $levelID, $desc, $bobot);
-		echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+		echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 	}
 }

@@ -72,7 +72,7 @@ function penilai_delete(){
 	if ( npp_isExistID($npp['ID_NILAI_PER_PENILAI']) ){
 		$ex = npp_delete($npp['ID_NILAI_PER_PENILAI']);
 		if (!$ex) { 
-			echo json_encode(array('error'=> !ex, 'msg'=> mysql_error())); 
+			echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 			return; 
 		}
 	}
@@ -82,13 +82,13 @@ function penilai_delete(){
 	if ( nilaiAkhir_isExistID($na['KODE_DINILAI']) ){
 		$ex = nilaiAkhir_delete($na['KODE_DINILAI']);
 		if (!$ex) { 
-			echo json_encode(array('error'=> !ex, 'msg'=> mysql_error())); 
+			echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 			return; 
 		}
 	}
 	
 	
-	echo json_encode(array('error'=> false, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 function penilai_save(){
@@ -102,14 +102,14 @@ function penilai_save(){
 	//save penilai
 	if (! penilai_isExist($penilaiID, $penilai_dep_div_jabID)){
 		if (! penilai_add($penilaiID, $penilai_dep_div_jabID) ) {
-			echo json_encode(array('error'=> true, 'msg'=> mysql_error())); return;
+			echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 		}
 	}
 	
 	//save nilai akhir
 	if (! nilaiAkhir_isExist($dinilaiID, $dinilai_dep_div_jabID, $periodeID)){
 		if (! nilaiAkhir_add($dinilaiID, $dinilai_dep_div_jabID, $periodeID, 0.0) ) {
-			echo json_encode(array('error'=> true, 'msg'=> mysql_error()));	return;
+			echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 		}
 	}
 	
@@ -120,7 +120,7 @@ function penilai_save(){
 	$bobotlvID = $bobotlvID['ID_BOBOT_LEVEL'];
 	if (! npp_isExist($dinilaiTable['KODE_DINILAI'], $penilaiTable['KODE_PENILAI'], $bobotlvID) ){
 		if (! npp_insert($dinilaiTable['KODE_DINILAI'], $penilaiTable['KODE_PENILAI'], $bobotlvID, 0.0) ) {
-			echo json_encode(array('error'=> true, 'msg'=> mysql_error()));	return;
+			echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 		}
 	}
 	echo json_encode(array('error'=> false, 'msg'=> mysql_error()));

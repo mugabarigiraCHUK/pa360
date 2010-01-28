@@ -29,7 +29,7 @@ if ($proc === 'jabatan-save'){
 	}
 	
 	$ex = jbt_insert($id, $nama, $level[0] .'.'. $level[1]);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'jabatan-update'){
@@ -37,13 +37,13 @@ if ($proc === 'jabatan-update'){
 	$nama = $_POST['nama'];
 	$level = $_POST['level'];
 	$ex = jbt_update($id, $nama, $level[0] .'.'. $level[1]);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 if ($proc === 'jabatan-delete'){
 	$id=$_REQUEST['jbt_id'];
 	$ex = jbt_delete($id);
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
 
 /**
