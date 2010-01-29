@@ -57,7 +57,7 @@
 <?php } ?>
 
 <?php include 'view/header.php'; ?>
-<div><h1>Periode Overview</h1></div>
+<div class="padT10"><h1>Periode Overview</h1></div>
 <form name="frmSearch" action="proc/admin/laporan_periodeGraph.php" method="post">
 <input name="proc" type="hidden" value="" />
 <div class="padT5">Periode :
@@ -89,7 +89,7 @@
 	<div id="graphContainer" align="center"></div>
 </div>
 
-<div><h1>Performance Overview</h1></div>
+<div class="padT10"><h1>Performance Overview</h1></div>
 <form name="frmSearch2" action="proc/admin/laporan_rataKinerjaGraph.php" method="post">
 <input name="proc" type="hidden" value="graph" />
 <div class="padT5">Periode :
