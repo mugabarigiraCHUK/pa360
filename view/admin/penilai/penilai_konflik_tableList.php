@@ -25,7 +25,7 @@ if ($departemenID){
 $sql = 
 "SELECT a.KODE_KARYAWAN, a.NAMA_KARYAWAN, b.ID_DEP_DIV_JAB, d.ID_DEPARTMENT, d.NAMA_DEPARTMENT, e.ID_JABATAN,
     e.NAMA_JABATAN, f.ID_DIVISI, f.NAMA_DIVISI
-FROM pa360ino.data_karyawan as a, 
+FROM data_karyawan as a, 
     relasi_div_jab_din as b,
     dep_divisi_jabatan as c,
     data_department as d,
