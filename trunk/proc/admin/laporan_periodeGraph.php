@@ -91,7 +91,7 @@ if ($proc === 'graph'){
 	//create image
     $path = "../../image/cache";
     cleanup_cacheImage($path);	//cleanup old file
-    $name = $_COOKIE_DATA->alias .'-'. date('Ymd Hsi', time()).".png";
+    $name = $_COOKIE_DATA->alias .'KinerjaPerPeriode-'. time().".png";
 	$Test->Render("$path/$name");  
 	echo "<img src=\"image/cache/$name\" alt=\"Kinerja per Departemen\" 
 			onclick=\"document.location='image/cache/$name'\" style=\"cursor:pointer\" />";

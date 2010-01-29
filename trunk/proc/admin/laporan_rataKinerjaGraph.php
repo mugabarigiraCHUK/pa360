@@ -86,12 +86,12 @@ if ($proc === 'graph'){
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
 	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",10);     
-	$Test->drawTitle(50,22,"Grafik rata-rata kinerja karyawan",50,50,50,585);  
+	$Test->drawTitle(50,22,"Grafik Rata-rata Kinerja Karyawan",50,50,50,585);  
 	
 	//create image
     $path = "../../image/cache";
     cleanup_cacheImage($path);	//cleanup old file
-    $name = $_COOKIE_DATA->alias .'-'. date('Ymd Hsi', time()).".png";
+    $name = $_COOKIE_DATA->alias .'RataKinerjaKaryawan-'. time().".png";
 	$Test->Render("$path/$name");  
 	echo "<img src=\"image/cache/$name\" alt=\"Grafik rata-rata kinerja karyawan\" 
 			onclick=\"document.location='image/cache/$name'\" style=\"cursor:pointer\" />";

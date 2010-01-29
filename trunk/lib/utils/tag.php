@@ -37,8 +37,8 @@ function cleanup_cacheImage($path){
     while( false !== ($file = readdir($dh)) ){ 
 		if( !in_array($file, $ignore) ){ 
 			$exp = explode('-',$file);
-			$tt = strtotime($exp[1]);
-			if ($tt+(60*15) < time()) @unlink("$path/$file");
+			$tt = $exp[1];
+			if ($tt+(60*10) < time()) @unlink("$path/$file");
 		} 
     } 
     @closedir( $dh );
