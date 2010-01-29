@@ -6,14 +6,14 @@
 <?php function inject_head(){?>
 <script>
 	function update_periodeCombo(form, callback){
-		FBModal_loading("Loading", "Please wait...", true, false);
+		FBModal_loading("Loading", "Please wait...", true, false,1500);
 		form.proc.value="periode-combo";
 		form.periodeEnd.set('html', "");
 		$(form).set('send', {
 			onSuccess: function(response) {
+				FBModal_hide();
 				form.periodeEnd.set('html', response);
 				callback(form);
-				FBModal_hide();
 			}
 		}).send();
 	}

@@ -7,16 +7,17 @@ include_once 'model/periode.php';
 function inject_head(){?>
 <script>
 	function update_periodeCombo(form){
-		FBModal_loading("Loading", "Please wait...", true, false);
+		FBModal_loading("Loading", "Please wait...", true, false, 1500);
 		form.proc.value="periode-combo";
 		form.periodeEnd.set('html', "");
-		$(form).set('send', {
-			onSuccess: function(response) {
-				form.periodeEnd.set('html', response);
-				update_graph(document.frmSearch);
-				FBModal_hide();
-			}
-		}).send();
+		doRequest('proc/admin/laporan_karyawanGraph.php', 'post', 
+				'proc=periode-combo'+
+				'&periodeStart='+form.periodeStart.value, 
+				function (res){ 
+			FBModal_hide();	
+			form.periodeEnd.set('html', res);
+			update_graph(form);
+			});
 	}
 	
 	function searchKary_modal(){
