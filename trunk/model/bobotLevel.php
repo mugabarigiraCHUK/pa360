@@ -94,10 +94,21 @@ function bobotlv_add($periodeID, $levelID, $levelName, $desc, $bobot){
 	return mysql_query($sql);
 }
 
-function bobotlv_update($id, $periodeID, $levelID, $levelName, $desc, $bobot){
-	$sql = "UPDATE bobot_level SET
-				DESKRIPSI='$desc',
-				BOBOT='$bobot'
+function bobotlv_update($id, $periodeID, $levelID, $levelName=false, $desc=false, $bobot=false){
+	$sqls = "";
+	if ($desc){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "DESKRIPSI='$desc'";
+	}
+	if ($bobot){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "BOBOT='$bobot'";
+	}
+	if ($levelName){
+		$sqls .= $sqls==""? "" : ",";
+		$sqls .= "NAMA_LEVEL='$levelName'";
+	}
+	$sql = "UPDATE bobot_level SET $sqls
 			WHERE ID_BOBOT_LEVEL='$id' AND ID_PERIODE='$periodeID' AND ID_LEVEL='$levelID'";
 	return mysql_query($sql);	
 }

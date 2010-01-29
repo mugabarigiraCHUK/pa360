@@ -44,7 +44,7 @@ if ($proc === 'bobotLevel-update'){
 		echo json_encode(array('error'=> TRUE, 'msg'=> "Jumlah Bobot Horizontal + Vertikal melebihi batas..."));
 	}
 	else{
-		$ex = bobotlv_update($bobotlvID, $periodeID, $levelID, $desc, $bobot);
+		$ex = bobotlv_update($bobotlvID, $periodeID, $levelID, false, $desc, $bobot);
 		echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 	}
 }
