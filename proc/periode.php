@@ -50,9 +50,9 @@ if ($proc === 'periode-save'){
 	if ($periodeAkhir<$periodeAwal){echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode awal dan akhir")); return ; }
 	if (!$batasAwal){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian awal")); return ; }
 	if (!$batasAkhir){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian akhir")); return ; }
-	if ($batasAwal<$batasAkhir){ 	echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas penilaian awal dan akhir")); return ; }
-	if ($batasAwal<$periodeAkhir || 
-		$batasAkhir<$periodeAkhir){ echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode dan batas penilaian")); return ; }
+	if ($batasAkhir<$batasAwal){ 	echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas penilaian awal dan akhir")); return ; }
+	if ($batasAwal<=$periodeAkhir || 
+		$batasAkhir<=$periodeAkhir){ echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode dan batas penilaian")); return ; }
 		
 	//prepare on save, normalize date
 	$periodeAwal = $periodeAwal===''? NULL : date("Y-m-d", $periodeAwal);
