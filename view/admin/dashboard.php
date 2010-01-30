@@ -37,19 +37,29 @@
 		form.store('request', req);
 	}
 
+	var counter=0;
 	window.addEvent('domready', function(){
 		update_periodeCombo(document.frmSearch, update_graph);
-		update_periodeCombo(document.frmSearch2, update_graph2);
+//		update_periodeCombo(document.frmSearch2, update_graph2);
+
+		var func = function(){
+			counter++;	
+			if (counter%2==0) update_graph(document.frmSearch);
+			else update_graph2(document.frmSearch);
+			func.delay(10000);
+		};
+		func.delay(10000);
 	});
 
 	function update_graph2(form){
-		$('graphIndicator2').get('reveal').reveal();
-		$('graphContainer2').getChildren().nix();
+		$('graphIndicator').get('reveal').reveal();
+		$('graphContainer').getChildren().nix();
+		form.action = "proc/admin/laporan_rataKinerjaGraph.php";
 		form.proc.value="graph";
 		$(form).set('send', {
 			onSuccess: function(response) {
-				$('graphContainer2').set('html', response);
-				$('graphIndicator2').get('reveal').dissolve();
+				$('graphContainer').set('html', response);
+				$('graphIndicator').get('reveal').dissolve();
 			}
 		}).send();
 	}
@@ -89,6 +99,7 @@
 	<div id="graphContainer" align="center"></div>
 </div>
 
+<!-- 
 <div class="padT10"><h1>Performance Overview</h1></div>
 <form name="frmSearch2" action="proc/admin/laporan_rataKinerjaGraph.php" method="post">
 <input name="proc" type="hidden" value="graph" />
@@ -119,5 +130,6 @@
 	</table>
 	</div>
 	<div id="graphContainer2" align="center"></div>
-</div>
+</div> 
+-->
 <?php include 'view/footer.php'; ?>
