@@ -54,6 +54,7 @@
 <div align="right" class="padT5">Nilai rata - rata Periode : 
 	<input type="text" class="fake" value="<?=nilaiAkhir_avg($periodeID)?>"  style="width:100px; text-align:right;" disabled="disabled"/>
 </div>
+<?php $JBT = mysql_fetch_assoc(departemen_load($departemenID)); ?>
 <div align="right" class="padT5">Nilai rata - rata Departemen (<?=$JBT['NAMA_DEPARTMENT']?>) : 
 	<input type="text" class="fake" value="<?=nilaiAkhir_avg($periodeID, $departemenID);?>" style="width:100px; text-align:right;" disabled="disabled"/>
 </div>
