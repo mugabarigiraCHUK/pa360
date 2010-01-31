@@ -1,39 +1,44 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.9.2
+-- version 3.1.1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 26, 2010 at 07:11 PM
--- Server version: 5.0.67
--- PHP Version: 5.2.6
+-- Waktu pembuatan: 31. Januari 2010 jam 20:06
+-- Versi Server: 5.1.30
+-- Versi PHP: 5.2.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
--- Database: `pa360ino`
+-- Database: `pa360@`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alamat`
+-- Struktur dari tabel `alamat`
 --
 
-DROP TABLE IF EXISTS `alamat`;
 CREATE TABLE IF NOT EXISTS `alamat` (
-  `ID_ALAMAT` int(11) NOT NULL auto_increment,
+  `ID_ALAMAT` int(11) NOT NULL AUTO_INCREMENT,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
-  `NAMA_ALAMAT` varchar(100) default NULL,
-  `KODE_POS` int(11) default NULL,
-  `KODE_AREA` int(11) default NULL,
-  `KOTA` varchar(30) default NULL,
-  `PROPINSI` varchar(30) default NULL,
-  PRIMARY KEY  (`ID_ALAMAT`,`KODE_KARYAWAN`),
+  `NAMA_ALAMAT` varchar(100) DEFAULT NULL,
+  `KODE_POS` int(11) DEFAULT NULL,
+  `KODE_AREA` int(11) DEFAULT NULL,
+  `KOTA` varchar(30) DEFAULT NULL,
+  `PROPINSI` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`ID_ALAMAT`,`KODE_KARYAWAN`),
   KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `alamat`
+-- Dumping data untuk tabel `alamat`
 --
 
 INSERT INTO `alamat` (`ID_ALAMAT`, `KODE_KARYAWAN`, `NAMA_ALAMAT`, `KODE_POS`, `KODE_AREA`, `KOTA`, `PROPINSI`) VALUES
@@ -64,9 +69,9 @@ INSERT INTO `alamat` (`ID_ALAMAT`, `KODE_KARYAWAN`, `NAMA_ALAMAT`, `KODE_POS`, `
 (1, 'K035', 'JLN SUDIRMAN NO 23', 555, 25, 'KEDIRI', 'JATIM'),
 (1, 'K036', 'JLN AHMAD YANI 40', 555, 25, 'SURABAYA', 'JATIM'),
 (1, 'K037', 'JLN SLAMET NO 34', 555, 31, 'surabaya', 'jatim'),
-(2, 'K002', 'JLN SENGSARA NO 3', 555, 25, 'SURABAYA', 'JATIM'),
+(2, 'K002', 'JLN SENGSARA NO 3', 555, 25, 'JATIM', 'JATIM'),
 (3, 'K003', 'JLN URIP NO 34', 555, 25, 'SURABAYA', 'JATIM'),
-(4, 'k004', 'JLN KENJERAN NO 3000', 555, 25, 'SURABAYA', 'JATIM'),
+(4, 'k004', 'JLN KENJERAN NO 3000', 555, 25, 'JATIM', 'JATIM'),
 (5, 'k005', 'JLN SEMAMPIR vA', 555, 25, 'SURABAYA', 'JATIM'),
 (6, 'K006', 'JLN SIDOSERMO 34', 555, 25, 'SURABAYA', 'JATIM'),
 (7, 'K007', 'JLN GIANYAR NO 454', 555, 25, 'SURABAYA', 'JATIM'),
@@ -74,65 +79,50 @@ INSERT INTO `alamat` (`ID_ALAMAT`, `KODE_KARYAWAN`, `NAMA_ALAMAT`, `KODE_POS`, `
 (9, 'k009', 'JLN MANDALA 23', 555, 25, 'SURABAYA', 'JATIM'),
 (10, 'k010', 'JLN KUNIR NO 32', 555, 25, 'SURABAYA', 'JATIM'),
 (11, 'K011', 'JLN IKAN KERAPU BAKAR WEENAK TENAN ', 555, 25, 'SURABAYA', 'JATIM'),
-(29, '4343434', '1232131221', 11, 11, '21321', '21321'),
-(30, '4343434', 'xxxxxxxxxx', 0, 0, '', ''),
-(32, '4343434', 'www', 0, 0, '', '');
+(12, 'kxxx', 'jln kertajaya', 747773823, 34543, '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bobot_level`
+-- Struktur dari tabel `bobot_level`
 --
 
-DROP TABLE IF EXISTS `bobot_level`;
 CREATE TABLE IF NOT EXISTS `bobot_level` (
-  `ID_BOBOT_LEVEL` int(11) NOT NULL auto_increment,
+  `ID_BOBOT_LEVEL` int(11) NOT NULL AUTO_INCREMENT,
   `ID_PERIODE` varchar(50) NOT NULL,
   `ID_LEVEL` varchar(50) NOT NULL,
-  `NAMA_LEVEL` varchar(50) default NULL,
+  `NAMA_LEVEL` varchar(50) DEFAULT NULL,
   `DESKRIPSI` text,
-  `BOBOT` int(11) default NULL,
-  PRIMARY KEY  (`ID_BOBOT_LEVEL`),
+  `BOBOT` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ID_BOBOT_LEVEL`),
   KEY `ID_PERIODE` (`ID_PERIODE`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `bobot_level`
+-- Dumping data untuk tabel `bobot_level`
 --
 
 INSERT INTO `bobot_level` (`ID_BOBOT_LEVEL`, `ID_PERIODE`, `ID_LEVEL`, `NAMA_LEVEL`, `DESKRIPSI`, `BOBOT`) VALUES
-(7, 'jan - 2010', 'HZ1', 'Horizontal 1', '', 20),
-(8, 'jan - 2010', 'HZ2', 'Horizontal 2', '', 20),
-(9, 'jan - 2010', 'HZ3', 'Horizontal 3', '', 20),
-(10, 'jan - 2010', 'HZ4', 'Horizontal 4', '', 20),
-(11, 'jan - 2010', 'HZ5', 'Horizontal 5', '', 20),
-(12, 'jan - 2010', 'VC1', 'Vertical 1', '', 20),
-(13, 'jan - 2010', 'VC2', 'Vertical 2', '', 20),
-(14, 'jan - 2010', 'VC3', 'Vertical 3', '', 20),
-(15, 'jan - 2010', 'VC4', 'Vertical 4', '', 20),
-(16, 'jan - 2010', 'VC5', 'Vertical 5', '', 20),
-(17, 'feb-2010', 'HZ1', 'Horizontal 1', '', 35),
-(18, 'feb-2010', 'HZ2', 'Horizontal 2', '', 33),
-(19, 'feb-2010', 'HZ3', 'Horizontal 3', '', 33),
-(20, 'feb-2010', 'VC1', 'Vertical 1', '', 33),
-(21, 'feb-2010', 'VC2', 'Vertical 2', '', 33),
-(22, 'feb-2010', 'VC3', 'Vertical 3', '', 33);
+(30, 'jan - 2010', 'HZ1', 'Horizontal 1', '', 100),
+(31, 'jan - 2010', 'VC1', 'Vertical 1', '', 50),
+(32, 'jan - 2010', 'VC2', 'Vertical 2', '', 50),
+(33, 'jun - 2010', 'HZ1', 'Horizontal 1', '', 100),
+(34, 'jun - 2010', 'VC1', 'Vertical 1', '', 100);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_department`
+-- Struktur dari tabel `data_department`
 --
 
-DROP TABLE IF EXISTS `data_department`;
 CREATE TABLE IF NOT EXISTS `data_department` (
   `ID_DEPARTMENT` varchar(10) NOT NULL,
-  `NAMA_DEPARTMENT` varchar(30) default NULL,
-  PRIMARY KEY  (`ID_DEPARTMENT`)
+  `NAMA_DEPARTMENT` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`ID_DEPARTMENT`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_department`
+-- Dumping data untuk tabel `data_department`
 --
 
 INSERT INTO `data_department` (`ID_DEPARTMENT`, `NAMA_DEPARTMENT`) VALUES
@@ -161,18 +151,17 @@ INSERT INTO `data_department` (`ID_DEPARTMENT`, `NAMA_DEPARTMENT`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_divisi`
+-- Struktur dari tabel `data_divisi`
 --
 
-DROP TABLE IF EXISTS `data_divisi`;
 CREATE TABLE IF NOT EXISTS `data_divisi` (
   `ID_DIVISI` varchar(10) NOT NULL,
-  `NAMA_DIVISI` varchar(30) default NULL,
-  PRIMARY KEY  (`ID_DIVISI`)
+  `NAMA_DIVISI` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`ID_DIVISI`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_divisi`
+-- Dumping data untuk tabel `data_divisi`
 --
 
 INSERT INTO `data_divisi` (`ID_DIVISI`, `NAMA_DIVISI`) VALUES
@@ -197,22 +186,21 @@ INSERT INTO `data_divisi` (`ID_DIVISI`, `NAMA_DIVISI`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_golongan`
+-- Struktur dari tabel `data_golongan`
 --
 
-DROP TABLE IF EXISTS `data_golongan`;
 CREATE TABLE IF NOT EXISTS `data_golongan` (
   `ID_GOLONGAN` varchar(10) NOT NULL,
-  `NAMA_GOLONGAN` varchar(50) default NULL,
-  PRIMARY KEY  (`ID_GOLONGAN`)
+  `NAMA_GOLONGAN` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID_GOLONGAN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_golongan`
+-- Dumping data untuk tabel `data_golongan`
 --
 
 INSERT INTO `data_golongan` (`ID_GOLONGAN`, `NAMA_GOLONGAN`) VALUES
-('GOL001', 'A1'),
+('GOL001', 'A 1'),
 ('GOL002', 'A II'),
 ('GOL003', 'A III'),
 ('GOL004', 'B 1'),
@@ -221,22 +209,22 @@ INSERT INTO `data_golongan` (`ID_GOLONGAN`, `NAMA_GOLONGAN`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_jabatan`
+-- Struktur dari tabel `data_jabatan`
 --
 
-DROP TABLE IF EXISTS `data_jabatan`;
 CREATE TABLE IF NOT EXISTS `data_jabatan` (
   `ID_JABATAN` varchar(10) NOT NULL,
-  `NAMA_JABATAN` varchar(50) default NULL,
-  `LEVEL_JABATAN` varchar(50) default NULL,
-  PRIMARY KEY  (`ID_JABATAN`)
+  `NAMA_JABATAN` varchar(50) DEFAULT NULL,
+  `LEVEL_JABATAN` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ID_JABATAN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_jabatan`
+-- Dumping data untuk tabel `data_jabatan`
 --
 
 INSERT INTO `data_jabatan` (`ID_JABATAN`, `NAMA_JABATAN`, `LEVEL_JABATAN`) VALUES
+('f', 'd', '1.1'),
 ('JAB001', 'KETUA STIKOM', '1.1'),
 ('JAB002', 'WAKIL KETUA I', '2.1'),
 ('JAB003', 'WAKIL KETUA II', '2.2'),
@@ -280,37 +268,35 @@ INSERT INTO `data_jabatan` (`ID_JABATAN`, `NAMA_JABATAN`, `LEVEL_JABATAN`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_karyawan`
+-- Struktur dari tabel `data_karyawan`
 --
 
-DROP TABLE IF EXISTS `data_karyawan`;
 CREATE TABLE IF NOT EXISTS `data_karyawan` (
   `KODE_KARYAWAN` varchar(10) NOT NULL,
-  `NAMA_KARYAWAN` varchar(50) default NULL,
-  `TEMPAT_LAHIR` varchar(50) default NULL,
-  `TANGGAL_LAHIR` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `JENIS_KELAMIN` varchar(20) default NULL,
-  `GOLONGAN_DARAH` varchar(2) default NULL,
-  `STATUS` varchar(30) default NULL,
-  `AGAMA` varchar(50) default NULL,
-  `EMAIL` varchar(30) default NULL,
-  `TANGGAL_MASUK` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `TANGGAL_KELUAR` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `ID_STATUS_KARYAWAN` varchar(10) default NULL,
-  PRIMARY KEY  (`KODE_KARYAWAN`),
+  `NAMA_KARYAWAN` varchar(50) DEFAULT NULL,
+  `TEMPAT_LAHIR` varchar(50) DEFAULT NULL,
+  `TANGGAL_LAHIR` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `JENIS_KELAMIN` varchar(20) DEFAULT NULL,
+  `GOLONGAN_DARAH` varchar(2) DEFAULT NULL,
+  `STATUS` varchar(30) DEFAULT NULL,
+  `AGAMA` varchar(50) DEFAULT NULL,
+  `EMAIL` varchar(30) DEFAULT NULL,
+  `TANGGAL_MASUK` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `TANGGAL_KELUAR` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `ID_STATUS_KARYAWAN` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`KODE_KARYAWAN`),
   KEY `ID_STATUS_KARYAWAN` (`ID_STATUS_KARYAWAN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_karyawan`
+-- Dumping data untuk tabel `data_karyawan`
 --
 
 INSERT INTO `data_karyawan` (`KODE_KARYAWAN`, `NAMA_KARYAWAN`, `TEMPAT_LAHIR`, `TANGGAL_LAHIR`, `JENIS_KELAMIN`, `GOLONGAN_DARAH`, `STATUS`, `AGAMA`, `EMAIL`, `TANGGAL_MASUK`, `TANGGAL_KELUAR`, `ID_STATUS_KARYAWAN`) VALUES
-('4343434', 'MUSA', '', '0000-00-00 00:00:00', '1', '', 'BK', 'B', 'freezyoff@gmaill.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'STAT001'),
 ('K001', 'Jangkung, MBA', 'yogjakarta', '0000-00-00 00:00:00', '0', 'B', 'K', 'K', 'JANGKUNG@YAHOO.CO.ID', '2008-01-31 00:00:00', '0000-00-00 00:00:00', 'STAT001'),
-('K002', 'SUDARSONO, MBA', 'KALIMANTAN', '0000-00-00 00:00:00', '0', 'O', 'K', 'I', 'SUDAR@YAHOO.CO.ID', '2002-01-31 00:00:00', '0000-00-00 00:00:00', NULL),
+('K002', 'SUDARSONO, MBA', 'KALIMANTAN', '0000-00-00 00:00:00', '0', 'O', 'K', 'I', 'SUDAR@YAHOO.CO.ID', '2002-01-31 00:00:00', '0000-00-00 00:00:00', 'STAT001'),
 ('K003', 'SUDARMANTO, MMT', 'JAKARTA', '0000-00-00 00:00:00', '0', 'B', 'K', 'H', 'SUDAR@GMAIL.COM', '2006-02-02 00:00:00', '0000-00-00 00:00:00', NULL),
-('K004', 'MANZUR SAMANA, SKOM', 'KUPANG', '0000-00-00 00:00:00', '0', 'AB', 'DJ', 'I', 'P@YAHOO.CO.ID', '2002-05-17 00:00:00', '0000-00-00 00:00:00', NULL),
+('K004', 'MANZUR SAMANA, SKOM', 'KUPANG', '0000-00-00 00:00:00', '0', 'AB', 'DJ', 'I', 'P@YAHOO.CO.ID', '2002-05-17 00:00:00', '0000-00-00 00:00:00', 'STAT001'),
 ('K005', 'ENDANG WIDYASTUTI, S.E.', 'BALI', '1980-02-07 00:00:00', '1', 'O', 'BK', 'I', 'ENDANG@GMAIL.COM', '2009-12-02 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K006', 'SITI ADAWIYA, SKOM,MMT', 'KEFAMENANU', '1981-04-30 00:00:00', '1', 'AB', 'K', 'I', 'R@YAHOO.CO.ID', '2002-09-14 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K007', 'I PUTU AGUS SWATIKA, M.KOM', 'BALI', '0000-00-00 00:00:00', '0', 'B', 'BK', 'H', 'AGUS@YAHOO.COM', '2006-02-02 00:00:00', '0000-00-00 00:00:00', NULL),
@@ -344,30 +330,29 @@ INSERT INTO `data_karyawan` (`KODE_KARYAWAN`, `NAMA_KARYAWAN`, `TEMPAT_LAHIR`, `
 ('K035', 'WAHYU NOVIASTONO, SE', 'ATAMBUA', '1987-05-06 00:00:00', '0', 'B', 'K', 'I', 'WAHYU@YAHOO.CO.ID', '2010-01-01 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K036', 'ASSEGAF, SP', 'KEDIRI', '0000-00-00 00:00:00', '0', 'A', 'K', 'I', 'ASEE@YAHOO.CO.ID', '2010-01-13 00:00:00', '0000-00-00 00:00:00', NULL),
 ('K037', 'IBNU RUSI, SKOM', 'BONTANG', '1980-04-14 00:00:00', '0', 'B', 'K', 'I', 'j@yahoo.co.id', '2010-01-07 00:00:00', '0000-00-00 00:00:00', NULL),
-('xxxx', 'xxxxx', '', '0000-00-00 00:00:00', '0', 'A', 'BK', 'B', 'Fsdsd@asdsd.h', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'STAT001');
+('kxxx', 'siti', 'kefa', '2010-01-14 00:00:00', '1', 'AB', 'BK', 'B', 'p@yahoo.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'STAT001');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_user`
+-- Struktur dari tabel `data_user`
 --
 
-DROP TABLE IF EXISTS `data_user`;
 CREATE TABLE IF NOT EXISTS `data_user` (
   `user_nama` varchar(10) NOT NULL,
   `user_password` varchar(50) NOT NULL COMMENT 'pake md5',
   `user_tipe` int(11) NOT NULL COMMENT '1=administrator, 2=user biasa',
-  PRIMARY KEY  (`user_nama`)
+  PRIMARY KEY (`user_nama`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_user`
+-- Dumping data untuk tabel `data_user`
 --
 
 INSERT INTO `data_user` (`user_nama`, `user_password`, `user_tipe`) VALUES
-('4343434', 'c4ca4238a0b923820dcc509a6f75849b', 2),
 ('admin', '21232f297a57a5a743894a0e4a801fc3', 1),
-('K001', 'c4ca4238a0b923820dcc509a6f75849b', 2),
+('dsfds', '0fbe1ddfbc52dffd9e79649d4e3c0b29', 2),
+('K001', '73e8b30aba2d0cf27b323a487cfec25e', 1),
 ('K002', 'bebc31106d79fcd3fa764015cc1e92a1', 2),
 ('K003', 'dfb5667bdff4741b8e14285ec97dbff8', 2),
 ('K004', '798e8344ad321b98dd90b9ea688dcd4c', 2),
@@ -387,52 +372,50 @@ INSERT INTO `data_user` (`user_nama`, `user_password`, `user_tipe`) VALUES
 ('K025', 'd15a640279bdbb329622c2a33fe85619', 2),
 ('K031', 'd29806fcf2501d5242ef19903711a9cd', 2),
 ('K032', '465d985843d4c5037640792a3387b352', 2),
-('K037', 'f9d25fadb08bf371a9d6d1fa40f9fbae', 2);
+('K037', 'f9d25fadb08bf371a9d6d1fa40f9fbae', 2),
+('kxxx', '9bf08dbc2c1b16553e5a3875b08e6f02', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dep_divisi_jabatan`
+-- Struktur dari tabel `dep_divisi_jabatan`
 --
 
-DROP TABLE IF EXISTS `dep_divisi_jabatan`;
 CREATE TABLE IF NOT EXISTS `dep_divisi_jabatan` (
-  `ID_DEP_DIV_JAB` int(11) NOT NULL auto_increment,
-  `ID_JABATAN` varchar(10) default NULL,
-  `ID_DIVISI` varchar(10) default NULL,
-  `ID_DEPARTMENT` varchar(10) default NULL,
-  PRIMARY KEY  (`ID_DEP_DIV_JAB`),
+  `ID_DEP_DIV_JAB` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_JABATAN` varchar(10) DEFAULT NULL,
+  `ID_DIVISI` varchar(10) DEFAULT NULL,
+  `ID_DEPARTMENT` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`ID_DEP_DIV_JAB`),
   KEY `ID_DEPARTMENT` (`ID_DEPARTMENT`),
   KEY `ID_DIVISI` (`ID_DIVISI`),
   KEY `ID_JABATAN` (`ID_JABATAN`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `dep_divisi_jabatan`
+-- Dumping data untuk tabel `dep_divisi_jabatan`
 --
 
 INSERT INTO `dep_divisi_jabatan` (`ID_DEP_DIV_JAB`, `ID_JABATAN`, `ID_DIVISI`, `ID_DEPARTMENT`) VALUES
-(1, 'JAB004', 'DIV000', 'DEP001'),
-(2, 'JAB001', 'DIV000', 'DEP000'),
-(3, 'JAB007', 'DIV002', 'DEP001');
+(1, 'JAB001', 'DIV000', 'DEP000'),
+(2, 'JAB002', 'DIV000', 'DEP000');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `deskripsi_bobot`
+-- Struktur dari tabel `deskripsi_bobot`
 --
 
-DROP TABLE IF EXISTS `deskripsi_bobot`;
 CREATE TABLE IF NOT EXISTS `deskripsi_bobot` (
   `NILAI` int(11) NOT NULL,
   `ID_DETAIL_KRITERIA` int(11) NOT NULL,
   `DESKRIPSI` text,
-  PRIMARY KEY  (`NILAI`,`ID_DETAIL_KRITERIA`),
+  PRIMARY KEY (`NILAI`,`ID_DETAIL_KRITERIA`),
   KEY `ID_DETAIL_KRITERIA` (`ID_DETAIL_KRITERIA`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `deskripsi_bobot`
+-- Dumping data untuk tabel `deskripsi_bobot`
 --
 
 INSERT INTO `deskripsi_bobot` (`NILAI`, `ID_DETAIL_KRITERIA`, `DESKRIPSI`) VALUES
@@ -550,22 +533,21 @@ INSERT INTO `deskripsi_bobot` (`NILAI`, `ID_DETAIL_KRITERIA`, `DESKRIPSI`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_kriteria`
+-- Struktur dari tabel `detail_kriteria`
 --
 
-DROP TABLE IF EXISTS `detail_kriteria`;
 CREATE TABLE IF NOT EXISTS `detail_kriteria` (
-  `ID_DETAIL_KRITERIA` int(11) NOT NULL auto_increment,
+  `ID_DETAIL_KRITERIA` int(11) NOT NULL AUTO_INCREMENT,
   `ID_KRITERIA` int(11) NOT NULL,
-  `NAMA_DETAIL_KRITERIA` varchar(50) default NULL,
+  `NAMA_DETAIL_KRITERIA` varchar(50) DEFAULT NULL,
   `DESKRIPSI` text,
-  `BOBOT` double default NULL,
-  PRIMARY KEY  (`ID_DETAIL_KRITERIA`),
+  `BOBOT` double DEFAULT NULL,
+  PRIMARY KEY (`ID_DETAIL_KRITERIA`),
   KEY `ID_KRITERIA` (`ID_KRITERIA`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
--- Dumping data for table `detail_kriteria`
+-- Dumping data untuk tabel `detail_kriteria`
 --
 
 INSERT INTO `detail_kriteria` (`ID_DETAIL_KRITERIA`, `ID_KRITERIA`, `NAMA_DETAIL_KRITERIA`, `DESKRIPSI`, `BOBOT`) VALUES
@@ -584,52 +566,60 @@ INSERT INTO `detail_kriteria` (`ID_DETAIL_KRITERIA`, `ID_KRITERIA`, `NAMA_DETAIL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detil_bobot_level`
+-- Struktur dari tabel `detil_bobot_level`
 --
 
-DROP TABLE IF EXISTS `detil_bobot_level`;
 CREATE TABLE IF NOT EXISTS `detil_bobot_level` (
-  `ID_DETIL_BOBOT_LEVEL` int(11) NOT NULL auto_increment,
+  `ID_DETIL_BOBOT_LEVEL` int(11) NOT NULL AUTO_INCREMENT,
   `ID_KRITERIA` int(11) NOT NULL,
   `ID_BOBOT_LEVEL` int(11) NOT NULL,
-  `BOBOT` double default NULL,
-  PRIMARY KEY  (`ID_DETIL_BOBOT_LEVEL`),
+  `BOBOT` double DEFAULT NULL,
+  PRIMARY KEY (`ID_DETIL_BOBOT_LEVEL`),
   KEY `ID_KRITERIA` (`ID_KRITERIA`),
   KEY `ID_BOBOT_LEVEL` (`ID_BOBOT_LEVEL`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
 
 --
--- Dumping data for table `detil_bobot_level`
+-- Dumping data untuk tabel `detil_bobot_level`
 --
 
 INSERT INTO `detil_bobot_level` (`ID_DETIL_BOBOT_LEVEL`, `ID_KRITERIA`, `ID_BOBOT_LEVEL`, `BOBOT`) VALUES
-(2, 1, 7, 25),
-(3, 2, 7, 25),
-(4, 3, 7, 25),
-(5, 4, 7, 25),
-(6, 1, 17, 0),
-(7, 2, 17, 0),
-(8, 3, 17, 0),
-(9, 4, 17, 0),
-(12, 1, 8, 50),
-(13, 4, 8, 50);
+(42, 1, 30, 25),
+(43, 2, 30, 25),
+(44, 3, 30, 25),
+(45, 4, 30, 25),
+(46, 1, 31, 25),
+(47, 2, 31, 25),
+(48, 3, 31, 25),
+(49, 4, 31, 25),
+(50, 1, 32, 25),
+(51, 2, 32, 25),
+(52, 3, 32, 25),
+(53, 4, 32, 25),
+(54, 1, 33, 25),
+(55, 2, 33, 25),
+(56, 3, 33, 25),
+(57, 4, 33, 25),
+(58, 1, 34, 25),
+(59, 2, 34, 25),
+(60, 3, 34, 25),
+(61, 4, 34, 25);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kriteria_penilaian`
+-- Struktur dari tabel `kriteria_penilaian`
 --
 
-DROP TABLE IF EXISTS `kriteria_penilaian`;
 CREATE TABLE IF NOT EXISTS `kriteria_penilaian` (
-  `ID_KRITERIA` int(11) NOT NULL auto_increment,
-  `NAMA_KRITERIA` varchar(50) default NULL,
+  `ID_KRITERIA` int(11) NOT NULL AUTO_INCREMENT,
+  `NAMA_KRITERIA` varchar(50) DEFAULT NULL,
   `DESKRIPSI` text,
-  PRIMARY KEY  (`ID_KRITERIA`)
+  PRIMARY KEY (`ID_KRITERIA`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `kriteria_penilaian`
+-- Dumping data untuk tabel `kriteria_penilaian`
 --
 
 INSERT INTO `kriteria_penilaian` (`ID_KRITERIA`, `NAMA_KRITERIA`, `DESKRIPSI`) VALUES
@@ -641,250 +631,252 @@ INSERT INTO `kriteria_penilaian` (`ID_KRITERIA`, `NAMA_KRITERIA`, `DESKRIPSI`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_akhir`
+-- Struktur dari tabel `nilai_akhir`
 --
 
-DROP TABLE IF EXISTS `nilai_akhir`;
 CREATE TABLE IF NOT EXISTS `nilai_akhir` (
-  `KODE_DINILAI` int(11) NOT NULL auto_increment,
+  `KODE_DINILAI` int(11) NOT NULL AUTO_INCREMENT,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `ID_DEP_DIV_JAB` int(11) NOT NULL,
   `ID_PERIODE` varchar(50) NOT NULL,
-  `NILAI_AKHIR` double default NULL,
-  PRIMARY KEY  (`KODE_DINILAI`),
+  `NILAI_AKHIR` double DEFAULT NULL,
+  PRIMARY KEY (`KODE_DINILAI`),
   KEY `ID_PERIODE` (`ID_PERIODE`),
   KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`),
   KEY `ID_DEP_DIV_JAB` (`ID_DEP_DIV_JAB`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `nilai_akhir`
+-- Dumping data untuk tabel `nilai_akhir`
 --
 
 INSERT INTO `nilai_akhir` (`KODE_DINILAI`, `KODE_KARYAWAN`, `ID_DEP_DIV_JAB`, `ID_PERIODE`, `NILAI_AKHIR`) VALUES
-(1, '4343434', 1, 'jan - 2010', 0.1),
-(2, 'xxxx', 3, 'jan - 2010', 0.175),
-(3, 'xxxx', 3, 'jan - 2010', 0);
+(12, 'K002', 2, 'jan - 2010', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_per_kinerja`
+-- Struktur dari tabel `nilai_per_kinerja`
 --
 
-DROP TABLE IF EXISTS `nilai_per_kinerja`;
 CREATE TABLE IF NOT EXISTS `nilai_per_kinerja` (
-  `ID_NILAI_PER_KINERJA` int(11) NOT NULL auto_increment,
+  `ID_NILAI_PER_KINERJA` int(11) NOT NULL AUTO_INCREMENT,
   `ID_DETAIL_KRITERIA` int(11) NOT NULL,
   `ID_NILAI_PER_KRITERIA` int(11) NOT NULL,
-  `NILAI` double default NULL,
-  PRIMARY KEY  (`ID_NILAI_PER_KINERJA`),
+  `NILAI` double DEFAULT NULL,
+  PRIMARY KEY (`ID_NILAI_PER_KINERJA`),
   KEY `ID_DETAIL_KRITERIA` (`ID_DETAIL_KRITERIA`),
   KEY `ID_NILAI_PER_KRITERIA` (`ID_NILAI_PER_KRITERIA`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=133 ;
 
 --
--- Dumping data for table `nilai_per_kinerja`
+-- Dumping data untuk tabel `nilai_per_kinerja`
 --
 
 INSERT INTO `nilai_per_kinerja` (`ID_NILAI_PER_KINERJA`, `ID_DETAIL_KRITERIA`, `ID_NILAI_PER_KRITERIA`, `NILAI`) VALUES
-(1, 1, 1, 0.7),
-(2, 2, 1, 0.3),
-(3, 3, 2, 0.3),
-(4, 4, 2, 0.35),
-(5, 5, 2, 0.35),
-(6, 6, 3, 0.45),
-(7, 7, 3, 0.55),
-(8, 8, 4, 0.25),
-(9, 9, 4, 0.25),
-(10, 10, 4, 0.25),
-(11, 11, 4, 0.25),
-(12, 1, 5, 2.8),
-(13, 2, 5, 1.2),
-(14, 3, 6, 0.3),
-(15, 4, 6, 0.35),
-(16, 5, 6, 0.35),
-(17, 6, 7, 0.45),
-(18, 7, 7, 0.55),
-(19, 8, 8, 0.25),
-(20, 9, 8, 0.25),
-(21, 10, 8, 0.25),
-(22, 11, 8, 0.25);
+(100, 1, 37, 0.7),
+(101, 2, 37, 0.3),
+(102, 3, 38, 0.3),
+(103, 4, 38, 0.35),
+(104, 5, 38, 0.35),
+(105, 6, 39, 0.45),
+(106, 7, 39, 0.55),
+(107, 8, 40, 0.25),
+(108, 9, 40, 0.25),
+(109, 10, 40, 0.25),
+(110, 11, 40, 0.25),
+(111, 1, 41, 0.7),
+(112, 2, 41, 0.3),
+(113, 3, 42, 0.3),
+(114, 4, 42, 0.35),
+(115, 5, 42, 0.35),
+(116, 6, 43, 0.45),
+(117, 7, 43, 0.55),
+(118, 8, 44, 0.25),
+(119, 9, 44, 0.25),
+(120, 10, 44, 0.25),
+(121, 11, 44, 0.25),
+(122, 1, 45, 0.7),
+(123, 2, 45, 0.3),
+(124, 3, 46, 0.3),
+(125, 4, 46, 0.35),
+(126, 5, 46, 0.35),
+(127, 6, 47, 0.45),
+(128, 7, 47, 0.55),
+(129, 8, 48, 0.25),
+(130, 9, 48, 0.25),
+(131, 10, 48, 0.25),
+(132, 11, 48, 0.25);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_per_kriteria`
+-- Struktur dari tabel `nilai_per_kriteria`
 --
 
-DROP TABLE IF EXISTS `nilai_per_kriteria`;
 CREATE TABLE IF NOT EXISTS `nilai_per_kriteria` (
-  `ID_NILAI_PER_KRITERIA` int(11) NOT NULL auto_increment,
+  `ID_NILAI_PER_KRITERIA` int(11) NOT NULL AUTO_INCREMENT,
   `ID_NILAI_PER_PENILAI` int(11) NOT NULL,
-  `ID_DETIL_BOBOT_LEVEL` int(11) default NULL,
-  `NILAI` double default NULL,
-  PRIMARY KEY  (`ID_NILAI_PER_KRITERIA`),
+  `ID_DETIL_BOBOT_LEVEL` int(11) DEFAULT NULL,
+  `NILAI` double DEFAULT NULL,
+  PRIMARY KEY (`ID_NILAI_PER_KRITERIA`),
   KEY `ID_DETIL_BOBOT_LEVEL` (`ID_DETIL_BOBOT_LEVEL`),
   KEY `ID_NILAI_PER_PENILAI` (`ID_NILAI_PER_PENILAI`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
--- Dumping data for table `nilai_per_kriteria`
+-- Dumping data untuk tabel `nilai_per_kriteria`
 --
 
 INSERT INTO `nilai_per_kriteria` (`ID_NILAI_PER_KRITERIA`, `ID_NILAI_PER_PENILAI`, `ID_DETIL_BOBOT_LEVEL`, `NILAI`) VALUES
-(1, 1, 2, 0.25),
-(2, 1, 3, 0.25),
-(3, 1, 4, 0.25),
-(4, 1, 5, 0.25),
-(5, 2, 2, 1),
-(6, 2, 3, 0.25),
-(7, 2, 4, 0.25),
-(8, 2, 5, 0.25);
+(37, 32, 42, 0.25),
+(38, 32, 43, 0.25),
+(39, 32, 44, 0.25),
+(40, 32, 45, 0.25),
+(41, 33, 46, 0.25),
+(42, 33, 47, 0.25),
+(43, 33, 48, 0.25),
+(44, 33, 49, 0.25),
+(45, 34, 50, 0.25),
+(46, 34, 51, 0.25),
+(47, 34, 52, 0.25),
+(48, 34, 53, 0.25);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nilai_per_penilai`
+-- Struktur dari tabel `nilai_per_penilai`
 --
 
-DROP TABLE IF EXISTS `nilai_per_penilai`;
 CREATE TABLE IF NOT EXISTS `nilai_per_penilai` (
-  `ID_NILAI_PER_PENILAI` int(11) NOT NULL auto_increment,
-  `KODE_DINILAI` int(11) default NULL,
-  `KODE_PENILAI` int(11) default NULL,
-  `ID_BOBOT_LEVEL` int(11) default NULL,
-  `NILAI` double default NULL,
-  PRIMARY KEY  (`ID_NILAI_PER_PENILAI`),
+  `ID_NILAI_PER_PENILAI` int(11) NOT NULL AUTO_INCREMENT,
+  `KODE_DINILAI` int(11) DEFAULT NULL,
+  `KODE_PENILAI` int(11) DEFAULT NULL,
+  `ID_BOBOT_LEVEL` int(11) DEFAULT NULL,
+  `NILAI` double DEFAULT NULL,
+  PRIMARY KEY (`ID_NILAI_PER_PENILAI`),
   KEY `ID_BOBOT_LEVEL` (`ID_BOBOT_LEVEL`),
   KEY `KODE_PENILAI` (`KODE_PENILAI`),
   KEY `KODE_DINILAI` (`KODE_DINILAI`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
--- Dumping data for table `nilai_per_penilai`
+-- Dumping data untuk tabel `nilai_per_penilai`
 --
 
 INSERT INTO `nilai_per_penilai` (`ID_NILAI_PER_PENILAI`, `KODE_DINILAI`, `KODE_PENILAI`, `ID_BOBOT_LEVEL`, `NILAI`) VALUES
-(1, 1, 2, 7, 1),
-(2, 2, 2, 7, 1.75),
-(3, 1, 2, 8, 0);
+(32, 12, 10, 30, 1),
+(33, 12, 10, 31, 1),
+(34, 12, 10, 32, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penilai`
+-- Struktur dari tabel `penilai`
 --
 
-DROP TABLE IF EXISTS `penilai`;
 CREATE TABLE IF NOT EXISTS `penilai` (
-  `KODE_PENILAI` int(11) NOT NULL auto_increment,
+  `KODE_PENILAI` int(11) NOT NULL AUTO_INCREMENT,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `ID_DEP_DIV_JAB` int(11) NOT NULL,
-  PRIMARY KEY  (`KODE_PENILAI`),
+  PRIMARY KEY (`KODE_PENILAI`),
   KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`),
   KEY `ID_DEP_DIV_JAB` (`ID_DEP_DIV_JAB`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
--- Dumping data for table `penilai`
+-- Dumping data untuk tabel `penilai`
 --
 
 INSERT INTO `penilai` (`KODE_PENILAI`, `KODE_KARYAWAN`, `ID_DEP_DIV_JAB`) VALUES
-(1, '4343434', 1),
-(2, 'K001', 2);
+(10, 'K001', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relasi_div_jab_din`
+-- Struktur dari tabel `relasi_div_jab_din`
 --
 
-DROP TABLE IF EXISTS `relasi_div_jab_din`;
 CREATE TABLE IF NOT EXISTS `relasi_div_jab_din` (
   `KODE_KARYAWAN` varchar(10) NOT NULL,
-  `TANGGAL_MENJABAT` date default NULL,
-  `TANGGAL_BERHENTI` date default NULL,
+  `TANGGAL_MENJABAT` date DEFAULT NULL,
+  `TANGGAL_BERHENTI` date DEFAULT NULL,
   `ID_DEP_DIV_JAB` int(11) NOT NULL,
-  PRIMARY KEY  (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`),
+  PRIMARY KEY (`KODE_KARYAWAN`,`ID_DEP_DIV_JAB`),
   KEY `ID_DEP_DIV_JAB` (`ID_DEP_DIV_JAB`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `relasi_div_jab_din`
+-- Dumping data untuk tabel `relasi_div_jab_din`
 --
 
 INSERT INTO `relasi_div_jab_din` (`KODE_KARYAWAN`, `TANGGAL_MENJABAT`, `TANGGAL_BERHENTI`, `ID_DEP_DIV_JAB`) VALUES
-('4343434', '0000-00-00', '0000-00-00', 1),
-('K001', '2010-01-05', '0000-00-00', 2),
-('xxxx', '2010-01-24', '0000-00-00', 3);
+('K001', '2010-01-01', '2010-01-02', 1),
+('K002', '2010-01-08', '2010-01-23', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relasi_golongan`
+-- Struktur dari tabel `relasi_golongan`
 --
 
-DROP TABLE IF EXISTS `relasi_golongan`;
 CREATE TABLE IF NOT EXISTS `relasi_golongan` (
   `ID_GOLONGAN` varchar(10) NOT NULL,
   `KODE_KARYAWAN` varchar(10) NOT NULL,
-  `TANGGAL_MENJABAT` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `TANGGAL_BERHENTI` timestamp NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`ID_GOLONGAN`,`KODE_KARYAWAN`),
+  `TANGGAL_MENJABAT` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `TANGGAL_BERHENTI` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`ID_GOLONGAN`,`KODE_KARYAWAN`),
   KEY `KODE_KARYAWAN` (`KODE_KARYAWAN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `relasi_golongan`
+-- Dumping data untuk tabel `relasi_golongan`
 --
 
 INSERT INTO `relasi_golongan` (`ID_GOLONGAN`, `KODE_KARYAWAN`, `TANGGAL_MENJABAT`, `TANGGAL_BERHENTI`) VALUES
-('GOL001', '4343434', '2010-01-20 00:00:00', '0000-00-00 00:00:00');
+('GOL002', 'K001', '2010-01-13 00:00:00', '2010-01-14 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `setting_periode`
+-- Struktur dari tabel `setting_periode`
 --
 
-DROP TABLE IF EXISTS `setting_periode`;
 CREATE TABLE IF NOT EXISTS `setting_periode` (
   `ID_PERIODE` varchar(50) NOT NULL,
-  `PERIODE_AWAL` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `PERIODE_AKHIR` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `BOBOT_VERTIKAL` int(11) default NULL,
-  `BOBOT_HORIZONTAL` int(11) default NULL,
-  `LEVEL_VERTIKAL` int(11) default NULL,
-  `LEVEL_HORIZONTAL` int(11) default NULL,
-  `BATAS_AWAL_PENILAIAN` timestamp NOT NULL default '0000-00-00 00:00:00',
-  `BATAS_AKHIR_PENILAIAN` timestamp NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`ID_PERIODE`)
+  `PERIODE_AWAL` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `PERIODE_AKHIR` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `BOBOT_VERTIKAL` int(11) DEFAULT NULL,
+  `BOBOT_HORIZONTAL` int(11) DEFAULT NULL,
+  `LEVEL_VERTIKAL` int(11) DEFAULT NULL,
+  `LEVEL_HORIZONTAL` int(11) DEFAULT NULL,
+  `BATAS_AWAL_PENILAIAN` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `BATAS_AKHIR_PENILAIAN` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`ID_PERIODE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `setting_periode`
+-- Dumping data untuk tabel `setting_periode`
 --
 
 INSERT INTO `setting_periode` (`ID_PERIODE`, `PERIODE_AWAL`, `PERIODE_AKHIR`, `BOBOT_VERTIKAL`, `BOBOT_HORIZONTAL`, `LEVEL_VERTIKAL`, `LEVEL_HORIZONTAL`, `BATAS_AWAL_PENILAIAN`, `BATAS_AKHIR_PENILAIAN`) VALUES
-('feb-2010', '2010-02-01 00:00:00', '2010-02-28 00:00:00', 50, 50, 3, 3, '2010-03-01 00:00:00', '2010-03-31 00:00:00'),
-('jan - 2010', '2010-01-01 00:00:00', '2010-01-31 00:00:00', 50, 50, 5, 5, '2010-02-01 00:00:00', '2010-02-07 00:00:00');
+('jan - 2010', '2010-01-01 00:00:00', '2010-05-01 00:00:00', 60, 40, 2, 1, '2010-05-02 00:00:00', '2010-05-08 00:00:00'),
+('jun - 2010', '2010-06-01 00:00:00', '2010-12-01 00:00:00', 50, 50, 1, 1, '2010-12-02 00:00:00', '2010-12-11 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `status_karyawan`
+-- Struktur dari tabel `status_karyawan`
 --
 
-DROP TABLE IF EXISTS `status_karyawan`;
 CREATE TABLE IF NOT EXISTS `status_karyawan` (
   `ID_STATUS_KARYAWAN` varchar(10) NOT NULL,
-  `NAMA_STATUS` varchar(30) default NULL,
-  PRIMARY KEY  (`ID_STATUS_KARYAWAN`)
+  `NAMA_STATUS` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`ID_STATUS_KARYAWAN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `status_karyawan`
+-- Dumping data untuk tabel `status_karyawan`
 --
 
 INSERT INTO `status_karyawan` (`ID_STATUS_KARYAWAN`, `NAMA_STATUS`) VALUES
@@ -898,22 +890,20 @@ INSERT INTO `status_karyawan` (`ID_STATUS_KARYAWAN`, `NAMA_STATUS`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `telpon`
+-- Struktur dari tabel `telpon`
 --
 
-DROP TABLE IF EXISTS `telpon`;
 CREATE TABLE IF NOT EXISTS `telpon` (
   `KODE_KARYAWAN` varchar(10) NOT NULL,
   `NO_TELPON` int(11) NOT NULL,
-  PRIMARY KEY  (`KODE_KARYAWAN`,`NO_TELPON`)
+  PRIMARY KEY (`KODE_KARYAWAN`,`NO_TELPON`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `telpon`
+-- Dumping data untuk tabel `telpon`
 --
 
 INSERT INTO `telpon` (`KODE_KARYAWAN`, `NO_TELPON`) VALUES
-('4343434', 123),
 ('k001', 2147483647),
 ('K002', 93289823),
 ('K003', 94993993),
@@ -933,32 +923,33 @@ INSERT INTO `telpon` (`KODE_KARYAWAN`, `NO_TELPON`) VALUES
 ('k018', 89437854),
 ('k019', 44444),
 ('K020', 332435435),
-('K037', 824839438);
+('K037', 824839438),
+('kxxx', 34353);
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `alamat`
+-- Ketidakleluasaan untuk tabel `alamat`
 --
 ALTER TABLE `alamat`
   ADD CONSTRAINT `alamat_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `data_karyawan` (`KODE_KARYAWAN`);
 
 --
--- Constraints for table `bobot_level`
+-- Ketidakleluasaan untuk tabel `bobot_level`
 --
 ALTER TABLE `bobot_level`
   ADD CONSTRAINT `bobot_level_ibfk_1` FOREIGN KEY (`ID_PERIODE`) REFERENCES `setting_periode` (`ID_PERIODE`);
 
 --
--- Constraints for table `data_karyawan`
+-- Ketidakleluasaan untuk tabel `data_karyawan`
 --
 ALTER TABLE `data_karyawan`
   ADD CONSTRAINT `data_karyawan_ibfk_1` FOREIGN KEY (`ID_STATUS_KARYAWAN`) REFERENCES `status_karyawan` (`ID_STATUS_KARYAWAN`);
 
 --
--- Constraints for table `dep_divisi_jabatan`
+-- Ketidakleluasaan untuk tabel `dep_divisi_jabatan`
 --
 ALTER TABLE `dep_divisi_jabatan`
   ADD CONSTRAINT `dep_divisi_jabatan_ibfk_1` FOREIGN KEY (`ID_DEPARTMENT`) REFERENCES `data_department` (`ID_DEPARTMENT`),
@@ -966,26 +957,26 @@ ALTER TABLE `dep_divisi_jabatan`
   ADD CONSTRAINT `dep_divisi_jabatan_ibfk_3` FOREIGN KEY (`ID_JABATAN`) REFERENCES `data_jabatan` (`ID_JABATAN`);
 
 --
--- Constraints for table `deskripsi_bobot`
+-- Ketidakleluasaan untuk tabel `deskripsi_bobot`
 --
 ALTER TABLE `deskripsi_bobot`
   ADD CONSTRAINT `deskripsi_bobot_ibfk_1` FOREIGN KEY (`ID_DETAIL_KRITERIA`) REFERENCES `detail_kriteria` (`ID_DETAIL_KRITERIA`);
 
 --
--- Constraints for table `detail_kriteria`
+-- Ketidakleluasaan untuk tabel `detail_kriteria`
 --
 ALTER TABLE `detail_kriteria`
   ADD CONSTRAINT `detail_kriteria_ibfk_1` FOREIGN KEY (`ID_KRITERIA`) REFERENCES `kriteria_penilaian` (`ID_KRITERIA`);
 
 --
--- Constraints for table `detil_bobot_level`
+-- Ketidakleluasaan untuk tabel `detil_bobot_level`
 --
 ALTER TABLE `detil_bobot_level`
   ADD CONSTRAINT `detil_bobot_level_ibfk_1` FOREIGN KEY (`ID_KRITERIA`) REFERENCES `kriteria_penilaian` (`ID_KRITERIA`),
   ADD CONSTRAINT `detil_bobot_level_ibfk_2` FOREIGN KEY (`ID_BOBOT_LEVEL`) REFERENCES `bobot_level` (`ID_BOBOT_LEVEL`);
 
 --
--- Constraints for table `nilai_akhir`
+-- Ketidakleluasaan untuk tabel `nilai_akhir`
 --
 ALTER TABLE `nilai_akhir`
   ADD CONSTRAINT `nilai_akhir_ibfk_1` FOREIGN KEY (`ID_PERIODE`) REFERENCES `setting_periode` (`ID_PERIODE`),
@@ -994,21 +985,21 @@ ALTER TABLE `nilai_akhir`
   ADD CONSTRAINT `nilai_akhir_ibfk_4` FOREIGN KEY (`ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`ID_DEP_DIV_JAB`);
 
 --
--- Constraints for table `nilai_per_kinerja`
+-- Ketidakleluasaan untuk tabel `nilai_per_kinerja`
 --
 ALTER TABLE `nilai_per_kinerja`
   ADD CONSTRAINT `nilai_per_kinerja_ibfk_1` FOREIGN KEY (`ID_DETAIL_KRITERIA`) REFERENCES `detail_kriteria` (`ID_DETAIL_KRITERIA`),
   ADD CONSTRAINT `nilai_per_kinerja_ibfk_2` FOREIGN KEY (`ID_NILAI_PER_KRITERIA`) REFERENCES `nilai_per_kriteria` (`ID_NILAI_PER_KRITERIA`);
 
 --
--- Constraints for table `nilai_per_kriteria`
+-- Ketidakleluasaan untuk tabel `nilai_per_kriteria`
 --
 ALTER TABLE `nilai_per_kriteria`
   ADD CONSTRAINT `nilai_per_kriteria_ibfk_1` FOREIGN KEY (`ID_DETIL_BOBOT_LEVEL`) REFERENCES `detil_bobot_level` (`ID_DETIL_BOBOT_LEVEL`),
   ADD CONSTRAINT `nilai_per_kriteria_ibfk_2` FOREIGN KEY (`ID_NILAI_PER_PENILAI`) REFERENCES `nilai_per_penilai` (`ID_NILAI_PER_PENILAI`);
 
 --
--- Constraints for table `nilai_per_penilai`
+-- Ketidakleluasaan untuk tabel `nilai_per_penilai`
 --
 ALTER TABLE `nilai_per_penilai`
   ADD CONSTRAINT `nilai_per_penilai_ibfk_1` FOREIGN KEY (`ID_BOBOT_LEVEL`) REFERENCES `bobot_level` (`ID_BOBOT_LEVEL`),
@@ -1016,7 +1007,7 @@ ALTER TABLE `nilai_per_penilai`
   ADD CONSTRAINT `nilai_per_penilai_ibfk_3` FOREIGN KEY (`KODE_DINILAI`) REFERENCES `nilai_akhir` (`KODE_DINILAI`);
 
 --
--- Constraints for table `penilai`
+-- Ketidakleluasaan untuk tabel `penilai`
 --
 ALTER TABLE `penilai`
   ADD CONSTRAINT `penilai_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`KODE_KARYAWAN`, `ID_DEP_DIV_JAB`),
@@ -1024,21 +1015,21 @@ ALTER TABLE `penilai`
   ADD CONSTRAINT `penilai_ibfk_3` FOREIGN KEY (`ID_DEP_DIV_JAB`) REFERENCES `relasi_div_jab_din` (`ID_DEP_DIV_JAB`);
 
 --
--- Constraints for table `relasi_div_jab_din`
+-- Ketidakleluasaan untuk tabel `relasi_div_jab_din`
 --
 ALTER TABLE `relasi_div_jab_din`
   ADD CONSTRAINT `relasi_div_jab_din_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `data_karyawan` (`KODE_KARYAWAN`),
   ADD CONSTRAINT `relasi_div_jab_din_ibfk_2` FOREIGN KEY (`ID_DEP_DIV_JAB`) REFERENCES `dep_divisi_jabatan` (`ID_DEP_DIV_JAB`);
 
 --
--- Constraints for table `relasi_golongan`
+-- Ketidakleluasaan untuk tabel `relasi_golongan`
 --
 ALTER TABLE `relasi_golongan`
   ADD CONSTRAINT `relasi_golongan_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `data_karyawan` (`KODE_KARYAWAN`),
   ADD CONSTRAINT `relasi_golongan_ibfk_2` FOREIGN KEY (`ID_GOLONGAN`) REFERENCES `data_golongan` (`ID_GOLONGAN`);
 
 --
--- Constraints for table `telpon`
+-- Ketidakleluasaan untuk tabel `telpon`
 --
 ALTER TABLE `telpon`
   ADD CONSTRAINT `telpon_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `data_karyawan` (`KODE_KARYAWAN`);
