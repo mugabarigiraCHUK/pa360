@@ -127,7 +127,7 @@ if ($proc === 'detilPenilaian-save'){
 	}
 	
 	//save
-	$ex &= nilaiAkhir_update($nilaiPerPenilaiID, false, false, false, $nilaiAkhir);
+	$ex &= nilaiAkhir_update($dinilaiID, false, false, false, $nilaiAkhir);
 	
-	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
