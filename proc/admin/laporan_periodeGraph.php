@@ -54,12 +54,12 @@ if ($proc === 'graph'){
 	$DataSet->SetSerieName("Nilai Kinerja Terendah","min");  
 	 
 	// Initialise the graph  
-	$Test = new pChart(800,230);  
+	$Test = new pChart(800,500);  
 	//$Test->setFixedScale(-2,8);  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	$Test->setGraphArea(50,30,585,200);  
-	$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
-	$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
+	$Test->setGraphArea(50,30,585,470);
+	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
+	//$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
 	$Test->drawGraphArea(255,255,255,TRUE);  
 	$Test->drawScale($DataSet->GetData(),$DataSet->GetDataDescription(),SCALE_ADDALL,150,150,150,TRUE,0,2);     
 	$Test->drawGrid(4,TRUE,230,230,230,50);  
