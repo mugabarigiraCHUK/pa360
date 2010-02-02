@@ -33,7 +33,7 @@
 	</tr>
 	</table>
 </form>
-<div id="search-table" class="list marginT5" style="overflow:scroll; overflow-y:hidden; min-height:200px; border:1px solid #457A3F"></div>
+<div id="search-table" class="list marginT5" style="overflow:scroll; min-height:200px; max-height:400px; border:1px solid #457A3F"></div>
 <div align="right" class="padT5">Nilai rata - rata Periode : 
 	<input type="text" class="fake" value="<?=nilaiAkhir_avg($selectedPeriodeID)?>"  style="width:100px; text-align:right;" disabled="disabled"/>
 </div>
