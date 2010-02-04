@@ -118,9 +118,9 @@
  class pChart
   {
    /* Palettes definition */
-   var $Palette = array("0"=>array("R"=>188,"G"=>224,"B"=>46),
-                        "1"=>array("R"=>224,"G"=>100,"B"=>46),
-                        "2"=>array("R"=>224,"G"=>214,"B"=>46),
+   var $Palette = array("0"=>array("R"=>46,"G"=>151,"B"=>224),//"0"=>array("R"=>188,"G"=>224,"B"=>46),
+                        "1"=>array("R"=>176,"G"=>46,"B"=>224),//"1"=>array("R"=>224,"G"=>100,"B"=>46),
+                        "2"=>array("R"=>224,"G"=>46,"B"=>117),//"2"=>array("R"=>224,"G"=>214,"B"=>46),
                         "3"=>array("R"=>46,"G"=>151,"B"=>224),
                         "4"=>array("R"=>176,"G"=>46,"B"=>224),
                         "5"=>array("R"=>224,"G"=>46,"B"=>117),
@@ -1157,7 +1157,7 @@
     }
 
    /* This function put a label on a specific point */
-   function setLabel($Data,$DataDescription,$SerieName,$ValueName,$Caption,$R=210,$G=210,$B=210)
+   function setLabel($Data,$DataDescription,$SerieName,$ValueName,$Caption,$R=210,$G=210,$B=210,$TR=0, $TG=0, $TB=0)
     {
      /* Validate the Data and DataDescription array */
      $this->validateDataDescription("setLabel",$DataDescription);
@@ -1165,7 +1165,7 @@
      $ShadowFactor = 100;
      $C_Label      =$this->AllocateColor($this->Picture,$R,$G,$B);
      $C_Shadow     =$this->AllocateColor($this->Picture,$R-$ShadowFactor,$G-$ShadowFactor,$B-$ShadowFactor);
-     $C_TextColor  =$this->AllocateColor($this->Picture,0,0,0);
+     $C_TextColor  =$this->AllocateColor($this->Picture,$TR,$TG,$TB);
 
      $Cp = 0; $Found = FALSE;
      foreach ( $Data as $Key => $Value )

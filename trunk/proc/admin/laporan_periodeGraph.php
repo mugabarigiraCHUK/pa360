@@ -35,7 +35,7 @@ if ($proc === 'graph'){
 			$MIN[] = number_format(nilaiAkhir_min($loop['ID_PERIODE']), 2);
 			$LABEL[] = date('F', strtotime($loop['PERIODE_AWAL'])) .'-'. date('F Y', strtotime($loop['PERIODE_AKHIR']));
 		}
-		if ($periodeEnd === $loop['ID_PERIODE']) $doLoop = false;
+		if ($periodeEnd === $loop['ID_PERIODE'] || $periodeEnd<0) $doLoop = false;
 	}
 	$AVG[] = $MAX[] = $MIN[] = $LABEL[] = "";
 		  
@@ -77,9 +77,9 @@ if ($proc === 'graph'){
 //	$Test->writeValues($DataSet->GetData(),$DataSet->GetDataDescription(),array("avg","max"));
 	foreach($LABEL as $key=>$val){
 		if ($val=="") continue;
-		if ($AVG[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$val,number_format($AVG[$key], 3),221,230,174);
-		if ($MAX[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"max",$val,number_format($MAX[$key], 3),237,180,187);
-		if ($MIN[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"min",$val,number_format($MIN[$key], 3),223,224,134);
+		if ($AVG[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"avg",$val,number_format($AVG[$key], 2),46,151,224,255,255,255);
+		if ($MAX[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"max",$val,number_format($MAX[$key], 2),176,24,224,255,255,255);
+		if ($MIN[$key]>0) $Test->setLabel($DataSet->GetData(),$DataSet->GetDataDescription(),"min",$val,number_format($MIN[$key], 2),224,46,117,255,255,255);
 	}  
 	
 	// Finish the graph  

@@ -24,5 +24,5 @@ if ($proc === 'departemen-avg'){
 	$periodeID = $_POST['periodeID'];
 	$departemenID = $_POST['departemenID'];
 	$departemenID = $departemenID=="false" || $departemenID==""? false : $departemenID;
-	echo nilaiAkhir_avg($periodeID, $departemenID);
+	echo number_format(nilaiAkhir_avg($periodeID, $departemenID),2);
 }

@@ -7,6 +7,7 @@ include '../model/periode.php';
 include '../model/kriteriaPenilaian.php';
 include '../model/bobotLevel.php';
 include '../model/detilBobotLevel.php';
+include '../model/detilKriteriaPenilaian.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -43,8 +44,16 @@ if ($proc === 'debotlv-pick'){
 	$levelID = $_POST['levelID'];
 	$kripenID = $_POST['kripenID'];
 	
+	//cek detil kriteria, jika jumlah detil kriterianya kurang dari 100%, pesan warning
+	$sum = dekripen_summarize($kripenID);
+	if ($sum<100){
+		echo json_encode(array('error'=> TRUE, 'msg'=> "Jumlah bobot detil kriteria kurang dari 100%"));
+		return;
+	}
+	
 	//load bobot level, ambil ID_BOBOT_LEVEL
 	$bobotlv = mysql_fetch_assoc( bobotlv_load($periodeID, $levelID) );
+	
 	//simpan sementara, tanpa bobot.
 	$ex = debotlv_add($kripenID, $bobotlv["ID_BOBOT_LEVEL"], 0);
 	echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));

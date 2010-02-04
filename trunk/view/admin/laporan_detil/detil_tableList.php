@@ -21,7 +21,7 @@
 		<?php $bb = mysql_fetch_assoc( bobotlv_load($periodeID, $key) );?>
 		<td><img src="image/collapse.gif" style="padding-right:10px" /><h3 style="display: inline;"><?=$bb['NAMA_LEVEL']?></h3></td>
 		<td width="25" align="right"><?=$value['BOBOT_LEVEL']?>%</td>
-		<td width="25" align="right"><?=!$value['NILAI_LEVEL'] || $value['NILAI_LEVEL']==""? "0" : $value['NILAI_LEVEL']?></td>
+		<td width="25" align="right"><?=!$value['NILAI_LEVEL'] || $value['NILAI_LEVEL']==""? "0" :number_format($value['NILAI_LEVEL'],2)?></td>
 		
 	</tr>
 	<!-- KRITERIA -->
@@ -29,14 +29,14 @@
 	<tr <?=tag_zebra($z)?>>
 		<td><img src="image/collapse.gif" style="padding:0 10px 0 20px" /><?=$kripen['NAMA_KRITERIA']?></td>
 		<td width="25" align="right"><?=$kripen['BOBOT'] ?>%</td>
-		<td width="25" align="right"><?=!$kripen['NILAI'] || $kripen['NILAI']==""? "0" : $kripen['NILAI']?></td>
+		<td width="25" align="right"><?=!$kripen['NILAI'] || $kripen['NILAI']==""? "0" : number_format($kripen['NILAI'],2)?></td>
 	</tr>
 	<!-- DETAIL KRITERIA -->
 	<?php 	foreach($kripen['DEKRIPEN'] as $dekripen):?>
 	<tr <?=tag_zebra($z)?>>
 		<td><img src="image/collapse.gif" style="padding:0 10px 0 60px" /><?=$dekripen['NAMA_DETAIL_KRITERIA'];?></td>
 		<td width="25" align="right"><?=$dekripen['BOBOT'] ?>%</td>
-		<td width="25" align="right"><?=!$dekripen['NILAI'] || $dekripen['NILAI']==""? "0" : $dekripen['NILAI']?></td>
+		<td width="25" align="right"><?=!$dekripen['NILAI'] || $dekripen['NILAI']==""? "0" : number_format($dekripen['NILAI'],2)?></td>
 	</tr>
 	<?php 	endforeach; ?>
 	<!-- END DETAIL KRITERIA -->
@@ -49,12 +49,12 @@
 <?php $PERIODE = mysql_fetch_assoc(periode_load($periodeID))?>
 <div align="right" class="padT5">Nilai Akhir (Horizontal <?=$PERIODE['BOBOT_HORIZONTAL']?>% &amp; Vertikal <?=$PERIODE['BOBOT_VERTIKAL']?>%) : 
 	<?php $NA = mysql_fetch_assoc(nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID))?>
-	<input type="text" class="fake" value="<?=$NA['NILAI_AKHIR']?>"  style="width:100px; text-align:right;" disabled="disabled"/>
+	<input type="text" class="fake" value="<?=number_format($NA['NILAI_AKHIR'],2)?>"  style="width:100px; text-align:right;" disabled="disabled"/>
 </div>
 <div align="right" class="padT5">Nilai rata - rata Periode : 
-	<input type="text" class="fake" value="<?=nilaiAkhir_avg($periodeID)?>"  style="width:100px; text-align:right;" disabled="disabled"/>
+	<input type="text" class="fake" value="<?=number_format(nilaiAkhir_avg($periodeID),2)?>"  style="width:100px; text-align:right;" disabled="disabled"/>
 </div>
 <?php $JBT = mysql_fetch_assoc(departemen_load($departemenID)); ?>
 <div align="right" class="padT5">Nilai rata - rata Departemen (<?=$JBT['NAMA_DEPARTMENT']?>) : 
-	<input type="text" class="fake" value="<?=nilaiAkhir_avg($periodeID, $departemenID);?>" style="width:100px; text-align:right;" disabled="disabled"/>
+	<input type="text" class="fake" value="<?=number_format(nilaiAkhir_avg($periodeID, $departemenID),2);?>" style="width:100px; text-align:right;" disabled="disabled"/>
 </div>

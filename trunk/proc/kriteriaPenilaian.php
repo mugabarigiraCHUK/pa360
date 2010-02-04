@@ -4,6 +4,7 @@ include_once '../lib/db.php';
 include '../lib/utils/date.php';
 include '../lib/utils/tag.php';
 include '../model/kriteriaPenilaian.php';
+include '../model/detilBobotLevel.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -27,6 +28,11 @@ if ($proc === 'add-modal'){
  */
 if ($proc === 'edit-modal'){
 	$kripenID = $_POST['kripenID'];
+	if (debotlv_kripenIsExist($kripenID)){
+		echo json_encode(array('error'=> true, 'msg'=> "Referensi data terpakai, proses edit tidak diperbolehkan"));
+		return false;
+	}
+	
 	include '../view/admin/kriteriaPenilaian/kripen_edit.php';
 }
 

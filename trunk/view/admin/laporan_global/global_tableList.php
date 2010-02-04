@@ -28,9 +28,9 @@
 	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>
 	<!-- <td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DEPARTMENT']?></td> -->
 	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DIVISI']?></td>
-	<td nowrap="nowrap" align="right"><?=$dd['NILAI_AKHIR']?></td>
+	<td nowrap="nowrap" align="right"><?=number_format($dd['NILAI_AKHIR'],2)?></td>
 	<?php foreach($KEY as $key=>$value):?>
-	<td align="right" nowrap="nowrap"><?=isset($dd['LEVEL'][$key])? $dd['LEVEL'][$key] : 0?></td>
+	<td align="right" nowrap="nowrap"><?=isset($dd['LEVEL'][$key])? number_format($dd['LEVEL'][$key],2) : 0?></td>
 	<?php endforeach; ?>
 	<td align="right">
 		<form id="tr-<?=$z?>">

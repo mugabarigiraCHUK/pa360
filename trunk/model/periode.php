@@ -1,4 +1,16 @@
 <?php
+function periode_genID($periodeAwal, $periodeAkhir){
+	$mAwal = date('Y', $periodeAwal);
+	$mAkhir = date('Y', $periodeAkhir);
+	
+	//sama tahun bikin : january - maret 2010
+	if ($mAwal == $mAkhir){
+		return date('F', $periodeAwal) ." - ". date('F', $periodeAkhir) ." ". $mAkhir;
+	}
+	else{
+		return date('F Y', $periodeAwal) ." - ". date('F Y', $periodeAkhir);
+	}
+}
 
 function periode_select($key=false){
 	$sql = "select * from setting_periode";
