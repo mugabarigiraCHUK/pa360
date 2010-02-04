@@ -46,9 +46,9 @@
 			counter++;	
 			if (counter%2==0) update_graph(document.frmSearch);
 			else update_graph2(document.frmSearch);
-			func.delay(10000);
+			func.delay(1000*60);
 		};
-		func.delay(10000);
+		func.delay(1000*60);
 	});
 
 	function update_graph2(form){

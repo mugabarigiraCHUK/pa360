@@ -36,7 +36,7 @@ if ($proc === 'graph'){
 			$UNDER[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR<$AVG-0.05");
 			$LABEL[] = date('F', strtotime($loop['PERIODE_AWAL'])) .'-'. date('F Y', strtotime($loop['PERIODE_AKHIR']));
 		}
-		if ($periodeEnd === $loop['ID_PERIODE']) $doLoop = false;
+		if ($periodeEnd === $loop['ID_PERIODE'] || $periodeEnd < 0) $doLoop = false;
 	}
 	$EQUAL[] = $ABOVE[] = $UNDER[] = $LABEL[] = "";	//data beautification
 	

@@ -13,7 +13,18 @@ function inject_head(){?>
 	//edit kriteria
 	//@param id (string) kode/id divisi 
 	function kripen_edit(id){
-		FBModal_show2( 'proc/kriteriaPenilaian.php', 'post', "proc=edit-modal&kripenID="+id, true, true, null);
+		doRequest('proc/kriteriaPenilaian.php', 'post', "proc=edit-modal&kripenID="+id, 
+				null,
+				function(res){
+					var js = JSON.decode(res);
+					if (js.error==true){
+						FBModal_show(
+							"<h2 class=\"dialog_title\"><span>Error</span></h2>" + 
+							"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+js.msg+"</div>", 
+							true, true, 1500);
+					}
+					else{ FBModal_show( res, true, true); }
+				});
 	}
 	
 	//delete kriteria

@@ -1,4 +1,13 @@
 <?php
+function debotlv_kripenIsExist($kripenID){
+	$sql = "SELECT ID_KRITERIA 
+			FROM detil_bobot_level
+			WHERE ID_KRITERIA='$kripenID'";
+	$res = mysql_query($sql);
+	while ($row=mysql_fetch_assoc($res)) { return true; }
+	return false;
+}
+
 function debotlv_select($id=false, $bobotlvID=false, $periodeID=false, $levelID=false, $kripenID=false){
 	$sql="SELECT a.ID_DETIL_BOBOT_LEVEL,
 			a.ID_KRITERIA,

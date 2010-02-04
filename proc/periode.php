@@ -31,20 +31,20 @@ if ($proc === 'bobotLevel-modal'){
 }
 
 if ($proc === 'periode-save'){
-	$id = $_POST['periodeID'];
 	$bobotV = intval($_POST['bobotV']);
 	$bobotH = intval($_POST['bobotH']);
 	$lvV = intval($_POST['lvV']);
 	$lvH = intval($_POST['lvH']);
+	$periodeAwal = $_POST['periodeAwal'];
+	$periodeAkhir = $_POST['periodeAkhir'];
+	$batasAwal = $_POST['batasAwal'];
+	$batasAkhir = $_POST['batasAkhir'];
+	$id = periode_genID($periodeAwal, $periodeAkhir);
 	
 	if ($id == ''){				 echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi ID Periode")); return ;}
 	if (periode_isExistID($id)){ echo json_encode(array('error'=> true, 'msg'=> "ID Periode telah terpakai")); return ;}
 	
 	//check batas awal & akhir
-	$periodeAwal = $_POST['periodeAwal'];
-	$periodeAkhir = $_POST['periodeAkhir'];
-	$batasAwal = $_POST['batasAwal'];
-	$batasAkhir = $_POST['batasAkhir'];
 	if (!$periodeAwal){ 			echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal periode awal")); return ; }
 	if (!$periodeAkhir){ 			echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal periode akhir")); return ; }
 	if ($periodeAkhir<$periodeAwal){echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode awal dan akhir")); return ; }

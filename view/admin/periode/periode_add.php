@@ -4,10 +4,10 @@
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
-	<tr>
+	<!-- <tr>
 		<td align="right" width="35%">ID Periode :</td>
 		<td><input type="text" name="periodeID"></td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td align="right">Periode awal : </td>
 		<td><input id="periodeAwal" class="dtpick" name="periodeAwal" /></td>

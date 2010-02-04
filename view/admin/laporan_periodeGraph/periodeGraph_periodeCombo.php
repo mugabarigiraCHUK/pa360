@@ -1,3 +1,4 @@
+<option value="-1">--- pilih ---</option>
 <?php $periodeLoop = false ?>
 <?php $PERIODE = periode_select(); ?>
 <?php while ($row = mysql_fetch_assoc($PERIODE) ):?>

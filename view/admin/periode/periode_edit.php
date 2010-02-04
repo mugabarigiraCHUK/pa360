@@ -1,18 +1,18 @@
-<form name="frmModal" method="post" action="proc/periode.php">
-<input type="hidden" value="periode-edit" name="proc" /> 
-<h2 class="dialog_title"><span>Edit Periode</span></h2>
-<div class="dialog_content">
-<div style="border-bottom: 1px solid #CCC">
 <?php $id = $_POST['periodeID']; ?>
 <?php $rest = periode_load($id);?>
 <?php $row = mysql_fetch_assoc($rest);?>
+<form name="frmModal" method="post" action="proc/periode.php">
+<input type="hidden" value="periode-edit" name="proc" /> 
+<h2 class="dialog_title"><span>Edit Periode : <?=$row['ID_PERIODE']?></span></h2>
+<div class="dialog_content">
+<div style="border-bottom: 1px solid #CCC">
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
-	<tr>
+	<!-- <tr>
 		<td align="right" width="35%">ID Periode :</td>
 		<td>
 			<input type="text" name="periodeID-fake" value="<?=$row['ID_PERIODE']?>" disabled="disabled">
 			<input type="hidden" name="periodeID" value="<?=$row['ID_PERIODE']?>">		</td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td align="right">Periode awal :</td>
 		<td><input id="periodeAwal" class="dtpick" name="periodeAwal" value="<?=strtotime($row['PERIODE_AWAL'])?>" /></td>
