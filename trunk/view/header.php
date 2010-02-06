@@ -39,6 +39,7 @@
 	<!-- Navigation -->
 	<div class="clearBoth padT5">
 		<?php 	include 'view/menu-hnav.php'?>
+		<div class="padT5 padB10" align="right"><?php include 'view/menupad.php'?></div>
 	</div>
 	<!-- Navigation End-->
 	
