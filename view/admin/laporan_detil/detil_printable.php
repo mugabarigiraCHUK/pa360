@@ -73,7 +73,7 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 		<?php $bb = mysql_fetch_assoc( bobotlv_load($periodeID, $key) );?>
 	  <td><h3 style="padding-left:00px"><?=$bb['NAMA_LEVEL']?></h3></td>
 		<td width="25" align="right"><?=$value['BOBOT_LEVEL']?>%</td>
-		<td width="25" align="right"><?=!$value['NILAI_LEVEL'] || $value['NILAI_LEVEL']==""? "0" : $value['NILAI_LEVEL']?></td>
+		<td width="25" align="right"><?=!$value['NILAI_LEVEL'] || $value['NILAI_LEVEL']==""? "0" : number_format($value['NILAI_LEVEL'],2)?></td>
 		
 	</tr>
 	<!-- KRITERIA -->
@@ -81,14 +81,14 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 	<tr <?=tag_zebra($z)?>>
 		<td><div style="padding-left:00px"><?=$kripen['NAMA_KRITERIA']?></div></td>
 		<td width="25" align="right"><?=$kripen['BOBOT'] ?>%</td>
-		<td width="25" align="right"><?=!$kripen['NILAI'] || $kripen['NILAI']==""? "0" : $kripen['NILAI']?></td>
+		<td width="25" align="right"><?=!$kripen['NILAI'] || $kripen['NILAI']==""? "0" : number_format($kripen['NILAI'],2)?></td>
 	</tr>
 	<!-- DETAIL KRITERIA -->
 	<?php 	foreach($kripen['DEKRIPEN'] as $dekripen):?>
 	<tr <?=tag_zebra($z)?>>
 		<td><div style="padding-left:40px"><?=$dekripen['NAMA_DETAIL_KRITERIA'];?></div></td>
 		<td width="25" align="right"><?=$dekripen['BOBOT'] ?>%</td>
-		<td width="25" align="right"><?=!$dekripen['NILAI'] || $dekripen['NILAI']==""? "0" : $dekripen['NILAI']?></td>
+		<td width="25" align="right"><?=!$dekripen['NILAI'] || $dekripen['NILAI']==""? "0" : number_format($dekripen['NILAI'],2)?></td>
 	</tr>
 	<?php 	endforeach; ?>
 	<!-- END DETAIL KRITERIA -->
