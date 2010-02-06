@@ -62,7 +62,12 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 		<!-- colspan="3"  --><th  width="75" align="right"><h3><span class="colorWhite">Nilai</span></h3></th>
 	</tr>
 <?php $LDK = laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID); ?>
+<?php $PENILAI_V1 = ""; ?>
 <?php foreach($LDK as $key=>$value):?>
+<?php 	
+		//hanya untuk simpan penilai vertical 1
+		if ($key == ucwords("VC1")) $PENILAI_V1 = $value['PENILAI']; 
+?>
 <tbody>
 	<tr <?=tag_zebra($z)?> class="fake" onClick="">
 		<?php $bb = mysql_fetch_assoc( bobotlv_load($periodeID, $key) );?>
@@ -95,10 +100,19 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 
 <?php $PERIODE = mysql_fetch_assoc(periode_load($periodeID))?>
 <?php $NA = mysql_fetch_assoc(nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID))?>
-<div align="right" class="padT5">Nilai Akhir (Horizontal <?=$PERIODE['BOBOT_HORIZONTAL']?>% &amp; Vertikal <?=$PERIODE['BOBOT_VERTIKAL']?>%) : <strong><?=$NA['NILAI_AKHIR']?></strong></div>
+<div align="right" class="padT5">Nilai Akhir (Horizontal <?=$PERIODE['BOBOT_HORIZONTAL']?>% &amp; Vertikal <?=$PERIODE['BOBOT_VERTIKAL']?>%) : <strong><?=number_format($NA['NILAI_AKHIR'],2)?></strong></div>
 <div align="right" class="padT5">Nilai rata - rata Periode : <strong><?=nilaiAkhir_avg($periodeID)?></strong></div>
-<div align="right" class="padT5">Nilai rata - rata Departemen (<?=$JBT['NAMA_DEPARTMENT']?>) : <strong><?=nilaiAkhir_avg($periodeID, $departemenID);?></strong>
+<div align="right" class="padT5">Nilai rata - rata Departemen (<?=$JBT['NAMA_DEPARTMENT']?>) : <strong><?=number_format(nilaiAkhir_avg($periodeID, $departemenID),2);?></strong></div>
+<div style="padding-top:50px">
+	<div style="float:left; width:300px">
+		<div align="center">Penanggung jawab</div>
+		<div align="center" style="padding-top:70px"><?=$PENILAI_V1?></div>
+	</div>
+	<div style="float:right; width:300px">
+		<div align="center">Yang dinilia</div>
+		<?php $KARY = mysql_fetch_assoc(kary_load($karyID)) ?>
+		<div align="center" style="padding-top:70px"><?=$KARY['NAMA_KARYAWAN']?></div>
+	</div>
 </div>
-
 </body>
 </html>

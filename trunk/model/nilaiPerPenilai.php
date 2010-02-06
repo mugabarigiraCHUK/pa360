@@ -38,9 +38,9 @@ function npp_loadComplete($where=false){
 			    c.ID_DEP_DIV_JAB as ID_DEP_DIV_JAB_PENILAI,
 			    a.ID_BOBOT_LEVEL, 
 			    a.NILAI
-			FROM pa360ino.nilai_per_penilai as a, 
-			    pa360ino.nilai_akhir as b, 
-			    pa360ino.penilai as c
+			FROM nilai_per_penilai as a, 
+			    nilai_akhir as b, 
+			    penilai as c
 			WHERE a.KODE_DINILAI=b.KODE_DINILAI AND a.KODE_PENILAI=c.KODE_PENILAI
 				$where
 			GROUP BY ID_NILAI_PER_PENILAI";

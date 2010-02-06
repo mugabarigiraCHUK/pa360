@@ -93,3 +93,9 @@ function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
 	$sqlw = " WHERE ". $sqlw;
 	return mysql_query($sql.$sqlw);
 }
+
+function npkrt_debotlvIsExist($debotlvID){
+	$res = npkrt_select(false, false, $debotlvID);
+	while ($res = mysql_fetch_assoc($res)) { return true; }
+	return false;
+}

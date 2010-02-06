@@ -5,6 +5,7 @@ include '../lib/utils/date.php';
 include '../lib/utils/tag.php';
 include '../model/kriteriaPenilaian.php';
 include '../model/detilKriteriaPenilaian.php';
+include '../model/detilBobotLevel.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -34,6 +35,12 @@ if ($proc === 'add-modal'){
  */
 if ($proc === 'edit-modal'){
 	$dekripenID = $_POST['dekripenID'];
+	$dekripenData = mysql_fetch_assoc( dekripen_load($dekripenID) );
+	$kripenID = $dekripenData['ID_KRITERIA'];
+	if (debotlv_kripenIsExist($kripenID)){
+		echo json_encode(array('error'=> true, 'msg'=> "Referensi data terpakai, proses edit tidak diperbolehkan"));
+		return false;
+	}
 	include '../view/admin/detilKriteriaPenilaian/dekripen_edit.php';
 }
 

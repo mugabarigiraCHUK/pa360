@@ -76,13 +76,16 @@ function debot_delete($nilai, $dekripenID){
 	return mysql_query($sql);
 }
 
-function debot_minmax($dekripenID){
+function debot_minmax($dekripenID=false){
 	$sql = "select
 				min(a.NILAI) as MIN, max(a.NILAI) as MAX
 			from 
 				deskripsi_bobot as a, 
 				detail_kriteria as b 
-			where a.ID_DETAIL_KRITERIA = b.ID_DETAIL_KRITERIA AND 
-					a.ID_DETAIL_KRITERIA = '$dekripenID' ";
+			where a.ID_DETAIL_KRITERIA = b.ID_DETAIL_KRITERIA";
+	
+	if ($dekripenID){ 
+		$sql .= " AND a.ID_DETAIL_KRITERIA = '$dekripenID' ";
+	}
 	return  mysql_query($sql);
 }
