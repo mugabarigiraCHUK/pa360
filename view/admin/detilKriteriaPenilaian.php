@@ -43,27 +43,35 @@ function inject_head(){?>
 	//edit kriteria
 	//@param id (string) kode/id divisi 
 	function dekripen_edit(id){
-		FBModal_show2( 'proc/detilKriteriaPenilaian.php', 'post', "proc=edit-modal&dekripenID="+id, 
-				true, true, null,
-				{onSuccess:	function (res){			//install spinner 
-					var spinner = new DG.Spinner( {
-//						el: $('bobotSpinner-el'),
-						renderTo : 'bobotSpinner',
-						name: 'bobot',
-						increment:1,
-						shiftIncrement:5,
-						decimals:0,
-						minValue:0,
-						maxValue:100,
-						value:$('bobotSpinner').get('initVal'),
-						disableWheel:true,
-						disableArrowKeys:true,
-						styles: {
-							width:'30px', position:'relative', padding:'1px 0'
-						}
-					});
-				}
-		});
+		doRequest('proc/detilKriteriaPenilaian.php', 'post', "proc=edit-modal&dekripenID="+id, 
+				null,
+				function(res){
+					var js = JSON.decode(res);
+					if (js.error==true){
+						FBModal_show(
+							"<h2 class=\"dialog_title\"><span>Error</span></h2>" + 
+							"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+js.msg+"</div>", 
+							true, true, 1500);
+					}
+					else{ 
+						FBModal_show( res, true, true); 
+						var spinner = new DG.Spinner( {
+							renderTo : 'bobotSpinner',
+							name: 'bobot',
+							increment:1,
+							shiftIncrement:5,
+							decimals:0,
+							minValue:0,
+							maxValue:100,
+							value:$('bobotSpinner').get('initVal'),
+							disableWheel:true,
+							disableArrowKeys:true,
+							styles: {
+								width:'30px', position:'relative', padding:'1px 0'
+							}
+						});
+					}
+				});
 	}
 	
 	//delete kriteria

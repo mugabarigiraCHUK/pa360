@@ -8,6 +8,12 @@ function debotlv_kripenIsExist($kripenID){
 	return false;
 }
 
+function debotlv_bobotlvIsExist($bobotlvID){
+	$res = debotlv_select(false, $bobotlvID);
+	while ($row = mysql_fetch_assoc($res)) { return true; }
+	return false;
+}
+
 function debotlv_select($id=false, $bobotlvID=false, $periodeID=false, $levelID=false, $kripenID=false){
 	$sql="SELECT a.ID_DETIL_BOBOT_LEVEL,
 			a.ID_KRITERIA,

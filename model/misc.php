@@ -106,8 +106,12 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 		$RESULT[$row['ID_LEVEL']]['KRITERIA'] = $TMP;
 		$RESULT[$row['ID_LEVEL']]['NILAI_LEVEL'] = $NPP['NILAI'];
 		$RESULT[$row['ID_LEVEL']]['BOBOT_LEVEL'] = $row['BOBOT'];
+		
+		//append penilai
+		$PENILAI = mysql_fetch_assoc( penilai_loadByID($NPP['ID_PENILAI']) );
+		$KARY = mysql_fetch_assoc(kary_load($PENILAI['KODE_KARYAWAN']));
+		$RESULT[$row['ID_LEVEL']]['PENILAI'] = $KARY['NAMA_KARYAWAN'];
 	}
-	
 	return $RESULT;
 }
 

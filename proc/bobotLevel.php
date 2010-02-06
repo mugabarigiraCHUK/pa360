@@ -22,6 +22,10 @@ if ($proc === 'kriteria-table'){
 
 if ($proc === 'edit-modal'){
 	$bobotlvID = $_POST['bobotlvID'];
+	if (debotlv_bobotlvIsExist($bobotlvID)){
+		echo json_encode(array('error'=> true, 'msg'=> "Referensi data terpakai, proses edit tidak diperbolehkan"));
+		return false;
+	}
 	include '../view/admin/bobotLevel/bobotlv_edit.php';
 }
 

@@ -9,12 +9,21 @@ function inject_head(){?>
 <script>
 	function bobotLevel_edit(bobotlvID){
 		FBModal_loading("Loading", "Please wait...", true, false);
-		FBModal_show2( 'proc/bobotLevel.php', 'post', "proc=edit-modal"+
-				"&bobotlvID="+bobotlvID, true, false, null, {
-			onSuccess: function(res){
-				spinner_attach('bobot', 'bobot', 0, 100, $('bobot').getProperty('spinnerValue'));
-			}
-		});
+		doRequest('proc/bobotLevel.php', 'post', "proc=edit-modal&bobotlvID="+bobotlvID, 
+				null,
+				function(res){
+					var js = JSON.decode(res);
+					if (js.error==true){
+						FBModal_show(
+							"<h2 class=\"dialog_title\"><span>Error</span></h2>" + 
+							"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+js.msg+"</div>", 
+							true, true, 1500);
+					}
+					else{ 
+						FBModal_show( res, true, true); 
+						spinner_attach('bobot', 'bobot', 0, 100, $('bobot').getProperty('spinnerValue'));
+					}
+				});
 	}
 
 	function bobotLevel_save(form){

@@ -5,6 +5,7 @@ include_once '../../lib/sessionCheck.php';
 include_once '../../lib/utils/tag.php';
 include_once '../../model/periode.php';
 include_once '../../model/nilaiAkhir.php';
+include_once '../../model/deskripsiBobot.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -18,6 +19,7 @@ if ($proc === 'graph'){
 	include("../../lib/pChart/pData.php");  
 	include("../../lib/pChart/pChart.php");  
 	
+	$minmaxValue = mysql_fetch_assoc(debot_minmax());
 	$periodeStart = $_POST['periodeStart'];
 	$periodeEnd = $_POST['periodeEnd'];
 	
@@ -54,10 +56,10 @@ if ($proc === 'graph'){
 	$DataSet->SetSerieName("Nilai Kinerja Terendah","min");  
 	 
 	// Initialise the graph  
-	$Test = new pChart(800,500);  
-	//$Test->setFixedScale(-2,8);  
+	$Test = new pChart(800,400);  
+	$Test->setFixedScale( 0, intval($minmaxValue['MAX']));  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	$Test->setGraphArea(50,30,585,470);
+	$Test->setGraphArea(50,30,585,370);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
 	//$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
 	$Test->drawGraphArea(255,255,255,TRUE);  
@@ -83,10 +85,10 @@ if ($proc === 'graph'){
 	}  
 	
 	// Finish the graph  
-	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
-	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     
-	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",10);     
-	$Test->drawTitle(50,22,"Grafik Kinerja Per Periode",50,50,50,585);  
+	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);
+	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);
+	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",10);
+	$Test->drawTitle(50,22,"Grafik Kinerja Per Periode",50,50,50,585);
 	
 	//create image
     $path = "../../image/cache";
@@ -94,5 +96,5 @@ if ($proc === 'graph'){
     $name = $_COOKIE_DATA->alias .'KinerjaPerPeriode-'. time().".png";
 	$Test->Render("$path/$name");  
 	echo "<img src=\"image/cache/$name\" alt=\"Kinerja per Departemen\" 
-			onclick=\"document.location='image/cache/$name'\" style=\"cursor:pointer\" />";
+			onclick=\"show_detail()\" style=\"cursor:pointer\" />";
 }

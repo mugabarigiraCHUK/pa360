@@ -80,15 +80,16 @@ include_once 'model/periode.php';
 include_once 'model/departemen.php';
 include_once 'model/bobotLevel.php';
 include_once 'model/detilBobotLevel.php';
-include_once 'model/nilaiAkhir.php';
-include_once 'model/nilaiPerPenilai.php';
 include_once 'model/karyawan.php';
 include_once 'model/misc.php';
 include_once 'model/kriteriaPenilaian.php';
-include_once 'model/nilaiPerKinerja.php';
-include_once 'model/nilaiPerKriteria.php';
+//include_once 'model/nilaiPerPenilai.php';
+//include_once 'model/nilaiPerKinerja.php';
+//include_once 'model/nilaiPerKriteria.php';
+//include_once 'model/nilaiAkhir.php';
 include_once 'model/detilKriteriaPenilaian.php';
-	
+include_once 'model/penilai.php';
+
 $sub = $_REQUEST['sub'];
 if ($sub==='printable'){
 	include 'view/admin/laporan_detil/detil_printable.php';

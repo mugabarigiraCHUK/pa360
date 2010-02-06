@@ -8,6 +8,7 @@ include '../model/kriteriaPenilaian.php';
 include '../model/bobotLevel.php';
 include '../model/detilBobotLevel.php';
 include '../model/detilKriteriaPenilaian.php';
+include '../model/nilaiPerKriteria.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -36,6 +37,11 @@ if ($proc === 'add-modal'){
 
 if ($proc === 'edit-modal'){
 	$debotlvID = $_POST['debotlvID'];
+	if (npkrt_debotlvIsExist($debotlvID)){
+		echo json_encode(array('error'=> true, 'msg'=> "Referensi data terpakai, proses edit tidak diperbolehkan"));
+		return false;
+	}
+	
 	include '../view/admin/detilBobotLevel/debotlv_edit.php';
 }
 
