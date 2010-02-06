@@ -5,6 +5,7 @@ include_once 'lib/utils/tag.php';
 include_once 'model/periode.php';
  
 function inject_head(){?>
+<script type="text/javascript" src="jscript/md5.js"></script>
 <script>
 	function update_periodeCombo(form){
 		FBModal_loading("Loading", "Please wait...", true, false, 1500);
@@ -72,6 +73,28 @@ function inject_head(){?>
 			onSuccess: function(response) {
 				$('graphIndicator').get('reveal').dissolve();
 				$('graphContainer').set('html', response);
+			}
+		}).send();
+	}
+
+	function changePassword($karyID){
+		FBModal_show2( 'proc/client/dataUser.php', 'post', "proc=change-password&karyID="+$karyID, true, true);
+	}
+
+	function savePassword(form){
+		FBModal_loading("Save", "Please wait...", true, false);
+		form.opass.value = hex_md5(form.opass.value).toLowerCase();
+		form.npass.value = hex_md5(form.npass.value).toLowerCase();
+		form.npass2.value = hex_md5(form.npass2.value).toLowerCase();
+		$(form).set('send', {
+			onSuccess: function(response) { 
+				var js = JSON.decode(response);
+				var msg = js.error? js.msg : "Process simpan selesai !!!";
+				var title = js.error? 'Error' : 'Saving';
+				FBModal_show(
+					"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
+					"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+msg+"</div>",
+					true, true,1500);
 			}
 		}).send();
 	}

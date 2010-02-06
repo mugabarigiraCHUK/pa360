@@ -46,7 +46,7 @@
 </ul>
 <?php else: ?>
 <ul id="navmenu-h">
-	<li><a>Password Change</a></li>
+	<li><a onclick="changePassword('<?=$_COOKIE_DATA->username?>')">Password Change</a></li>
 	<li><a href="dashboard.php?p=penilaian">Performance Appraisal</a></li>
 	<li><a class="fake" onclick="location.replace('lib/logout.php')">Logout +</a></li>
 </ul>
