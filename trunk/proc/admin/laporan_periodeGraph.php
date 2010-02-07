@@ -6,6 +6,7 @@ include_once '../../lib/utils/tag.php';
 include_once '../../model/periode.php';
 include_once '../../model/nilaiAkhir.php';
 include_once '../../model/deskripsiBobot.php';
+include_once '../../model/karyawan.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -39,7 +40,8 @@ if ($proc === 'graph'){
 		if ($periodeEnd === $loop['ID_PERIODE'] || $periodeEnd<0) $doLoop = false;
 	}
 	$AVG[] = $MAX[] = $MIN[] = $LABEL[] = "";
-		  
+	$scaleMax = round(max(max($AVG), max($MAX), max($MIN)));
+	
 	// Dataset definition   
 	$DataSet = new pData;  
 	$DataSet->AddPoint($AVG,"avg");  
@@ -56,7 +58,7 @@ if ($proc === 'graph'){
 	 
 	// Initialise the graph  
 	$Test = new pChart(800,400);  
-	$Test->setFixedScale( 0, intval($minmaxValue['MAX']));  
+	$Test->setFixedScale( 0, $scaleMax);  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
 	$Test->setGraphArea(50,30,585,370);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
@@ -99,6 +101,13 @@ if ($proc === 'graph'){
 }
 
 if ($proc === 'drill'){
-	$periodeTitle = $_REQUEST['periodeTitle'];
-	include '../../view/admin/laporan_periodeGraph/periodeGraph_drillData.php';
+	$periodeStart = $_POST['periodeStart'];
+	$periodeEnd = $_POST['periodeEnd'];
+	include '../../view/admin/laporan_periodeGraph/periodeGraph_drill.php';
+}
+
+if($proc === 'drill-table'){
+	$constraint = $_POST['constraint'];
+	$periodeID = $_POST['periodeID'];
+	include '../../view/admin/laporan_periodeGraph/periodeGraph_drillTable.php';
 }

@@ -40,6 +40,7 @@ if ($proc === 'graph'){
 		if ($periodeEnd === $loop['ID_PERIODE'] || $periodeEnd < 0) $doLoop = false;
 	}
 	$EQUAL[] = $ABOVE[] = $UNDER[] = $LABEL[] = "";	//data beautification
+	$scaleMax = round(max(max($EQUAL), max($ABOVE), max($UNDER)));
 	
 	// Dataset definition   
 	$DataSet = new pData;  
@@ -57,7 +58,7 @@ if ($proc === 'graph'){
 	 
 	// Initialise the graph  
 	$Test = new pChart(800,500);  
-	$Test->setFixedScale( 0, intval($minmaxValue['MAX']));
+	$Test->setFixedScale( 0, $scaleMax);
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
 	$Test->setGraphArea(50,30,585,470);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
