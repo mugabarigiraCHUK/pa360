@@ -19,7 +19,6 @@ if ($proc === 'graph'){
 	include("../../lib/pChart/pData.php");  
 	include("../../lib/pChart/pChart.php");  
 	
-	$minmaxValue = mysql_fetch_assoc(debot_minmax());
 	$periodeStart = $_POST['periodeStart'];
 	$periodeEnd = $_POST['periodeEnd'];
 	
@@ -96,5 +95,10 @@ if ($proc === 'graph'){
     $name = $_COOKIE_DATA->alias .'KinerjaPerPeriode-'. time().".png";
 	$Test->Render("$path/$name");  
 	echo "<img src=\"image/cache/$name\" alt=\"Kinerja per Departemen\" 
-			onclick=\"show_detail()\" style=\"cursor:pointer\" />";
+			onclick=\"drill()\" style=\"cursor:pointer\" />";
+}
+
+if ($proc === 'drill'){
+	$periodeTitle = $_REQUEST['periodeTitle'];
+	include '../../view/admin/laporan_periodeGraph/periodeGraph_drillData.php';
 }

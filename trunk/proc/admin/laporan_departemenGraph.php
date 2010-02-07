@@ -6,6 +6,7 @@ include_once '../../lib/utils/tag.php';
 include_once '../../model/periode.php';
 include_once '../../model/departemen.php';
 include_once '../../model/nilaiAkhir.php';
+include_once '../../model/deskripsiBobot.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -30,6 +31,8 @@ if ($proc === 'graph'){
 		}
 	}
 	$AVG[] = $MAX[] = $MIN[] = $LABEL[] = "";
+	
+	$scaleMax = round(max(max($AVG), max($MAX), max($MIN)));
 		  
 	// Dataset definition   
 	$DataSet = new pData;  
@@ -47,6 +50,7 @@ if ($proc === 'graph'){
 	 
 	// Initialise the graph  
 	$Test = new pChart(800,500);  
+	$Test->setFixedScale( 0, $scaleMax);
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
 	$Test->setGraphArea(50,30,585,470);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
@@ -76,7 +80,7 @@ if ($proc === 'graph'){
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
 	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",10);     
-	$Test->drawTitle(50,22,"Grafik Kinerja Per Departemen",50,50,50,585);  
+	$Test->drawTitle(50,22,"Grafik Kinerja Per Departemen",50,50,50,585);
 	
     //create image
     $path = "../../image/cache";

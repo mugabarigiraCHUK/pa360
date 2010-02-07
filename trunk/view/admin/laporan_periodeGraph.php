@@ -38,6 +38,15 @@ function inject_head(){?>
 		form.store('request', req);
 	}
 
+	function drill(){
+		var form = document.frmSearch;
+		var start = form.periodeStart.value;
+		var end = form.periodeEnd.value == "-1"? false : form.periodeEnd.value;
+		var periodeTitle =  start+ (!end? "" : ' s/d '+end); 
+		FBModal_show2( 'proc/admin/laporan_periodeGraph.php', 'post', 
+				"proc=drill&periodeTitle="+periodeTitle, true, false, null);
+	}
+
 	window.addEvent('domready', function(){
 		update_periodeCombo(document.frmSearch);
 	});
