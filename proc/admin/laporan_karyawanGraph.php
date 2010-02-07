@@ -7,6 +7,7 @@ include_once '../../model/periode.php';
 include_once '../../model/departemen.php';
 include_once '../../model/karyawan.php';
 include_once '../../model/nilaiAkhir.php';
+include_once '../../model/deskripsiBobot.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -82,6 +83,7 @@ if ($proc === 'graph'){
 	 
 	// Initialise the graph  
 	$Test = new pChart(800,500);  
+	$Test->setFixedScale( 0, intval($minmaxValue['MAX']));
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
 	$Test->setGraphArea(50,30,585,470);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
