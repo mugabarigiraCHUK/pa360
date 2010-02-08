@@ -41,6 +41,7 @@ if ($proc === 'graph'){
 	}
 	$AVG[] = $MAX[] = $MIN[] = $LABEL[] = "";
 	$scaleMax = round(max(max($AVG), max($MAX), max($MIN)));
+	$scaleMax = $scaleMax+1;
 	
 	// Dataset definition   
 	$DataSet = new pData;  
@@ -58,7 +59,7 @@ if ($proc === 'graph'){
 	 
 	// Initialise the graph  
 	$Test = new pChart(800,400);  
-	$Test->setFixedScale( 0, $scaleMax);  
+	$Test->setFixedScale( 0, $scaleMax, $scaleMax/2);  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
 	$Test->setGraphArea(50,30,585,370);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  

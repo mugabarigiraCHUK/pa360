@@ -47,8 +47,8 @@ $karyID = $_COOKIE_DATA->username;
       <th align="left"><h3><span class="colorWhite">Jabatan</span></h3></th>
       <th align="left"><h3><span class="colorWhite">Departemen</span></h3></th>
       <th align="left"><h3><span class="colorWhite">Divisi</span></h3></th>
-      <th align="left"><h3><span class="colorWhite">Level Penilaian</span></h3></th>
+      <th align="center"><h3><span class="colorWhite">Level Penilaian</span></h3></th>
       <th>&nbsp;</th>
     </tr>
-	<tbody id="dinilai-table"></tbody>
+	<tbody id="dinilai-table" style="overflow: hidden; overflow-y: scroll; height: 400px;"></tbody>
 </table>

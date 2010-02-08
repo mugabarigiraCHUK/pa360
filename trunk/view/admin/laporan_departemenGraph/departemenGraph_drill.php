@@ -1,22 +1,20 @@
-<form name="frmModal" method="post" action="proc/admin/laporan_periodeGraph.php">
+<form name="frmModal" method="post" action="proc/admin/laporan_departemenGraph.php">
 <input type="hidden" value="" name="proc" />
 <h2 class="dialog_title"><span>Data</span></h2>
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
 	<tr>
-		<td width="15%" align="left">Periode :</td>
-		<td>
-			<select name="periodeID" onchange="drill_table($(this).getParent('form'))">
-			<?php $start = false ?>
-			<?php $PERIODE = periode_select(); ?>
-			<?php while ($row = mysql_fetch_assoc($PERIODE)):?>
-			<?php 	if (!$start && $row['ID_PERIODE']==$periodeStart) $start=true;?>
-			<?php 	if ($start):?>
-				<option value="<?=$row['ID_PERIODE']?>"><?=$row['ID_PERIODE']?></option>
-			<?php 	endif; ?>
-			<?php 	if ($start && $row['ID_PERIODE']==$periodeEnd || !$periodeEnd || $periodeEnd<0) break;?>
-			<?php endwhile; ?>
+		<td width="18%" align="left">Periode :</td>
+		<td><?php echo $periodeID?> <input type="hidden" name="periodeID" value="<?php echo $periodeID?>" /></td>
+	</tr>
+	<tr>
+		<td width="18%" align="left">Departemen :</td>
+		<td><select name="departemenID" onchange="drill_table($(this).getParent('form'))">
+				<?php foreach($departemenID as $dd):?>	
+				<?php 	$DEP = mysql_fetch_array(departemen_load($dd)); ?>
+				<option value="<?php echo $dd?>"><?php echo $DEP['NAMA_DEPARTMENT']?></option>
+				<?php endforeach; ?>
 			</select>
 		</td>
 	</tr>
