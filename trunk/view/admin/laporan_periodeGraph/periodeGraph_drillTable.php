@@ -1,10 +1,9 @@
 <?php
 $AVG = nilaiAkhir_avg($periodeID);
-$AVG = $AVG['AVG'];
 
 $sqlc = "";
 if ($constraint<0){	//di bawah rata2
-	$sqlc = "NILAI_AKHIR<$AVG";
+	$sqlc = "NILAI_AKHIR<=$AVG";
 }
 else{
 	$sqlc = "NILAI_AKHIR>$AVG";

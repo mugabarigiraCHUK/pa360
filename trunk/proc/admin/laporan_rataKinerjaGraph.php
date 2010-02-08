@@ -32,9 +32,9 @@ if ($proc === 'graph'){
 		if ($periodeStart === $loop['ID_PERIODE']) $doLoop = true;
 		if ($doLoop){
 			$AVG = nilaiAkhir_avg($loop['ID_PERIODE']);
-			$EQUAL[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR BETWEEN $AVG-0.05 AND $AVG+0.05 ");
-			$ABOVE[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR>$AVG+0.05");
-			$UNDER[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR<$AVG-0.05");
+			$EQUAL[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR=$AVG");//" NILAI_AKHIR BETWEEN $AVG-0.05 AND $AVG+0.05 "
+			$ABOVE[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR>$AVG");//NILAI_AKHIR>$AVG+0.05
+			$UNDER[] = nilaiAkhir_count($loop['ID_PERIODE'], false, " NILAI_AKHIR<$AVG");//NILAI_AKHIR<$AVG-0.05
 			$LABEL[] = date('F', strtotime($loop['PERIODE_AWAL'])) .'-'. date('F Y', strtotime($loop['PERIODE_AKHIR']));
 		}
 		if ($periodeEnd === $loop['ID_PERIODE'] || $periodeEnd < 0) $doLoop = false;
@@ -97,5 +97,18 @@ if ($proc === 'graph'){
     $name = $_COOKIE_DATA->alias .'RataKinerjaKaryawan-'. time().".png";
 	$Test->Render("$path/$name");  
 	echo "<img src=\"image/cache/$name\" alt=\"Grafik rata-rata kinerja karyawan\" 
-			onclick=\"document.location='image/cache/$name'\" style=\"cursor:pointer\" />";
+			onclick=\"drill()\" style=\"cursor:pointer\" />";
+}
+
+
+if ($proc === 'drill'){
+	$periodeStart = $_POST['periodeStart'];
+	$periodeEnd = $_POST['periodeEnd'];
+	include '../../view/admin/laporan_periodeGraph/periodeGraph_drill.php';
+}
+
+if($proc === 'drill-table'){
+	$constraint = $_POST['constraint'];
+	$periodeID = $_POST['periodeID'];
+	include '../../view/admin/laporan_periodeGraph/periodeGraph_drillTable.php';
 }
