@@ -27,6 +27,31 @@ function inject_head(){?>
 		}).send();
 	}
 
+	function drill(){
+		var form = document.frmSearch;
+		var start = form.periodeStart.value;
+		var end = form.periodeEnd.value;
+		FBModal_loading("Loading", "Please wait...", true, false);
+		FBModal_show2( 
+			'proc/admin/laporan_periodeGraph.php', 'post', 
+			"proc=drill&periodeStart="+start+"&periodeEnd="+end, 
+			true, false, null, {
+				onSuccess: function(res){
+					drill_table($(document.frmModal));
+				}
+			});
+	}
+
+	function drill_table(form){
+		$('drill-table').set('html',"<tr><td align=\"center\" colspan=\"4\"><div class=\"indicator\"><h3 style=\"padding-top:10px;\"><span style=\"margin-left:40px;\">Loading...</span></h3></div></td>");
+		form.proc.value="drill-table";
+		$(form).set('send', {
+			onSuccess: function(response) {
+				$('drill-table').set('html',response);
+			}
+		}).send();
+	}
+
 	window.addEvent('domready', function(){
 		update_periodeCombo(document.frmSearch);
 	});

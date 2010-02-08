@@ -25,10 +25,9 @@ function nilaiAkhir_select($id=false, $karyID=false, $dep_div_jabID=false, $peri
 
 function nilaiAkhir_select0($where, $orderby=false, $groupby=false){
 	$sql = "SELECT * FROM nilai_akhir";
-	$sql .= $where? " WHERE ".$where : "";
-	$sql .= $orderby? " ORDER BY ".$orderby : "";
-	$sql .= $groupby? " GROUP BY ".$groupby : "";
-	
+	$sql .= $where? " WHERE $where" : "";
+	$sql .= $orderby? " ORDER BY $orderby" : "";
+	$sql .= $groupby? " GROUP BY $groupby" : "";
 	return mysql_query($sql);
 }
 
