@@ -7,6 +7,7 @@ include_once '../../model/periode.php';
 include_once '../../model/departemen.php';
 include_once '../../model/nilaiAkhir.php';
 include_once '../../model/deskripsiBobot.php';
+include_once '../../model/karyawan.php';
 
 $proc = $_REQUEST['proc'];
 
@@ -27,13 +28,14 @@ if ($proc === 'graph'){
 			$MAX[] = nilaiAkhir_max($periodeID, $dd);
 			$MIN[] = nilaiAkhir_min($periodeID, $dd);
 			$DEP = mysql_fetch_assoc(departemen_load($dd));
-			$LABEL[] = substr($DEP["NAMA_DEPARTMENT"], 0,15);
+			$LABEL[] = substr($DEP["NAMA_DEPARTMENT"], -15);
 		}
 	}
 	$AVG[] = $MAX[] = $MIN[] = $LABEL[] = "";
 	
 	$scaleMax = round(max(max($AVG), max($MAX), max($MIN)));
-		  
+	$scaleMax = $scaleMax+1;
+	
 	// Dataset definition   
 	$DataSet = new pData;  
 	$DataSet->AddPoint($AVG,"avg");  
@@ -49,10 +51,10 @@ if ($proc === 'graph'){
 	$DataSet->SetSerieName("Nilai Kinerja Terendah","min");  
 	 
 	// Initialise the graph  
-	$Test = new pChart(800,500);  
-	$Test->setFixedScale( 0, $scaleMax);
+	$Test = new pChart(800,550);  
+	$Test->setFixedScale( 0, $scaleMax, $scaleMax/2);
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);  
-	$Test->setGraphArea(50,30,585,470);
+	$Test->setGraphArea(50,30,750,470);
 	//$Test->drawFilledRoundedRectangle(7,7,800,223,5,240,240,240);  
 	//$Test->drawRoundedRectangle(5,5,800,225,5,230,230,230);  
 	$Test->drawGraphArea(255,255,255,TRUE);  
@@ -78,9 +80,9 @@ if ($proc === 'graph'){
 	
 	// Finish the graph  
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",8);     
-	$Test->drawLegend(600,30,$DataSet->GetDataDescription(),255,255,255);     
+	$Test->drawLegend(50,500,$DataSet->GetDataDescription(),255,255,255);     
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",10);     
-	$Test->drawTitle(50,22,"Grafik Kinerja Per Departemen",50,50,50,585);
+	$Test->drawTitle(50,22,"Grafik Kinerja Per Departemen",50,50,50,750);
 	
     //create image
     $path = "../../image/cache";
@@ -88,5 +90,18 @@ if ($proc === 'graph'){
     $name = $_COOKIE_DATA->alias .'KinerjaPerDepartemen-'. time().".png";
 	$Test->Render("$path/$name");  
 	echo "<img src=\"image/cache/$name\" alt=\"Kinerja per Departemen\" 
-			onclick=\"document.location='image/cache/$name'\" style=\"cursor:pointer\" />";
+			onclick=\"drill()\" style=\"cursor:pointer\" />";
+}
+
+if ($proc === 'drill'){
+	$periodeID = $_POST['periodeID'];
+	$departemenID = $_POST['departemenID'];
+	include '../../view/admin/laporan_departemenGraph/departemenGraph_drill.php';
+}
+
+if($proc === 'drill-table'){
+	$periodeID = $_POST['periodeID'];
+	$departemenID = $_POST['departemenID'];
+	$constraint = $_POST['constraint'];
+	include '../../view/admin/laporan_departemenGraph/departemenGraph_drillTable.php';
 }

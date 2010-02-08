@@ -68,8 +68,8 @@ while ($kk = mysql_fetch_assoc($nppTable)):
 		<td><?=$row['NAMA_JABATAN']?></td>
 		<td><?=$row['NAMA_DEPARTMENT']?></td>
 		<td><?=$row['NAMA_DIVISI']?></td>
-		<td><?=$kk['ID_LEVEL']?></td>
-		<td><form id="frm<?=$z?>" name="frm<?=$z?>" action="dashboard.php?p=detilPenilaian" method="post">
+		<td align="center"><?=$kk['ID_LEVEL']?></td>
+		<td width="80px"><form id="frm<?=$z?>" name="frm<?=$z?>" action="dashboard.php?p=detilPenilaian" method="post">
 			<input name="karyID" type="hidden" value="<?=$row['KODE_KARYAWAN']?>" />
 			<input name="periodeID" type="hidden" value="<?=$kk['ID_PERIODE']?>" />
 			<input name="dep_div_jabID" type="hidden" value="<?=$row['ID_DEP_DIV_JAB']?>" />
@@ -77,10 +77,15 @@ while ($kk = mysql_fetch_assoc($nppTable)):
 			<input name="nilaiPerPenilaiID" type="hidden" value="<?=$kk['ID_NILAI_PER_PENILAI']?>" />
 			<?php //if ($periode['awal'] <= time() && $periode['akhir'] >= time()):?>
 				<a onclick="$(this).getParent('form').submit()">
-					<?=	'set nilai'?>
+					<?php 
+						//hitung apakah sudah ada data penilaian, 
+						$stsCount = $kk['NILAI'];
+						echo $stsCount<=0? "set nilai" : "update nilai";
+					?>
 				</a>
 			<?php //endif;?>
-			</form></td>
+			</form>
+		</td>
 	</tr>
 	<?php endwhile; ?>
 	<?php mysql_free_result($NA);?>
