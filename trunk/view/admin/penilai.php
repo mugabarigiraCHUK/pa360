@@ -114,6 +114,7 @@ function inject_head(){?>
 							"<h2 class=\"dialog_title\"><span>"+title+"</span></h2>" + 
 							"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+js.msg+"</div>", 
 							true, true, 1500);
+						item.checked = !item.checked;
 					}
 
 //					penilai_updateTable(form);
