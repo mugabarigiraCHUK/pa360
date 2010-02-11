@@ -91,14 +91,15 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 			//load nilai_per_kriteria
 			//-- BUG --
 			$NPKRT = mysql_fetch_assoc( npkrt_select(false, 
-													!$NPP['ID_NILAI_PER_PENILAI']? "-" : $NPP['ID_NILAI_PER_PENILAI'], 
-													!$row2['ID_DETIL_BOBOT_LEVEL']? "-" : $row2['ID_DETIL_BOBOT_LEVEL']) );
+					!$NPP['ID_NILAI_PER_PENILAI']? "-" : $NPP['ID_NILAI_PER_PENILAI'], 
+					!$row2['ID_DETIL_BOBOT_LEVEL']? "-" : $row2['ID_DETIL_BOBOT_LEVEL']) );
 
 			//append nilai
 			$TMP_KRIPEN['NILAI'] = $NPKRT['NILAI'];
 			
 			//append detail_kriteria
-			$TMP_KRIPEN['DEKRIPEN'] = laporan_detail_dekripen($KRIPEN['ID_KRITERIA'], $NPKRT['ID_NILAI_PER_KRITERIA']); 
+			$TMP_KRIPEN['DEKRIPEN'] = laporan_detail_dekripen($KRIPEN['ID_KRITERIA'], 
+																$NPKRT['ID_NILAI_PER_KRITERIA']); 
 			
 			$TMP[$KRIPEN['ID_KRITERIA']] = $TMP_KRIPEN;
 		}
@@ -108,7 +109,7 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 		$RESULT[$row['ID_LEVEL']]['BOBOT_LEVEL'] = $row['BOBOT'];
 		
 		//append penilai
-		$PENILAI = mysql_fetch_assoc( penilai_loadByID($NPP['ID_PENILAI']) );
+		$PENILAI = mysql_fetch_assoc( penilai_loadByID($NPP['KODE_PENILAI']) );
 		$KARY = mysql_fetch_assoc(kary_load($PENILAI['KODE_KARYAWAN']));
 		$RESULT[$row['ID_LEVEL']]['PENILAI'] = $KARY['NAMA_KARYAWAN'];
 	}

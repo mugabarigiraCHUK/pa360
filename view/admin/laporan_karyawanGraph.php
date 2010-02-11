@@ -75,6 +75,13 @@ function inject_head(){?>
 			}
 		}).send();
 	}
+
+	function show_detil(form){
+		var oldAct = $(form).get('action');
+		form.method='post';
+		form.set('action', './dashboard.php?p=laporan_detil');
+		form.submit();
+	}
 	
 	window.addEvent('domready', function(){
 		update_periodeCombo(document.frmSearch);

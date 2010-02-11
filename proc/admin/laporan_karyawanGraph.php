@@ -123,6 +123,15 @@ if ($proc === 'graph'){
     cleanup_cacheImage($path);	//cleanup old file
     $name = $_COOKIE_DATA->alias .'KinerjaKaryawanperPeriode-'. time().".png";
 	$Test->Render("$path/$name");  
-	echo "<img src=\"image/cache/$name\" alt=\"Kinerja Karyawan\" 
-			onclick=\"document.location='image/cache/$name'\" style=\"cursor:pointer\" />";
+	
+	//add click feature
+	$periodeID = $periodeStart;
+	$departemenID = $DEPDIVJAB['ID_DEPARTMENT'];
+	echo "<form>
+			<input name=\"karyID\" type=\"hidden\" value=\"$karyID\" />
+			<input name=\"periodeID\" type=\"hidden\" value=\"$periodeID\" />
+			<input name=\"dep_div_jabID\" type=\"hidden\" value=\"$dep_div_jabID\" />
+			<input name=\"departemenID\" type=\"hidden\" value=\"$departemenID\" />
+			<img src=\"image/cache/$name\" alt=\"Kinerja Karyawan\" onclick=\"show_detil($(this).getParent('form'))\" style=\"cursor:pointer\" />
+		</form>";
 }
