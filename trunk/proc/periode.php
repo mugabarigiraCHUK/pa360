@@ -60,6 +60,9 @@ if ($proc === 'periode-save'){
 	$batasAwal = $_POST['batasAwal']===''? NULL : date("Y-m-d", $batasAwal);
 	$batasAkhir = $_POST['batasAkhir']===''? NULL : date("Y-m-d", $batasAkhir);
 	
+	//periksa apakah tanggal periode awal sudah ter-cover pada data periode sebelumnya
+	$coverage = periode_checkCoverage($periodeAwal);
+	if ($coverage){	echo json_encode(array('error'=> true, 'msg'=> "Periode awal sudah tercover pada periode '$coverage'")); return ; }
 	
 	$ex = periode_addComplete($id, $periodeAwal, $periodeAkhir, $bobotV, $bobotH, $lvV, 
 						$lvH, $batasAwal, $batasAkhir);

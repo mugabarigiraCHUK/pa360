@@ -12,6 +12,15 @@ function periode_genID($periodeAwal, $periodeAkhir){
 	}
 }
 
+function periode_checkCoverage($periodeAwal){
+	$sql = "SELECT * FROM `setting_periode` WHERE '$periodeAwal' between periode_awal and periode_akhir";
+	$result = mysql_query($sql);
+	while ($row = mysql_fetch_assoc($result)){
+		return $row['ID_PERIODE'];		
+	}
+	return false;
+}
+
 function periode_select($key=false){
 	$sql = "select * from setting_periode";
 	if ($key){
