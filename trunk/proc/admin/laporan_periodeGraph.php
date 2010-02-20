@@ -32,7 +32,6 @@ if ($proc === 'graph'){
 	while ($loop = mysql_fetch_assoc($LOOP)){
 		if ($periodeStart === $loop['ID_PERIODE']) $doLoop = true;
 		if ($doLoop){
-			echo number_format(nilaiAkhir_avg($loop['ID_PERIODE']), 2);
 			$AVG[] = number_format(nilaiAkhir_avg($loop['ID_PERIODE']), 2);
 			$MAX[] = number_format(nilaiAkhir_max($loop['ID_PERIODE']), 2);
 			$MIN[] = number_format(nilaiAkhir_min($loop['ID_PERIODE']), 2);
