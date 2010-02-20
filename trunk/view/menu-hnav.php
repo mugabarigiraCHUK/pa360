@@ -19,6 +19,7 @@
 			<li><a href="dashboard.php?p=deskripsiBobot">Master Deskripsi Bobot</a></li>
 			<li><a href="dashboard.php?p=periode">Master Periode</a></li>
 			<li><a href="dashboard.php?p=penilai">Master Penilai</a></li>
+			<li><a href="dashboard.php?p=grade">Master Grade</a></li>
 		</ul>
 		</li>
 	</ul>
