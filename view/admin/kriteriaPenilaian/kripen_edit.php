@@ -1,11 +1,11 @@
+<?php $result = kripen_load($kripenID); ?>
+<?php $row = mysql_fetch_assoc($result); ?>
 <form name="frmModal" method="post" action="proc/kriteriaPenilaian.php">
 <input type="hidden" value="kripen-update" name="proc" />
 <input name="kripenID" type="hidden" value="<?= $row['ID_KRITERIA'] ?>" />
 <h2 class="dialog_title"><span>Edit Kriteria Penilaian </span></h2>
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">
-<?php $result = kripen_load($kripenID); ?>
-<?php $row = mysql_fetch_assoc($result); ?>
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
 	<!--<tr>
 		<td align="right" width="35%">ID Kriteria :</td>
@@ -14,6 +14,11 @@
 	<tr>
 		<td align="right">Nama   :</td>
 		<td><input type="text" name="nama" value="<?=$row['NAMA_KRITERIA']?>" /></td>
+	</tr>
+	<tr>
+	  <td align="right" valign="top">Nilai standart : </td>
+	  	<?php $DEBOT = mysql_fetch_assoc(debot_minmax()); ?>
+	  <td><span id="standart" currentValue="<?php echo $row['STANDART']?>" maxValue="<?php echo $DEBOT['MAX']?>"></span></td>
 	</tr>
 	<tr>
 	  <td align="right" valign="top">Deskripsi : </td>

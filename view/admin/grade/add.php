@@ -17,10 +17,14 @@
 			<div style="width:50px; display:inline-table;">Grade</div> : <input name="name" type="text" maxlength="3" style="width: 50px" />
 		</div>
 		<div class="padT5">
+			<?php 
+				//ambil nilai bobot minimal dan maksimal
+				$DEBOT = mysql_fetch_assoc(debot_minmax());
+			?>
 			<div style="width:50px; display:inline-table;">Nilai</div> : 
-			<div id="min" style="display:inline-table;"></div>
+			<div id="min" minValue="0" maxValue="<?php echo $DEBOT['MAX']?>" style="display:inline-table;"></div>
 			<div class="padL5 padR5" style="display:inline-table;"> - </div>
-			<div id="max" style="display:inline-table;"></div>
+			<div id="max" minValue="0" maxValue="<?php echo $DEBOT['MAX']?>" style="display:inline-table;"></div>
 		</div>
 	</div>
 </div>

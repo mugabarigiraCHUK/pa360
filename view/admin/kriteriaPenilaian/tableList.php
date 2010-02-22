@@ -4,6 +4,7 @@
 <tr <?=tag_zebra($z++)?>>
 	<td width="100px" align="center"><?=$row['ID_KRITERIA']?></td>
 	<td align="left"><?=$row['NAMA_KRITERIA']?></td>
+	<td align="left"><?=number_format($row['STANDART'],2)?></td>
 	<td align="left"><?=substr($row['DESKRIPSI'],0,200)?></td>
 	<td align="right">
 		<a onClick="kripen_edit('<?=$row['ID_KRITERIA']?>')">Edit</a>

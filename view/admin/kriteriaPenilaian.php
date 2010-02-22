@@ -7,7 +7,12 @@ function inject_head(){?>
 <script>
 	//add kriteria table
 	function kripen_add(){
-		FBModal_show2( 'proc/kriteriaPenilaian.php', 'post', "proc=add-modal", true, true, null);
+		FBModal_show2( 'proc/kriteriaPenilaian.php', 'post', "proc=add-modal", true, true, null, {
+			onSuccess: function(ex){
+				var item = $('standart');
+				spinner_attach($('standart'), "standart", 0, item.getProperty('maxValue'), 0, .1, 1);
+			}
+		});
 	}
 
 	//edit kriteria
@@ -23,7 +28,11 @@ function inject_head(){?>
 							"<div class=\"dialog_content\" style=\"padding: 10px 20px\">"+js.msg+"</div>", 
 							true, true, 1500);
 					}
-					else{ FBModal_show( res, true, true); }
+					else{ 
+						FBModal_show( res, true, true); 
+						var item = $('standart');
+						spinner_attach($('standart'), "standart", 0, item.getProperty('maxValue'), item.getProperty('currentValue'), .1, 1);
+					}
 				});
 	}
 	
@@ -61,7 +70,6 @@ function inject_head(){?>
 		FBModal_loading("Save", "Please wait...", false, false);
 		$(form).set('send', {
 			onSuccess: function(response) { 
-//				alert(response); return;
 				var js = JSON.decode(response);
 				var msg = js.error? js.msg : "Process simpan selesai !!!";
 				var title = js.error? 'Error' : 'Saving';

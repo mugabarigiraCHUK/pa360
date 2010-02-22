@@ -21,10 +21,14 @@
 			<input name="name" type="text" maxlength="3" value="<?php echo $GRD['GRD_NAME']?>" style="width: 50px" />
 		</div>
 		<div class="padT5">
+			<?php 
+				//ambil nilai bobot minimal dan maksimal
+				$DEBOT = mysql_fetch_assoc(debot_minmax());
+			?>
 			<div style="width:50px; display:inline-table;">Nilai</div> : 
-			<div id="min" spinnerValue="<?php echo $GRD['GRD_MIN']?>" style="display:inline-table;"></div>
+			<div id="min" minValue="0" maxValue="<?php echo $DEBOT['MAX']?>" currentValue="<?php echo $GRD['GRD_MIN']?>" style="display:inline-table;"></div>
 			<div class="padL5 padR5" style="display:inline-table;"> - </div>
-			<div id="max" spinnerValue="<?php echo $GRD['GRD_MAX']?>" style="display:inline-table;"></div>
+			<div id="max" minValue="0" maxValue="<?php echo $DEBOT['MAX']?>" currentValue="<?php echo $GRD['GRD_MAX']?>" style="display:inline-table;"></div>
 		</div>
 	</div>
 </div>

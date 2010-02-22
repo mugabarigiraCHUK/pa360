@@ -4,6 +4,7 @@ include_once '../../lib/db.php';
 include_once '../../lib/utils/tag.php';
 include '../../model/periode.php';
 include '../../model/grade.php';
+include '../../model/deskripsiBobot.php';
 
 $proc = $_REQUEST['proc'];
 
