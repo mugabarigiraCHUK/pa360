@@ -13,9 +13,14 @@
 		<td><input type="text" name="nama" /></td>
 	</tr>
 	<tr>
+	  <td align="right" valign="top">Nilai standart : </td>
+	  	<?php $DEBOT = mysql_fetch_assoc(debot_minmax()); ?>
+	  <td><span id="standart" maxValue="<?php echo $DEBOT['MAX']?>"></span></td>
+	</tr>
+	<tr>
 	  <td align="right" valign="top">Deskripsi : </td>
 	  <td><textarea name="desc"></textarea></td>
-	  </tr>
+	</tr>
 </table>
 </div>
 <div class="dialog_buttons"><input type="button" value="Save"

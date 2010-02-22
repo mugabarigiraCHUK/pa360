@@ -31,16 +31,17 @@ function kripen_isExistID($id){
  * @param $depID (string) - kode departemen
  * @param $divNama (string) - nama divisi
  */
-function kripen_add($kripenID, $nama, $desc){
+function kripen_add($kripenID, $nama, $desc, $standart){
 	$sql = "insert into kriteria_penilaian ".
-			"values ('$kripenID', '$nama', '$desc')";
+			"values ('$kripenID', '$nama', '$desc', '$standart')";
 	return mysql_query($sql);
 }
 
-function kripen_update($kripenID, $nama, $desc){
+function kripen_update($kripenID, $nama, $desc, $standart){
 	$sql = "update kriteria_penilaian ".
 			"set NAMA_KRITERIA = '$nama',  
-				DESKRIPSI = '$desc'
+				DESKRIPSI = '$desc',
+				STANDART = $standart
 			where ID_KRITERIA='$kripenID'";
 	return mysql_query($sql);
 }

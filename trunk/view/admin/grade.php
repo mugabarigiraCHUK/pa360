@@ -11,8 +11,11 @@ function inject_head(){?>
 		var periodeID = document.frmSearch.periodeID.value;
 		FBModal_show2( 'proc/admin/grade.php', 'post', "proc=1&periodeID="+periodeID, true, true, null, {
 			onSuccess: function(ex){
-				spinner_attach($('min'), "min", 0, 10, 0, .1, 1);
-				spinner_attach($('max'), "max", 0, 10, 0, .1, 1);
+				var item = $('min');
+				spinner_attach($('min'), "min", 0, item.getProperty('maxValue'), 0, .1, 1);
+	
+				var item = $('min');
+				spinner_attach($('max'), "max", 0, item.getProperty('maxValue'), 0, .1, 1);
 			}
 		});
 	}
@@ -37,8 +40,11 @@ function inject_head(){?>
 	function edit(gradeID){
 		FBModal_show2( 'proc/admin/grade.php', 'post', "proc=2&gradeID="+gradeID, true, true, null, {
 			onSuccess: function(ex){
-				spinner_attach($('min'), "min", 0, 10, $('min').getProperty('spinnerValue'), .1, 1);
-				spinner_attach($('max'), "max", 0, 10, $('max').getProperty('spinnerValue'), .1, 1);
+				var item = $('min');
+				spinner_attach($('min'), "min", 0, item.getProperty('maxValue'), item.getProperty('currentValue'), .1, 1);
+
+				var item = $('max');
+				spinner_attach($('max'), "max", 0, item.getProperty('maxValue'), $('max').getProperty('currentValue'), .1, 1);
 			}
 		});
 	}
