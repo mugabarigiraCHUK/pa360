@@ -57,8 +57,11 @@ function spinner_attach(el, name, minval, maxval, currentval, increment, decimal
 	maxval = maxval==null? 100 : maxval;
 	currentval = currentval==null? 0 : currentval;
 	increment = increment==null? 1 : increment;
-	decimals = decimals==null? 0 : decimals; 
-	styles= styles==null? {width:'30px', position:'relative', padding:'1px 0'} : styles;
+	decimals = decimals==null? 0 : decimals;
+	
+	//merge style
+	var defStyle = {width:'30px', position:'relative', padding:'1px 1px'};
+	defStyle = $merge(defStyle, styles);
 	new DG.Spinner( {
 		renderTo : el,
 		name: name,
@@ -70,7 +73,7 @@ function spinner_attach(el, name, minval, maxval, currentval, increment, decimal
 		value: currentval,
 		disableWheel:true,
 		disableArrowKeys:true,
-		styles: styles
+		styles: defStyle
 	});
 }
 

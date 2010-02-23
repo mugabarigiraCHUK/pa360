@@ -71,6 +71,7 @@ include 'model/nilaiAkhir.php';
 include 'model/nilaiPerPenilai.php';
 include 'model/karyawan.php';
 include 'model/misc.php';
+include 'model/grade.php';
 
 $sub = $_REQUEST['sub'];
 if ($sub==='printable'){

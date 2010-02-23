@@ -58,8 +58,9 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 <table class="list" width="100%" cellpadding="5" cellspacing="0">
 	<tr class="header">
 		<th align="left"><h3><span class="colorWhite">Kriteria / Sub Kriteria</span></h3></th>
-		<!--  colspan="3" --><th  width="75" align="right"><h3><span class="colorWhite">Bobot</span></h3></th>
-		<!-- colspan="3"  --><th  width="75" align="right"><h3><span class="colorWhite">Nilai</span></h3></th>
+		<th  width="75" align="right"><h3><span class="colorWhite">Bobot</span></h3></th>
+		<th  width="75" align="center"><h3><span class="colorWhite">Nilai Standart</span></h3></th>
+		<th  width="75" align="right"><h3><span class="colorWhite">Nilai</span></h3></th>
 	</tr>
 <?php $LDK = laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID); ?>
 <?php $PENILAI_V1 = ""; ?>
@@ -73,6 +74,7 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 		<?php $bb = mysql_fetch_assoc( bobotlv_load($periodeID, $key) );?>
 	  <td><h3 style="padding-left:00px"><?=$bb['NAMA_LEVEL']?></h3></td>
 		<td width="25" align="right"><?=$value['BOBOT_LEVEL']?>%</td>
+		<td></td>
 		<td width="25" align="right"><?=!$value['NILAI_LEVEL'] || $value['NILAI_LEVEL']==""? "0" : number_format($value['NILAI_LEVEL'],2)?></td>
 		
 	</tr>
@@ -81,6 +83,7 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 	<tr <?=tag_zebra($z)?>>
 		<td><div style="padding-left:00px"><?=$kripen['NAMA_KRITERIA']?></div></td>
 		<td width="25" align="right"><?=$kripen['BOBOT'] ?>%</td>
+		<td width="25" align="center"><?=number_format($kripen['STANDART'],2) ?></td>
 		<td width="25" align="right"><?=!$kripen['NILAI'] || $kripen['NILAI']==""? "0" : number_format($kripen['NILAI'],2)?></td>
 	</tr>
 	<!-- DETAIL KRITERIA -->
@@ -88,6 +91,7 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 	<tr <?=tag_zebra($z)?>>
 		<td><div style="padding-left:40px"><?=$dekripen['NAMA_DETAIL_KRITERIA'];?></div></td>
 		<td width="25" align="right"><?=$dekripen['BOBOT'] ?>%</td>
+		<td></td>
 		<td width="25" align="right"><?=!$dekripen['NILAI'] || $dekripen['NILAI']==""? "0" : number_format($dekripen['NILAI'],2)?></td>
 	</tr>
 	<?php 	endforeach; ?>
@@ -100,6 +104,8 @@ table {font-family:Geneva, Arial, Helvetica, sans-serif;
 
 <?php $PERIODE = mysql_fetch_assoc(periode_load($periodeID))?>
 <?php $NA = mysql_fetch_assoc(nilaiAkhir_load($karyID, $dep_div_jabID, $periodeID))?>
+<?php $GRADE = grd_translate($periodeID, $NA['NILAI_AKHIR']); ?>
+<div align="right" class="padT5">Grade : <strong><?=$GRADE?></strong></div>
 <div align="right" class="padT5">Nilai Akhir (Horizontal <?=$PERIODE['BOBOT_HORIZONTAL']?>% &amp; Vertikal <?=$PERIODE['BOBOT_VERTIKAL']?>%) : <strong><?=number_format($NA['NILAI_AKHIR'],2)?></strong></div>
 <div align="right" class="padT5">Nilai rata - rata Periode : <strong><?=nilaiAkhir_avg($periodeID)?></strong></div>
 <div align="right" class="padT5">Nilai rata - rata Departemen (<?=$JBT['NAMA_DEPARTMENT']?>) : <strong><?=number_format(nilaiAkhir_avg($periodeID, $departemenID),2);?></strong></div>

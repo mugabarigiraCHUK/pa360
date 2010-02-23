@@ -12,10 +12,10 @@ function inject_head(){?>
 		FBModal_show2( 'proc/admin/grade.php', 'post', "proc=1&periodeID="+periodeID, true, true, null, {
 			onSuccess: function(ex){
 				var item = $('min');
-				spinner_attach($('min'), "min", 0, item.getProperty('maxValue'), 0, .1, 1);
+				spinner_attach($('min'), "min", 0, item.getProperty('maxValue'), 0, .01, 2, {width:'40px'});
 	
 				var item = $('min');
-				spinner_attach($('max'), "max", 0, item.getProperty('maxValue'), 0, .1, 1);
+				spinner_attach($('max'), "max", 0, item.getProperty('maxValue'), 0, .01, 2, {width:'40px'});
 			}
 		});
 	}
@@ -41,10 +41,10 @@ function inject_head(){?>
 		FBModal_show2( 'proc/admin/grade.php', 'post', "proc=2&gradeID="+gradeID, true, true, null, {
 			onSuccess: function(ex){
 				var item = $('min');
-				spinner_attach($('min'), "min", 0, item.getProperty('maxValue'), item.getProperty('currentValue'), .1, 1);
+				spinner_attach($('min'), "min", 0, item.getProperty('maxValue'), item.getProperty('currentValue'), .01, 2, {width:'40px'});
 
 				var item = $('max');
-				spinner_attach($('max'), "max", 0, item.getProperty('maxValue'), $('max').getProperty('currentValue'), .1, 1);
+				spinner_attach($('max'), "max", 0, item.getProperty('maxValue'), $('max').getProperty('currentValue'), .01, 2, {width:'40px'});
 			}
 		});
 	}
