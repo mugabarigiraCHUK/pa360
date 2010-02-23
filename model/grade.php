@@ -31,3 +31,9 @@ function grd_delete($id){
 	$result = mysql_query($sql);
 	return $result;
 }
+
+function grd_translate($periodeID, $score){
+	$sql = "SELECT GRD_NAME FROM `data_grade` WHERE '$score' between GRD_MIN AND GRD_MAX";
+	while ( $row = mysql_fetch_assoc(mysql_query($sql)) ){ return $row['GRD_NAME']; }
+	return false;
+}

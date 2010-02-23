@@ -44,8 +44,12 @@ function laporan_global($periodeID, $departemenID=false){
 		
 		//check departement
 		if ($DEPDIVJAB['ID_DEPARTMENT']==$departemenID || !$departemenID){
+			$grade = grd_translate($periodeID, $NA['NILAI_AKHIR']);	//grade
 			$TMP = array();
+			
+			//append data
 			$TMP = $NA;
+			$TMP['GRADE'] = $grade? $grade : "-"; 
 			$TMP['KODE_DINILAI'] = $row['KODE_DINILAI'];
 			$TMP['KODE_KARYAWAN'] = $NA['KODE_KARYAWAN'];
 			$TMP['NAMA_KARYAWAN'] = $KARY['NAMA_KARYAWAN'];
@@ -87,6 +91,7 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 			$TMP_KRIPEN['ID_KRITERIA'] = $KRIPEN['ID_KRITERIA'];
 			$TMP_KRIPEN['NAMA_KRITERIA'] = $KRIPEN['NAMA_KRITERIA'];
 			$TMP_KRIPEN['DESKRIPSI'] = $KRIPEN['DESKRIPSI'];
+			$TMP_KRIPEN['STANDART'] = $KRIPEN['STANDART'];
 			
 			//load nilai_per_kriteria
 			//-- BUG --

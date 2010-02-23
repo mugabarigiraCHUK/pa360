@@ -9,6 +9,7 @@ include '../../model/nilaiPerPenilai.php';
 include '../../model/nilaiAkhir.php';
 include '../../model/karyawan.php';
 include '../../model/misc.php';
+include '../../model/grade.php';
 
 $proc = $_REQUEST['proc'];
 

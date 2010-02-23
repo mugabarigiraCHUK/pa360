@@ -14,6 +14,7 @@
 	<th align="left" nowrap="nowrap"><h3><span class="colorWhite">Jabatan</span></h3></th> 
 	<!-- <th align="left" nowrap="nowrap"><h3><span class="colorWhite">Departemen</span></h3></th>  -->
 	<th align="left" nowrap="nowrap"><h3><span class="colorWhite">Divisi</span></h3></th>
+	<th nowrap="nowrap" align="right"><h3><span class="colorWhite">Grade</span></h3></th>
 	<th nowrap="nowrap" align="right"><h3><span class="colorWhite">Nilai Akhir</span></h3></th>
 	<?php foreach ($KEY as $key=>$value) : ?>
 	<th width="50" align="right"><h3><span class="colorWhite"><?=$value?></span></h3></th>
@@ -28,6 +29,7 @@
 	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_JABATAN']?></td>
 	<!-- <td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DEPARTMENT']?></td> -->
 	<td nowrap="nowrap"><?=$dd['JABATAN']['NAMA_DIVISI']?></td>
+	<td nowrap="nowrap" align="center"><?=$dd['GRADE']?></td>
 	<td nowrap="nowrap" align="right"><?=number_format($dd['NILAI_AKHIR'],2)?></td>
 	<?php foreach($KEY as $key=>$value):?>
 	<td align="right" nowrap="nowrap"><?=isset($dd['LEVEL'][$key])? number_format($dd['LEVEL'][$key],2) : 0?></td>

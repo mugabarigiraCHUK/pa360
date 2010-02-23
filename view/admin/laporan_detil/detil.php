@@ -1,4 +1,3 @@
-
 <form name="frmSearch">
 	<input type="hidden" value="" name="proc" />
 	<input type="hidden" value="<?=$karyID?>" name="karyID" />
