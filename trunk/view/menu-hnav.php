@@ -49,7 +49,12 @@
 <?php else: ?>
 <ul id="navmenu-h">
 	<li><a onclick="changePassword('<?=$_COOKIE_DATA->username?>')">Password Change</a></li>
-	<li><a href="dashboard.php?p=penilaian">Performance Appraisal</a></li>
+	<li><a>Performance Appraisal</a>
+		<ul>
+			<li><a href="dashboard.php?p=penilaian">Organization Appraisal</a></li>
+			<li><a href="dashboard.php?p=penilaian_pribadi">Self Appraisal</a></li>
+		</ul>
+	</li>
 	<li><a class="fake" onclick="location.replace('lib/logout.php')">Logout +</a></li>
 </ul>
 <?php endif; ?>
