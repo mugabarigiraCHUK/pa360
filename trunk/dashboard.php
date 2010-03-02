@@ -30,13 +30,8 @@ if ($_COOKIE_DATA->type == 1 && $_COOKIE_DATA->asAdmin){	//super user
 	else{include 'view/admin/dashboard.php'; }
 }
 else{
-	if ($p==='penilaian') {
-		include 'view/client/penilaian.php';
-	}
-	elseif ($p==='detilPenilaian') {
-		include 'view/client/detilPenilaian.php';
-	}
-	else{
-		include 'view/client/dashboard.php';
-	}
+		 if ($p==='penilaian') { 		include 'view/client/penilaian.php'; }
+	else if ($p==='detilPenilaian') { 	include 'view/client/detilPenilaian.php'; }
+	else if ($p==='penilaian_pribadi') {include 'view/client/penilaian_pribadi.php'; }
+	else { include 'view/client/dashboard.php'; }
 }

@@ -1033,3 +1033,31 @@ ALTER TABLE `relasi_golongan`
 --
 ALTER TABLE `telpon`
   ADD CONSTRAINT `telpon_ibfk_1` FOREIGN KEY (`KODE_KARYAWAN`) REFERENCES `data_karyawan` (`KODE_KARYAWAN`);
+  
+
+--
+-- Table structure for table `data_grade`
+--
+
+  DROP TABLE IF EXISTS `data_grade`;
+CREATE TABLE IF NOT EXISTS `data_grade` (
+  `GRD_ID` int(11) NOT NULL auto_increment,
+  `GRD_NAME` varchar(5) NOT NULL,
+  `ID_PERIODE` varchar(50) NOT NULL,
+  `GRD_MIN` double default NULL,
+  `GRD_MAX` double default NULL,
+  PRIMARY KEY  (`GRD_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `data_grade`
+--  
+INSERT INTO `data_grade` (`GRD_ID`, `GRD_NAME`, `ID_PERIODE`, `GRD_MIN`, `GRD_MAX`) VALUES
+(1, 'A', 'jan - 2010', 8.51, 10),
+(2, 'B+', 'jan - 2010', 7.51, 8.5),
+(3, 'B', 'jan - 2010', 6.51, 7.5),
+(4, 'B-', 'jan - 2010', 5.51, 6.5),
+(5, 'C', 'jan - 2010', 5.01, 5.5),
+(6, 'D', 'jan - 2010', 4.51, 5),
+(7, 'E', 'jan - 2010', 0, 4.5);
+  
