@@ -98,7 +98,7 @@ function penilai_save(){
     $levelID = $_POST['levelID']; 
     $penilaiID= $_POST['penilaiID'];
     $penilai_dep_div_jabID = $_POST['penilai_dep_div_jabID'];
-    
+
 	//save penilai
 	if (! penilai_isExist($penilaiID, $penilai_dep_div_jabID)){
 		if (! penilai_add($penilaiID, $penilai_dep_div_jabID) ) {
@@ -123,5 +123,5 @@ function penilai_save(){
 			echo json_encode(array('error'=> !$ex, 'msg'=> mysql_innodb_error(mysql_errno())));
 		}
 	}
-	echo json_encode(array('error'=> false, 'msg'=> mysql_error()));
+	echo json_encode(array('error'=> false, 'msg'=> mysql_innodb_error(mysql_errno())));
 }
