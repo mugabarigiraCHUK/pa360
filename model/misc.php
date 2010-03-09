@@ -67,6 +67,7 @@ function laporan_global($periodeID, $departemenID=false){
 function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 	$NA = mysql_fetch_assoc( nilaiAkhir_select(false, $karyID, $dep_div_jabID, $periodeID) );
 	$dinilaiID = $NA['KODE_DINILAI']; 
+	$dinilaiKaryID = $NA['KODE_KARYAWAN'];
 			
 	$BOBOTLV = bobotlv_select(false, $periodeID);
 	while ($row = mysql_fetch_assoc($BOBOTLV)){
@@ -104,11 +105,14 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 			
 			//append detail_kriteria
 			$TMP_KRIPEN['DEKRIPEN'] = laporan_detail_dekripen($KRIPEN['ID_KRITERIA'], 
-																$NPKRT['ID_NILAI_PER_KRITERIA']); 
+																$NPKRT['ID_NILAI_PER_KRITERIA']);
 			
 			$TMP[$KRIPEN['ID_KRITERIA']] = $TMP_KRIPEN;
 		}
 		
+		/**
+		 * append all result
+		 */
 		$RESULT[$row['ID_LEVEL']]['KRITERIA'] = $TMP;
 		$RESULT[$row['ID_LEVEL']]['NILAI_LEVEL'] = $NPP['NILAI'];
 		$RESULT[$row['ID_LEVEL']]['BOBOT_LEVEL'] = $row['BOBOT'];
@@ -118,6 +122,51 @@ function laporan_detail_kripen($karyID, $dep_div_jabID, $periodeID){
 		$KARY = mysql_fetch_assoc(kary_load($PENILAI['KODE_KARYAWAN']));
 		$RESULT[$row['ID_LEVEL']]['PENILAI'] = $KARY['NAMA_KARYAWAN'];
 	}
+	
+	/**
+	 * load self appraisal ( penilaian pribadi )
+	 */
+	//load nilai_per_penilai, untuk ambil ID_NILAI_PERPENILAI pada $row['ID_LEVEL']
+	$NPP = mysql_fetch_assoc( npp_select_selfAppraisal($karyID, $periodeID) );
+	
+	//load detail_bobot_level, untuk ambil nilai bobot dan kriteria pada $row['ID_LEVEL']
+	$DEBOTLV = debotlv_select(false, $NPP['ID_BOBOT_LEVEL']);
+	
+	$TMP = array();
+	while ($row2 = mysql_fetch_assoc($DEBOTLV)){
+		$TMP_KRIPEN = array();
+		
+		//append bobot
+		$TMP_KRIPEN['BOBOT'] = $row2['BOBOT'];
+		
+		//load kriteria, untuk level $row['ID_LEVEL'] ambil nama kriteria
+		$KRIPEN = mysql_fetch_assoc( kripen_load($row2['ID_KRITERIA']) );
+		
+		//append kripen data
+		$TMP_KRIPEN['ID_KRITERIA'] = $KRIPEN['ID_KRITERIA'];
+		$TMP_KRIPEN['NAMA_KRITERIA'] = $KRIPEN['NAMA_KRITERIA'];
+		$TMP_KRIPEN['DESKRIPSI'] = $KRIPEN['DESKRIPSI'];
+		$TMP_KRIPEN['STANDART'] = $KRIPEN['STANDART'];
+		
+		//load nilai_per_kriteria
+		//-- BUG --
+		$NPKRT = mysql_fetch_assoc( npkrt_select(false, 
+				!$NPP['ID_NILAI_PER_PENILAI']? "-" : $NPP['ID_NILAI_PER_PENILAI'], 
+				!$row2['ID_DETIL_BOBOT_LEVEL']? "-" : $row2['ID_DETIL_BOBOT_LEVEL']) );
+
+		//append nilai
+		$TMP_KRIPEN['NILAI'] = $NPKRT['NILAI'];
+		
+		//append detail_kriteria
+		$TMP_KRIPEN['DEKRIPEN'] = laporan_detail_dekripen($KRIPEN['ID_KRITERIA'], 
+															$NPKRT['ID_NILAI_PER_KRITERIA']);
+		
+		$TMP[$KRIPEN['ID_KRITERIA']] = $TMP_KRIPEN;
+	}
+	$RESULT["PENILAIAN PRIBADI"]['KRITERIA'] = $TMP;
+	$RESULT["PENILAIAN PRIBADI"]['NILAI_LEVEL'] = $NPP['NILAI'];
+	$RESULT["PENILAIAN PRIBADI"]['BOBOT_LEVEL'] = $row['BOBOT'];
+		
 	return $RESULT;
 }
 
