@@ -50,6 +50,15 @@ if ($proc === 'debotlv-pick'){
 	$levelID = $_POST['levelID'];
 	$kripenID = $_POST['kripenID'];
 	
+	//cek integritas bobot_level
+	$count = bobotlv_count($periodeID, "HZ");
+	$count += bobotlv_count($periodeID, "VC");
+    $sum = bobotlv_sum($periodeID, "");
+    if ($sum<100*$count){
+    	echo json_encode(array('error'=> true, 'msg'=> "Prosentase penilaian kurang dari 100%"));
+    	return;
+    }
+    
 	//cek detil kriteria, jika jumlah detil kriterianya kurang dari 100%, pesan warning
 	$sum = dekripen_summarize($kripenID);
 	if ($sum<100){
@@ -80,7 +89,7 @@ if ($proc === 'debotlv-update'){
 	//cari periode dan levelnya
 	$data = mysql_fetch_assoc( debotlv_loadByID($debotlvID) );
 	
-	//hitung total bobotnya
+	//hitung total bobot kriterianya
 	$total = debotlv_sumBobot($data["ID_PERIODE"], $data["ID_LEVEL"], $debotlvID);
 	if ($total+$bobot<=100){
 		$ex = debotlv_update($debotlvID, $kripenID, $bobotlvID, $bobot);

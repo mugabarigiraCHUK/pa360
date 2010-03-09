@@ -40,7 +40,8 @@
 		<li><a href="dashboard.php?p=laporan_departemenGraph">Laporan grafik perdepartment</a></li>
 		<li><a href="dashboard.php?p=laporan_rataKinerjaGraph">Laporan Grafik Jumlah karyawan nilai rata -rata</a></li>
 		<li><a href="dashboard.php?p=laporan_karyawanGraph">Laporan Grafik PerKaryawan</a></li>
-		<li><a href="dashboard.php?p=laporan_kiteria">Laporan Kriteria</a></li>
+		<li><a href="dashboard.php?p=laporan_kriteria">Laporan Kriteria</a></li>
+		<li><a href="dashboard.php?p=laporan_kriteria2">Laporan Kriteria 2</a></li>
 	</ul>
 	</li>
 	<li><a href="dashboard.php?p=dataUser">Users Privillage</a></li>

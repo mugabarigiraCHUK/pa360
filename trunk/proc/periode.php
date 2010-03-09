@@ -87,20 +87,17 @@ if ($proc === 'periode-edit'){
 	if ($periodeAkhir<$periodeAwal){echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode awal dan akhir")); return ; }
 	if (!$batasAwal){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian awal")); return ; }
 	if (!$batasAkhir){ 				echo json_encode(array('error'=> true, 'msg'=> "Mohon mengisi tanggal penilaian akhir")); return ; }
-	if ($batasAwal<$batasAkhir){ 	echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas penilaian awal dan akhir")); return ; }
+	if ($batasAkhir<$batasAwal){ 	echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas penilaian awal dan akhir")); return ; }
 	if ($batasAwal<$periodeAkhir || 
 		$batasAkhir<$periodeAkhir){ echo json_encode(array('error'=> true, 'msg'=> "Mohon cek ulang batas periode dan batas penilaian")); return ; }
-	if ($bobotV+$bobotH<100) {echo json_encode(array('error'=> true, 'msg'=> "Bobot kurang dari 100%")); return ;}
+	if ($bobotV+$bobotH<100) {		echo json_encode(array('error'=> true, 'msg'=> "Bobot kurang dari 100%")); return ;}
+	if ($bobotV+$bobotH>100) {		echo json_encode(array('error'=> true, 'msg'=> "Bobot lebih dari 100%")); return ;}
 
 	//prepare on save, normalize date
 	$periodeAwal = $periodeAwal===''? NULL : date("Y-m-d", $periodeAwal);
 	$periodeAkhir = $periodeAkhir===''? NULL : date("Y-m-d", $periodeAkhir);
 	$batasAwal = $_POST['batasAwal']===''? NULL : date("Y-m-d", $batasAwal);
 	$batasAkhir = $_POST['batasAkhir']===''? NULL : date("Y-m-d", $batasAkhir);
-	
-	//periksa apakah tanggal periode awal sudah ter-cover pada data periode sebelumnya
-	$coverage = periode_checkCoverage($periodeAwal);
-	if ($coverage){	echo json_encode(array('error'=> true, 'msg'=> "Periode awal sudah tercover pada periode '$coverage'")); return ; }
 	
 	$ex = periode_updateComplete($id, $periodeAwal,	$periodeAkhir, $bobotV, $bobotH, $lvV, $lvH,
 					$batasAwal, $batasAkhir);

@@ -107,6 +107,7 @@ function inject_head(){?>
 			'&penilai_dep_div_jabID='+form.dep_div_jabID.value+
 			'&state='+(item.checked? 1 : 0),
 				function (res){ 
+				alert(res);
 					var js = JSON.decode(res);
 					if (js.error){
 						var title ='Error';

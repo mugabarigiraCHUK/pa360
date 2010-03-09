@@ -21,8 +21,8 @@
 	<tr <?=tag_zebra($z)?> class="fake" onclick="">
 		<?php $bb = mysql_fetch_assoc( bobotlv_load($periodeID, $key) );?>
 		<td><img src="image/collapse.gif" style="padding-right:10px" />
-			<h3 style="display: inline;"><?=$bb['NAMA_LEVEL']?></h3>
-			( <?=$value['PENILAI']?> )
+			<h3 style="display: inline;"><?=$bb['NAMA_LEVEL']? $bb['NAMA_LEVEL'] : $key ?></h3>
+			<?=$bb['NAMA_LEVEL']? " ( ". $value['PENILAI'] ." )" : ""?>
 		</td>
 		<td width="25" align="right"><?=$value['BOBOT_LEVEL']?>%</td>
 		<td width="25" align="right"></td>

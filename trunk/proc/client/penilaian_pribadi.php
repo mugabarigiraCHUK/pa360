@@ -49,9 +49,6 @@ switch ($proc){
 		$NA = mysql_fetch_assoc($NA);
 		$dinilaiID = $NA['KODE_DINILAI'];
 		
-		//echo 'kode penilai : '. $penilaiID .'<br>';
-		//echo 'kode dinilai : '. $naID .'<br>';
-		
 		//cek nilaiPerPenilai
 		$BOBOTLV = bobotlv_select(false, $periodeID, $levelID);
 		$BOBOTLV = mysql_fetch_assoc($BOBOTLV);
@@ -59,9 +56,13 @@ switch ($proc){
 		if (!npp_isExist($dinilaiID, $penilaiID, $bobotlvID)){
 			npp_insert($dinilaiID, $penilaiID, $bobotlvID, 0);
 		}
-		$NPP = npp_load($dinilaiID, $penilaiID, $bobotlvID);
+		$NPP = npp_select_selfAppraisal($karyID, $periodeID); //npp_load($dinilaiID, $penilaiID, $bobotlvID);
 		$NPP = mysql_fetch_assoc($NPP);
 		$nilaiPerPenilaiID = $NPP['ID_NILAI_PER_PENILAI'];
+		
+		//debug
+		//echo "npp_load($dinilaiID, $penilaiID, $bobotlvID)<br>";
+		//echo 'nilaiPerPenilaiID : '.$nilaiPerPenilaiID.'<br>';
 		
 		/**
 		 * bentuk array dekripen
@@ -88,6 +89,9 @@ switch ($proc){
 				npkrt_add($nilaiPerPenilaiID, $debotlvID, 0.0);
 			}
 			$npkrtID = npkrt_getID($nilaiPerPenilaiID, $debotlvID);
+			
+			//debug
+			//echo 'npkrtID : '.$npkrtID . '<br>';
 			
 			/**
 			 * save NILAI_PER_KINERJA

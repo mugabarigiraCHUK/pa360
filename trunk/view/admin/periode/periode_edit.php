@@ -3,6 +3,7 @@
 <?php $row = mysql_fetch_assoc($rest);?>
 <form name="frmModal" method="post" action="proc/periode.php">
 <input type="hidden" value="periode-edit" name="proc" /> 
+<input type="hidden" name="periodeID" value="<?=$row['ID_PERIODE']?>">
 <h2 class="dialog_title"><span>Edit Periode : <?=$row['ID_PERIODE']?></span></h2>
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">

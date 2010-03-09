@@ -72,7 +72,7 @@ if ($proc === 'graph'){
 	$Test->setFontProperties("../../lib/Fonts/tahoma.ttf",6);  
 	$Test->drawTreshold(0,143,55,72,TRUE,TRUE);  
 	 
-	// Draw the cubic curve graph  
+	// Draw the bar graph  
 	$Test->drawBarGraph($DataSet->GetData(),$DataSet->GetDataDescription(),TRUE);  
 	 
 	//label
