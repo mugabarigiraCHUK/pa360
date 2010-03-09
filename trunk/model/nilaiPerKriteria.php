@@ -66,8 +66,16 @@ function npkrt_exist($npkrtID=false, $nppID=false, $debotlvID=false){
 
 function npkrt_select2($where=false, $orderBy=false){
 	$sql = "SELECT * FROM nilai_per_kriteria ";
+	$sql .= " WHERE ID_NILAI_PER_PENILAI NOT IN (
+					SELECT ID_NILAI_PER_PENILAI 
+					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
+					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
+						a.KODE_PENILAI = c.KODE_PENILAI AND
+						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
+						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				)";
 	if ($where){
-		$sql .= " WHERE ". $where;
+		$sql .= " AND $where";
 	}
 	if ($orderBy){
 		$sql .= " ORDER BY ". $orderBy;
@@ -77,7 +85,14 @@ function npkrt_select2($where=false, $orderBy=false){
 
 function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
 	$sql = "SELECT * FROM nilai_per_kriteria ";
-	$sqlw = "";
+	$sqlw = " WHERE ID_NILAI_PER_PENILAI NOT IN (
+					SELECT ID_NILAI_PER_PENILAI 
+					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
+					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
+						a.KODE_PENILAI = c.KODE_PENILAI AND
+						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
+						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				)";
 	if ($npkrtID){
 		$sqlw .= $sqlw===""? "" : " AND ";
 		$sqlw .= " ID_NILAI_PER_KRITERIA='$npkrtID' "; 
@@ -90,7 +105,6 @@ function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
 		$sqlw .= $sqlw===""? "" : " AND ";
 		$sqlw .= " ID_DETIL_BOBOT_LEVEL='$debotlvID' "; 
 	}
-	$sqlw = " WHERE ". $sqlw;
 	return mysql_query($sql.$sqlw);
 }
 
@@ -98,4 +112,55 @@ function npkrt_debotlvIsExist($debotlvID){
 	$res = npkrt_select(false, false, $debotlvID);
 	while ($res = mysql_fetch_assoc($res)) { return true; }
 	return false;
+}
+
+function npkrt_avg($debotlvID){
+	$sql = "SELECT AVG(NILAI) as AVG 
+			FROM nilai_per_kriteria
+			WHERE ID_DETIL_BOBOT_LEVEL='$debotlvID' 
+				AND ID_NILAI_PER_PENILAI NOT IN (
+					SELECT ID_NILAI_PER_PENILAI 
+					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
+					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
+						a.KODE_PENILAI = c.KODE_PENILAI AND
+						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
+						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				)";
+	$res = mysql_query($sql);
+	$res = mysql_fetch_assoc($res);
+	return $res['AVG']==NULL || $res['AVG']===''? 0 : $res['AVG'];
+}
+
+function npkrt_min($debotlvID){
+	$sql = "SELECT MIN(NILAI) as MIN
+			FROM nilai_per_kriteria
+			WHERE ID_DETIL_BOBOT_LEVEL='$debotlvID'
+				AND ID_NILAI_PER_PENILAI NOT IN (
+					SELECT ID_NILAI_PER_PENILAI 
+					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
+					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
+						a.KODE_PENILAI = c.KODE_PENILAI AND
+						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
+						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				)";
+	$res = mysql_query($sql);
+	$res = mysql_fetch_assoc($res);
+	return $res['MIN']==NULL || $res['MIN']===''? 0 : $res['MIN'];
+}
+
+function npkrt_max($debotlvID){
+	$sql = "SELECT MAX(NILAI) as MAX
+			FROM nilai_per_kriteria
+			WHERE ID_DETIL_BOBOT_LEVEL='$debotlvID' 
+				AND ID_NILAI_PER_PENILAI NOT IN (
+					SELECT ID_NILAI_PER_PENILAI 
+					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
+					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
+						a.KODE_PENILAI = c.KODE_PENILAI AND
+						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
+						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				)";
+	$res = mysql_query($sql);
+	$res = mysql_fetch_assoc($res);
+	return $res['MAX']==NULL || $res['MAX']===''? 0 : $res['MAX'];
 }
