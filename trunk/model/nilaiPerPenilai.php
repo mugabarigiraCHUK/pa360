@@ -7,7 +7,8 @@ function npp_select($where=false, $orderBy=false, $include_self_appraisal=true){
 		//pisahkan dari penilaian pribadi
 		$sql .= " WHERE $where ";
 		
-		if ($include_self_appraisal){
+		//NOTE: function ini dipakai untuk penilaian pribadi (HATI2 untuk merubahnya)
+		if (!$include_self_appraisal){
 			$sql .= " AND ID_NILAI_PER_PENILAI NOT IN (
 						SELECT ID_NILAI_PER_PENILAI 
 						FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
