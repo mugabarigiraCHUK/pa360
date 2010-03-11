@@ -83,16 +83,9 @@ function npkrt_select2($where=false, $orderBy=false){
 	return mysql_query($sql);
 }
 
-function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
+function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false, $include_self_appraisal=true){
 	$sql = "SELECT * FROM nilai_per_kriteria ";
-	$sqlw = " WHERE ID_NILAI_PER_PENILAI NOT IN (
-					SELECT ID_NILAI_PER_PENILAI 
-					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
-					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
-						a.KODE_PENILAI = c.KODE_PENILAI AND
-						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
-						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
-				)";
+	$sqlw = "";
 	if ($npkrtID){
 		$sqlw .= $sqlw===""? "" : " AND ";
 		$sqlw .= " ID_NILAI_PER_KRITERIA='$npkrtID' "; 
@@ -105,6 +98,18 @@ function npkrt_select($npkrtID=false, $nppID=false, $debotlvID=false){
 		$sqlw .= $sqlw===""? "" : " AND ";
 		$sqlw .= " ID_DETIL_BOBOT_LEVEL='$debotlvID' "; 
 	}
+	if (!$include_self_appraisal){
+		$sqlw .= $sqlw===""? "" : " AND ";
+		$sqlw .= "ID_NILAI_PER_PENILAI NOT IN (
+					SELECT ID_NILAI_PER_PENILAI 
+					FROM nilai_per_penilai as a, nilai_akhir as b, penilai as c
+					WHERE a.KODE_DINILAI = b.KODE_DINILAI AND
+						a.KODE_PENILAI = c.KODE_PENILAI AND
+						b.KODE_KARYAWAN = c.KODE_KARYAWAN AND 
+						b.ID_DEP_DIV_JAB = c.ID_DEP_DIV_JAB
+				)";
+	}
+	$sqlw = $sqlw===""? "" : " WHERE ".$sqlw;
 	return mysql_query($sql.$sqlw);
 }
 
