@@ -8,12 +8,12 @@
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
 	<tr>
 		<td align="right" width="35%">ID Departemen :</td>
-		<td><input type="text" name="dep_id-fake" value="<?=$result['ID_DEPARTMENT']?>" disabled="disabled"> <input type="hidden"
-			name="dep_id" value="<?=$result['ID_DEPARTMENT']?>" /></td>
+		<td><input type="text" name="dep_id-fake" value="<?php echo $result['ID_DEPARTMENT']?>" disabled="disabled"> <input type="hidden"
+			name="dep_id" value="<?php echo $result['ID_DEPARTMENT']?>" /></td>
 	</tr>
 	<tr>
 		<td align="right">Nama Departemen :</td>
-		<td><input type="text" name="depNama" value="<?=$result['NAMA_DEPARTMENT']?>"></td>
+		<td><input type="text" name="depNama" value="<?php echo $result['NAMA_DEPARTMENT']?>"></td>
 	</tr>
 </table>
 </div>

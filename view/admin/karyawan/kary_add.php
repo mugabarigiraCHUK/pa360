@@ -131,6 +131,13 @@ function search_pick(kary_id){
 	document.location = 'dashboard.php?p=karyawan&sub=kary_edit&kary_id='+kary_id;
 }
 
+function mod_enter(e, source){
+	if (e.keyCode == 13) {
+		new Event(e).stop();
+		search_pick(source.value);
+	}
+}
+
 var JOB_TABLE_ID = 0;
 function job_add(){
 	var trID = 'job-table' + (++JOB_TABLE_ID);
@@ -191,7 +198,7 @@ function _gol_arr_clear(id){
   	<div>
 		<div class="padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Kode Karyawan : </div>
-			<input name="kode" type="text" class="vMiddle floatL">
+			<input name="kode" type="text" class="vMiddle floatL" onkeypress="mod_enter(event, this)">
 			<input name="buttonSearch" type="button" class="vMiddle floatL" value="search" style="margin-left:10px;">
 		</div>
 		<div class="clearBoth padT5">
@@ -315,7 +322,7 @@ function _gol_arr_clear(id){
 			<select name="statusKerja" class="vMiddle floatL">
 				<?php $STSKARY =  stskary_select(); ?>
 				<?php while($row = mysql_fetch_assoc($STSKARY)): ?>
-				<option value="<?=$row['ID_STATUS_KARYAWAN']?>"><?=$row['NAMA_STATUS']?></option>
+				<option value="<?php echo $row['ID_STATUS_KARYAWAN']?>"><?php echo $row['NAMA_STATUS']?></option>
 				<?php endwhile;?>
 			</select>
 		</div> 

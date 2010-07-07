@@ -14,11 +14,11 @@
 	<?php $res = RELASIJABATAN_load($karyID)?>
 	<?php while ($row= mysql_fetch_assoc($res)) : ?>
 	<tr>
-		<td align="left"><?=$row['NAMA_JABATAN']?></td>
-		<td align="left"><?=$row['NAMA_DEPARTMENT']?></td>
-		<td align="left"><?=$row['NAMA_DIVISI']?></td>
-		<td align="right"><?=date_normalize($row['TANGGAL_MENJABAT'], 'd M Y')?></td>
-		<td align="right"><?=date_normalize($row['TANGGAL_BERHENTI'], 'd M Y')?></td>
+		<td align="left"><?php echo $row['NAMA_JABATAN']?></td>
+		<td align="left"><?php echo $row['NAMA_DEPARTMENT']?></td>
+		<td align="left"><?php echo $row['NAMA_DIVISI']?></td>
+		<td align="right"><?php echo date_normalize($row['TANGGAL_MENJABAT'], 'd M Y')?></td>
+		<td align="right"><?php echo date_normalize($row['TANGGAL_BERHENTI'], 'd M Y')?></td>
 		<td align="left"></td>
 	</tr>
 	<?php endwhile;?>

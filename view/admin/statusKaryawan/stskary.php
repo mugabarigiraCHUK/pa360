@@ -1,8 +1,8 @@
-<div>Search : <input type="text" class="marginL5" style="width:200px;" onkeyup="stskary_updateList(this.value)" /></div>
+<div>Search : <input id="key" type="text" class="marginL5" style="width:200px;" onkeyup="stskary_updateList(this.value)" /></div>
 <table class="list marginT5" width="80%" border="0" cellpadding="5" cellspacing="0">
   <tr class="header">
-    <th width="150" align="center"><h3><span class="colorWhite">ID Status</span></h3></th>
-    <th align="center"><h3><span class="colorWhite">Nama Status</span></h3></th>
+    <th width="150" align="center"><a onclick="stskary_updateList($('key').value, 'ID_STATUS_KARYAWAN')">ID Status</a></th>
+    <th align="center"><a onclick="stskary_updateList($('key').value, 'NAMA_STATUS')">Nama Status</a></th>
     <th width="100" align="center">&nbsp;</th>
   </tr>
   <tbody id="stskary-table"></tbody>

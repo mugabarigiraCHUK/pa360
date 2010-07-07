@@ -1,25 +1,24 @@
-<tr id="<?=$trID?>" bgcolor="white">
-			<input name="alamatArr[<?=$trID?>][alamatID]" type="hidden" value="<?=$alamatID?>" />
+<tr id="<?php echo $trID?>" bgcolor="white">
 		<td width="297" align="left">
-			<?=$alamat?>
-			<input name="alamatArr[<?=$trID?>][alamat]" type="hidden" value="<?=$alamat?>" />
+			<input name="alamatArr[<?php echo $trID?>][alamatID]" type="hidden" value="<?php echo $alamatID?>" />
+			<?php echo $alamat?>
+			<input name="alamatArr[<?php echo $trID?>][alamat]" type="hidden" value="<?php echo $alamat?>" />
 		</td>
 		<td width="100" align="center">
-			<?=$kodePos?>
-			<input name="alamatArr[<?=$trID?>][kodePos]" type="hidden" value="<?=$kodePos?>" />
+			<?php echo $kodePos?>
+			<input name="alamatArr[<?php echo $trID?>][kodePos]" type="hidden" value="<?php echo $kodePos?>" />
 		</td>
 		<td width="100" align="center">
-			<?=$kodeArea?>
-			<input name="alamatArr[<?=$trID?>][kodeArea]" type="hidden" value="<?=$kodeArea?>" />
+			<?php echo $kodeArea?>
+			<input name="alamatArr[<?php echo $trID?>][kodeArea]" type="hidden" value="<?php echo $kodeArea?>" />
 		</td>
 		<td width="100" align="center">
-			<?=$kota?>
-			<input name="alamatArr[<?=$trID?>][kota]" type="hidden" value="<?=$kota?>" />
+			<?php echo $kota?>
+			<input name="alamatArr[<?php echo $trID?>][kota]" type="hidden" value="<?php echo $kota?>" />
 		</td>
 		<td width="100" align="center">
-			<?=$propinsi?>
-			<input name="alamatArr[<?=$trID?>][propinsi]" type="hidden" value="<?=$propinsi?>" />
+			<?php echo $propinsi?>
+			<input name="alamatArr[<?php echo $trID?>][propinsi]" type="hidden" value="<?php echo $propinsi?>" />
 		</td>
-		<td width="52" align="center"><a onclick="alamat_delete('<?=$trID?>', '<?=$alamatID?>')">delete</a></td>
-		<th width="10"></th>
+		<td width="52" align="center"><a onclick="alamat_delete('<?php echo $trID?>', '<?php echo $alamatID?>')">delete</a></td>
 	</tr>

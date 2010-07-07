@@ -1,6 +1,6 @@
 <form name="frmModal" method="post" action="proc/karyawan.php">
 <input	type="hidden" value="job-list" name="proc" />
-<input	type="hidden" value="<?=$_POST['trID']?>" name="trID" />
+<input	type="hidden" value="<?php echo $_POST['trID']?>" name="trID" />
 <h2 class="dialog_title"><span>Add Jabatan </span></h2>
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">
@@ -11,7 +11,7 @@
 			<select name="depID">
 			<?php $res = departemen_select(); ?>
 			<?php while ($row = mysql_fetch_assoc($res)): ?>
-				<option value="<?=$row['ID_DEPARTMENT']?>"><?=$row['NAMA_DEPARTMENT']?></option>
+				<option value="<?php echo $row['ID_DEPARTMENT']?>"><?php echo $row['NAMA_DEPARTMENT']?></option>
 			<?php endwhile;?>
 			</select>		</td>
 	</tr>
@@ -21,7 +21,7 @@
 			<select name="divID">
 			<?php $res = divisi_select(); ?>
 			<?php while ($row = mysql_fetch_assoc($res)): ?>
-				<option value="<?=$row['ID_DIVISI']?>"><?=$row['NAMA_DIVISI']?></option>
+				<option value="<?php echo $row['ID_DIVISI']?>"><?php echo $row['NAMA_DIVISI']?></option>
 			<?php endwhile;?>
 			</select>		</td>
 	</tr>
@@ -31,7 +31,7 @@
 		<select name="jabID">
 			<?php $res = jbt_select(); ?>
 			<?php while ($row = mysql_fetch_assoc($res)): ?>
-			<option value="<?=$row['ID_JABATAN']?>"><?=$row['NAMA_JABATAN']?></option>
+			<option value="<?php echo $row['ID_JABATAN']?>"><?php echo $row['NAMA_JABATAN']?></option>
 			<?php endwhile;?>
 		</select>	  </td>
 	  </tr>

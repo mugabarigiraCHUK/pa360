@@ -1,6 +1,6 @@
 <form name="frmModal" method="post" action="proc/admin/dataUser.php">
 <input type="hidden" value="change-password-save" name="proc" />
-<input type="hidden" value="<?=$karyID?>" name="karyID" />
+<input type="hidden" value="<?php echo $karyID?>" name="karyID" />
 <h2 class="dialog_title"><span>Change Password </span></h2>
 <div class="dialog_content">
 <div style="border-bottom: 1px solid #CCC">
