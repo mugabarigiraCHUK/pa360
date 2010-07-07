@@ -26,9 +26,9 @@ function tag_numberOnSelect($start, $length, $selected=0, $name="", $class="", $
  * @param $z (int) - index baris
  */
 function tag_zebra($z){
-	$col = array("#FFFFFF", "#F4FFE4");
+	$col = array("#FFFFFF", "#eef3f9");
 	$ind = $z%2;
-	return "bgcolor=\"$col[$ind]\"";
+	return "bgcolor=\"". $col[$ind] ."\"";
 }
 
 function cleanup_cacheImage($path){
