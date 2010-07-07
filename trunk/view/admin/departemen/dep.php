@@ -1,8 +1,8 @@
-<div>Search : <input type="text" class="marginL5" style="width:200px;" onkeyup="departemen_updateList(this.value)" /></div>
+<div style="padding-left:10px">Search : <input id="key" type="text" class="marginL5" style="width:200px;" onkeyup="departemen_updateList(this.value)" /></div>
 <table width="100%" border="0" cellpadding="5" cellspacing="0" class="list">
   <tr class="header">
-    <th><h3><span class="colorWhite">ID Departemen</span></h3></th>
-    <th><h3><span class="colorWhite">Nama Departemen</span></h3></th>
+    <th><a onclick="departemen_updateList($('key').value, 'ID_DEPARTMENT')">ID Departemen</a></th>
+    <th><a onclick="departemen_updateList($('key').value, 'NAMA_DEPARTMENT')">Nama Departemen</a></th>
     <th>&nbsp;</th>
   </tr>
   <tbody id="departemen-table"></tbody>

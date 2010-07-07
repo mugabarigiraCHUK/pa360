@@ -1,5 +1,5 @@
-<tr id="<?=$trID?>" bgcolor="#FFF">
-	<td><?=$tlp?><input name="tlpArr[]" type="hidden" value="<?=$tlp?>" /></td>
-	<td><a onclick="tlp_delete('<?=$trID?>', '<?=$tlp?>')">Delete</a></td>
+<tr id="<?php echo $trID?>" bgcolor="#FFF">
+	<td><?php echo $tlp?><input name="tlpArr[]" type="hidden" value="<?php echo $tlp?>" /></td>
+	<td><a onclick="tlp_delete('<?php echo $trID?>', '<?php echo $tlp?>')">Delete</a></td>
 	<td width="10"></td>
 </tr>

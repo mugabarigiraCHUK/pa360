@@ -161,6 +161,13 @@ function search_pick(kary_id){
 	document.location = 'dashboard.php?p=karyawan&sub=kary_edit&kary_id='+kary_id;
 }
 
+function mod_enter(e, source){
+	if (e.keyCode == 13) {
+		new Event(e).stop();
+		search_pick(source.value);
+	}
+}
+
 var JOB_TABLE_ID = 0;
 function job_add(){
 	var trID = 'job-table' + (++JOB_TABLE_ID);
@@ -247,34 +254,34 @@ $kary = kary_load_complete($kode);
   	<div>
 		<div class="padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Kode Karyawan : </div>
-			<input name="kode" type="text" class="vMiddle floatL" value="<?=$kary['KODE_KARYAWAN']?>">
+			<input name="kode" type="text" class="vMiddle floatL" value="<?php echo $kary['KODE_KARYAWAN']?>" onkeypress="mod_enter(event, this)">
 			<input name="buttonSearch" type="button" class="vMiddle floatL" value="search" style="margin-left:10px;">
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Nama Karyawan : </div>
-			<input name="nama" type="text" class="vMiddle floatL" value="<?=$kary['NAMA_KARYAWAN']?>">
+			<input name="nama" type="text" class="vMiddle floatL" value="<?php echo $kary['NAMA_KARYAWAN']?>">
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Tempat Lahir : </div>
-			<input name="tmLahir" type="text" class="vMiddle floatL" id="tmLahir" value="<?=$kary['TEMPAT_LAHIR']?>">
+			<input name="tmLahir" type="text" class="vMiddle floatL" id="tmLahir" value="<?php echo $kary['TEMPAT_LAHIR']?>">
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Tanggal Lahir : </div>
-			<input type="text" class="dtpick vMiddle floatL" name="tglLahir" value="<?=strtotime($kary['TANGGAL_LAHIR'])?>" />
+			<input type="text" class="dtpick vMiddle floatL" name="tglLahir" value="<?php echo strtotime($kary['TANGGAL_LAHIR'])?>" />
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Jenis Kelamin : </div>
-			<input name="kelamin" type="radio" class="vMiddle floatL" value="0" <?=$kary['JENIS_KELAMIN']==0? "checked=\"checked\"" : '';?> /> 
+			<input name="kelamin" type="radio" class="vMiddle floatL" value="0" <?php echo $kary['JENIS_KELAMIN']==0? "checked=\"checked\"" : '';?> /> 
 			<div class="floatL marginL5">Laki-laki</div>
-			<input name="kelamin" type="radio" class="vMiddle floatL marginL10" value="1" <?=$kary['JENIS_KELAMIN']==1? "checked=\"checked\"" : '';?> /> 
+			<input name="kelamin" type="radio" class="vMiddle floatL marginL10" value="1" <?php echo $kary['JENIS_KELAMIN']==1? "checked=\"checked\"" : '';?> /> 
 			<div class="floatL marginL5">Perempuan</div>
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Golongan Darah : </div>
-			<input name="darah" type="radio" class="vMiddle floatL" value="A" <?=$kary['GOLONGAN_DARAH']==='A'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">A</div>
-			<input name="darah" type="radio" class="vMiddle floatL marginL10" value="B"  <?=$kary['GOLONGAN_DARAH']==='B'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">B</div>
-			<input name="darah" type="radio" class="vMiddle floatL marginL10" value="AB" <?=$kary['GOLONGAN_DARAH']==='AB'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">AB</div>
-			<input name="darah" type="radio" class="vMiddle floatL marginL10" value="O" <?=$kary['GOLONGAN_DARAH']==='O'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">O</div>
+			<input name="darah" type="radio" class="vMiddle floatL" value="A" <?php echo $kary['GOLONGAN_DARAH']==='A'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">A</div>
+			<input name="darah" type="radio" class="vMiddle floatL marginL10" value="B"  <?php echo $kary['GOLONGAN_DARAH']==='B'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">B</div>
+			<input name="darah" type="radio" class="vMiddle floatL marginL10" value="AB" <?php echo $kary['GOLONGAN_DARAH']==='AB'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">AB</div>
+			<input name="darah" type="radio" class="vMiddle floatL marginL10" value="O" <?php echo $kary['GOLONGAN_DARAH']==='O'? "checked=\"checked\"" : '';?> /> <div class="floatL marginL5">O</div>
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Alamat : </div>
@@ -286,8 +293,7 @@ $kary = kary_load_complete($kode);
 						<th width="100"><h3><span class="colorWhite">Kode Area </span></h3></th>
 						<th width="100"><h3><span class="colorWhite">Kota</span></h3></th>
 						<th width="100"><h3><span class="colorWhite">Propinsi</span></h3></th>
-					    <th width="52"></th>
-						<th width="10"></th>
+					    <th></th>
 					</tr>
 					<tbody id="alamat-table" style="overflow: scroll; overflow-x:hidden; height: 60px;">
 					<?php foreach ($kary['ALAMAT'] as $alm):?>
@@ -323,24 +329,24 @@ $kary = kary_load_complete($kode);
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">E-mail : </div>
-			<input name="email" type="text" class="vMiddle floatL" value="<?=$kary['EMAIL']?>">
+			<input name="email" type="text" class="vMiddle floatL" value="<?php echo $kary['EMAIL']?>">
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Status : </div>
 			<select name="status" class="vMiddle floatL">
-				<option value="BK" <?= $kary['STATUS']==="BK"? "selected=\"selected\"" : ""?>>Belum Kawin</option>
-				<option value="K" <?= $kary['STATUS']==="K"? "selected=\"selected\"" : ""?>>Kawin</option>
-				<option value="DJ" <?= $kary['STATUS']==="DJ"? "selected=\"selected\"" : ""?>>Duda/Janda</option>
+				<option value="BK" <?php echo  $kary['STATUS']==="BK"? "selected=\"selected\"" : ""?>>Belum Kawin</option>
+				<option value="K" <?php echo  $kary['STATUS']==="K"? "selected=\"selected\"" : ""?>>Kawin</option>
+				<option value="DJ" <?php echo  $kary['STATUS']==="DJ"? "selected=\"selected\"" : ""?>>Duda/Janda</option>
 			</select>
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Agama : </div>
 			<select name="agama" class="vMiddle floatL">
-				<option value="B" <?= $kary['AGAMA']==="B"? "selected=\"selected\"" : ""?>>Budha</option>
-				<option value="H" <?= $kary['AGAMA']==="H"? "selected=\"selected\"" : ""?>>Hindu</option>
-				<option value="I" <?= $kary['AGAMA']==="I"? "selected=\"selected\"" : ""?>>Islam</option>
-				<option value="K" <?= $kary['AGAMA']==="K"? "selected=\"selected\"" : ""?>>Kristen</option>
-				<option value="L" <?= $kary['AGAMA']==="L"? "selected=\"selected\"" : ""?>>Lain-lain</option>
+				<option value="B" <?php echo  $kary['AGAMA']==="B"? "selected=\"selected\"" : ""?>>Budha</option>
+				<option value="H" <?php echo  $kary['AGAMA']==="H"? "selected=\"selected\"" : ""?>>Hindu</option>
+				<option value="I" <?php echo  $kary['AGAMA']==="I"? "selected=\"selected\"" : ""?>>Islam</option>
+				<option value="K" <?php echo  $kary['AGAMA']==="K"? "selected=\"selected\"" : ""?>>Kristen</option>
+				<option value="L" <?php echo  $kary['AGAMA']==="L"? "selected=\"selected\"" : ""?>>Lain-lain</option>
 			</select>
 		</div>
 		
@@ -398,18 +404,18 @@ $kary = kary_load_complete($kode);
 		
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Tanggal Masuk :  </div>
-			<input type="text" class="dtpick vMiddle floatL" name="tglMasuk" value="<?=strtotime($kary['TANGGAL_MASUK'])?>" />
+			<input type="text" class="dtpick vMiddle floatL" name="tglMasuk" value="<?php echo strtotime($kary['TANGGAL_MASUK'])?>" />
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Tanggal Keluar : </div>
-			<input type="text" class="dtpick vMiddle floatL" name="tglKeluar" value="<?=strtotime($kary['TANGGAL_KELUAR'])?>" />
+			<input type="text" class="dtpick vMiddle floatL" name="tglKeluar" value="<?php echo strtotime($kary['TANGGAL_KELUAR'])?>" />
 		</div>
 		<div class="clearBoth padT5">
 			<div style="width:120px;" class="floatL padR5 alignR">Status Kerja : </div>
 			<select name="statusKerja" class="vMiddle floatL">
 				<?php $STSKARY =  stskary_select(); ?>
 				<?php while($row = mysql_fetch_assoc($STSKARY)): ?>
-				<option value="<?=$row['ID_STATUS_KARYAWAN']?>" <?=$kary['ID_STATUS_KARYAWAN']===$row['ID_STATUS_KARYAWAN']? "selected=\"selected\"" : ""?>><?=$row['NAMA_STATUS']?></option>
+				<option value="<?php echo $row['ID_STATUS_KARYAWAN']?>" <?php echo $kary['ID_STATUS_KARYAWAN']===$row['ID_STATUS_KARYAWAN']? "selected=\"selected\"" : ""?>><?php echo $row['NAMA_STATUS']?></option>
 				<?php endwhile;?>
 			</select>
 		</div>

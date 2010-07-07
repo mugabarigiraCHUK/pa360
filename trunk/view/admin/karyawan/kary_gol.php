@@ -1,9 +1,9 @@
 <form name="frmModal" method="post" action="proc/karyawan.php">
 <input	type="hidden" value="gol-list" name="proc" />
-<input	type="hidden" value="<?=$_POST['trID']?>" name="trID" />
+<input	type="hidden" value="<?php echo $_POST['trID']?>" name="trID" />
 <h2 class="dialog_title"><span>Add Jabatan </span></h2>
 <div class="dialog_content">
-<div style="border-bottom: 1px solid #CCC"><?=$res = golongan_select_exclude($exclude);?>
+<div style="border-bottom: 1px solid #CCC"><?php echo $res = golongan_select_exclude($exclude);?>
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
 	<tr>
 	  <td width="35%" align="right">Golongan : </td>
@@ -12,7 +12,7 @@
 			<?php $exclude = explode(",", $_POST['exclude']); ?>
 			<?php $res = golongan_select_exclude($exclude); ?>
 			<?php while ($row = mysql_fetch_assoc($res)): ?>
-			<option value="<?=$row['ID_GOLONGAN']?>"><?=$row['NAMA_GOLONGAN']?></option>
+			<option value="<?php echo $row['ID_GOLONGAN']?>"><?php echo $row['NAMA_GOLONGAN']?></option>
 			<?php endwhile;?>
 		</select>	  </td>
 	  </tr>

@@ -9,13 +9,13 @@
 	<tr>
 		<td align="right" width="35%">ID Status :</td>
 		<td>
-			<input type="text" name="stsID-fake" value="<?=$row['ID_STATUS_KARYAWAN']?>" disabled="disabled" />
-			<input name="stsID" type="hidden" value="<?=$row['ID_STATUS_KARYAWAN']?>" />
+			<input type="text" name="stsID-fake" value="<?php echo$row['ID_STATUS_KARYAWAN']?>" disabled="disabled" />
+			<input name="stsID" type="hidden" value="<?php echo$row['ID_STATUS_KARYAWAN']?>" />
 		</td>
 	</tr>
 	<tr>
 		<td align="right">Nama   :</td>
-		<td><input type="text" name="nama" value="<?=$row['NAMA_STATUS']?>" /></td>
+		<td><input type="text" name="nama" value="<?php echo$row['NAMA_STATUS']?>" /></td>
 	</tr>
 </table>
 </div>

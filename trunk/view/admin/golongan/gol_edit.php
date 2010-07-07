@@ -8,12 +8,12 @@
 <table width="100%" border="0" cellpadding="5" cellspacing="0">
 	<tr>
 		<td align="right" width="35%">ID Golongan :</td>
-		<td><input type="text" name="gol_id-fake" value="<?=$result['ID_GOLONGAN']?>" disabled="disabled"> <input type="hidden"
-			name="gol_id" value="<?=$result['ID_GOLONGAN']?>" /></td>
+		<td><input type="text" name="gol_id-fake" value="<?php echo $result['ID_GOLONGAN']?>" disabled="disabled"> <input type="hidden"
+			name="gol_id" value="<?php echo $result['ID_GOLONGAN']?>" /></td>
 	</tr>	
 	<tr>
 		<td align="right">Nama Golongan :</td>
-		<td><input type="text" name="golNama" value="<?=$result['NAMA_GOLONGAN']?>"></td>
+		<td><input type="text" name="golNama" value="<?php echo $result['NAMA_GOLONGAN']?>"></td>
 	</tr>
 </table>
 </div>

@@ -8,13 +8,13 @@
 		<tr>
 		  <td width="125" align="right">ID Jabatan : </td>
 		  <td width="265" colspan="2">
-		  	<input type="text" name="jbt_id-fake" value="<?=$jbtID?>" disabled="disabled">
-		  	<input type="hidden" name="jbt_id" value="<?=$jbtID?>" />
+		  	<input type="text" name="jbt_id-fake" value="<?php echo $jbtID?>" disabled="disabled">
+		  	<input type="hidden" name="jbt_id" value="<?php echo $jbtID?>" />
 		  </td>
 		</tr>
 		<tr>
 		  <td align="right">Nama Jabatan : </td>
-		  <td colspan="2"><input type="text" name="nama" value="<?=$data['NAMA_JABATAN']?>" style="width:100%"></td>
+		  <td colspan="2"><input type="text" name="nama" value="<?php echo $data['NAMA_JABATAN']?>" style="width:100%"></td>
 		</tr>
 		<tr>
 		  <td align="right">Level Jabatan : </td>
@@ -22,8 +22,8 @@
 		  	$level = $data['LEVEL_JABATAN'];
 		  	$level = explode(".", $level);
 		  ?>
-		  <td width="30"><div class="spinner" minVal="1" currentVal="<?=$level[0]?>" name="level[0]"></div></td>
-		  <td><div class="spinner" minVal="1" currentVal="<?=$level[1]?>" name="level[1]"></div></td>
+		  <td width="30"><div class="spinner" minVal="1" currentVal="<?php echo $level[0]?>" name="level[0]"></div></td>
+		  <td><div class="spinner" minVal="1" currentVal="<?php echo $level[1]?>" name="level[1]"></div></td>
 		</tr>
 <!--		<tr>-->
 <!--		  <td align="right">&nbsp;</td>-->
