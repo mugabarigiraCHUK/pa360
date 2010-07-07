@@ -4,13 +4,13 @@ $modalType = $_POST['modalType'];
 if ($modalType==='indicator_loading'){
 	$title = $_POST['title'];
 	$message = $_POST['msg'];?>
-	<h2 class="dialog_title"><span><?=$title?></span></h2>
+	<h2 class="dialog_title"><span><?php echo $title?></span></h2>
 	<div class="dialog_content" style="padding: 10px 20px">
 	<table>
 	<tbody>
 		<tr>
 			<td><div class="indicator" ></div></td>
-			<td><h3 style="margin-left: 5px;"><?=$message?></h3></td>
+			<td><h3 style="margin-left: 5px;"><?php echo $message?></h3></td>
 		</tr>
 	</tbody>
 	</table>
@@ -20,12 +20,12 @@ if ($modalType==='indicator_loading'){
 if ($nodalType === 'option-yesNo'){
 	$title = $_POST['title'];
 	$message = $_POST['msg'];?>
-	<h2 class="dialog_title_question"><span><?=$title?></span></h2>
+	<h2 class="dialog_title_question"><span><?php echo $title?></span></h2>
 	<div class="dialog_content" style="padding: 10px 20px">
 	<table>
 		<tr>
 			<td><div class="indicator" ></div></td>
-			<td><h3 style="margin-left: 5px;"><?=$message?></h3></td>
+			<td><h3 style="margin-left: 5px;"><?php echo $message?></h3></td>
 		</tr>
 	</table>
 	</div><?php
